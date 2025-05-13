@@ -4,7 +4,7 @@ function addRandomcell() {
     for (let row = 0; row < boardSize; row++) {
         for (let col = 0; col < boardSize; col++) {
             if (grid[row][col] === 0) {
-                emptyCells.push({ row, col }); // 비어있는셀 위치
+                emptyCells.push({ row, col }); // 비어있는셀
             }
         }
     }
