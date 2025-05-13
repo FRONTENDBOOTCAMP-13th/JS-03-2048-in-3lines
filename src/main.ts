@@ -7,6 +7,9 @@ setupBoard();
 //시작버튼
 const startBtn = document.getElementById("start-btn") as HTMLButtonElement;
 startBtn.addEventListener("click", () => startGame());
+//재시작 버튼
+const restartBtn = document.getElementById("restart-btn") as HTMLButtonElement;
+restartBtn.addEventListener("click", () => startGame());
 //키보드입력값
 document.addEventListener("keydown", (event: KeyboardEvent) => {
     const keyToDirection: { [key: string]: Direction } = {
