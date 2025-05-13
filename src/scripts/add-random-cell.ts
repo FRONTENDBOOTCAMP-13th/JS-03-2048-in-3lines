@@ -20,11 +20,12 @@ export function getEmptyCells(): { row: number; col: number }[] {
     }
     return emptyCells;
 }
-//빈셀에 2추가
+//빈셀에 2또는 4추가
 export function addRandomCell(): void {
     const emptyCells = getEmptyCells();
     if (emptyCells.length > 0) {
         const { row, col } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-        grid[row][col] = 2;
+        const newValue = Math.random() < 0.5 ? 2 : 4; //확률 50%
+        grid[row][col] = newValue;
     }
 }
