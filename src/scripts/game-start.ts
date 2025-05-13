@@ -1,9 +1,14 @@
-const startBtn = document.getElementById("start-btn") as HTMLButtonElement; // 게임 시작 버튼
-// 시작 버튼 클릭 시 게임 화면 표시 및 초기화
-startBtn.addEventListener("click", () => {
-    const startContainer = document.getElementById("start-container") as HTMLElement;
-    const gameContainer = document.getElementById("game-container") as HTMLElement;
+import { createEmptyGrid, setGrid, addRandomCell } from "./add-random-cell";
+import { updateBoard } from "./board";
+//게임 시작
+export function startGame(): void {
+    const gameContainer = document.getElementById("game-container")!;
+    const startContainer = document.getElementById("start-container")!;
     startContainer.style.display = "none";
     gameContainer.style.display = "block";
-    //initGrid();
-});
+    const newGrid = createEmptyGrid(); //배열생성
+    setGrid(newGrid); //배열 배치
+    addRandomCell(); //빈셀에 2생성
+    addRandomCell(); //빈셀에 2생성
+    updateBoard(); //보드 업데이트
+}
