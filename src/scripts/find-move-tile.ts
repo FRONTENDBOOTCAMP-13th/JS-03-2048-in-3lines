@@ -13,13 +13,12 @@ interface getValue {
 // 테스트용
 const map: getValue = {
     borad: [
-        [0, 2, 3, 2, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
+        [8, 4, 4, 0],
+        [8, 2, 0, 0],
+        [2, 0, 0, 0],
+        [0, 0, 0, 0],
     ],
-    dir: "right",
+    dir: "down",
 };
 
 export default function findMovetile(value: getValue) {
@@ -70,7 +69,8 @@ export default function findMovetile(value: getValue) {
                         // 옆에 값이 같다면
                         else if (value.borad[i][j] === value.borad[y][x]) {
                             // 만약 이미 한번 더해진 값이 아니라면
-                            if (same_y[y] != 1 && same_y[x] != 1) {
+                            if (same_y[y] !== 1 && same_x[x] !== 1) {
+                                // 바로 값을 2배로 변경한다.
                                 value.borad[y][x] += value.borad[y][x];
                                 value.borad[i][j] = 0;
 
@@ -102,6 +102,9 @@ export default function findMovetile(value: getValue) {
                     }
                 }
             }
+
+            same_y = [];
+            same_x = [];
         }
     }
 
@@ -135,7 +138,7 @@ export default function findMovetile(value: getValue) {
                         // 옆에 값이 같다면
                         else if (value.borad[i][j] === value.borad[y][x]) {
                             // 만약 이미 한번 더해진 값이 아니라면
-                            if (same_y[y] != 1 && same_y[x] != 1) {
+                            if (same_y[y] !== 1 && same_x[x] !== 1) {
                                 value.borad[y][x] += value.borad[y][x];
                                 value.borad[i][j] = 0;
 
@@ -167,6 +170,9 @@ export default function findMovetile(value: getValue) {
                     }
                 }
             }
+
+            same_y = [];
+            same_x = [];
         }
     }
 
