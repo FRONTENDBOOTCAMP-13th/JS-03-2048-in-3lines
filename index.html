@@ -1,13 +1,48 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>2048</title>
+    </head>
+    <body>
+        <!--게임 시작 요소(시작전까지는 display:block 후에는none)-->
+        <div></div>
+        <!--게임 실행 요소(시작전까지는 display:none 후에는block)-->
+        <div>
+            <!--게임창-->
+            <div class="game-scren">
+                <!--설명상단-->
+                <div class="explanation-top">
+                    <h2>숫자를 합쳐 2048 타일을 만드세요!</h2>
+                    <!--난이도-->
+                    <div class="level">
+                        <h2>난이도</h2>
+                        <h2>4*4</h2>
+                    </div>
+                    <!--점수-->
+                    <div class="score-panel">
+                        <h2>점수</h2>
+                        <h2>2048</h2>
+                    </div>
+                </div>
+                <!--게임 보드-->
+                <div class="board" id="board"></div>
+                <!--설명하단-->
+                <div></div>
+                <!--버튼(실행취소,재시작)-->
+                <div></div>
+                <!--게임오버-->
+                <div></div>
+            </div>
+            <!--최고 기록-->
+            <div></div>
+            <!--게임 방법-->
+            <div></div>
+        </div>
+        <!--스크립트-->
+        <script src="./src/script.js"></script>
+        <script type="module" src="/src/main.ts"></script>
+    </body>
 </html>
