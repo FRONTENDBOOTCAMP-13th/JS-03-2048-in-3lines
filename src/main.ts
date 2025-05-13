@@ -1,4 +1,5 @@
 import "./style.css";
+import "./scripts/find-move-tile";
 
 const boardSize: number = 4; // 보드 크기
 const board = document.getElementById("board") as HTMLElement; // 보드 요소
