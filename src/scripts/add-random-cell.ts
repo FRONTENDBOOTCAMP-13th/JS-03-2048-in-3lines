@@ -1,12 +1,15 @@
 const boardSize: number = 4; // 보드 크기
 const board = document.getElementById("board") as HTMLElement; // 보드 요소
+const startBtn = document.getElementById("start-btn") as HTMLButtonElement; // 게임 시작 버튼
+
 // 보드 스타일 설정
 board.style.display = "grid";
 board.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
 board.style.gridTemplateRows = `repeat(${boardSize}, 1fr)`;
+
 // 2D 배열 초기화
 let grid: number[][] = Array.from({ length: boardSize }, () => Array(boardSize).fill(0));
-
+// 비어있는 셀에 2 추가
 function addRandomCell(): void {
     const emptyCells: { row: number; col: number }[] = [];
 
@@ -17,7 +20,6 @@ function addRandomCell(): void {
             }
         }
     }
-
     if (emptyCells.length > 0) {
         const randomIndex = Math.floor(Math.random() * emptyCells.length);
         const { row, col } = emptyCells[randomIndex];

@@ -7,6 +7,16 @@ body {
     align-items: center;
     background: #dbdbdb;
 }
+/* 시작 화면과 게임 화면의 공통 스타일 */
+#game-container,
+#start-container {
+    text-align: center;
+    position: relative;
+}
+/* 게임 시작 전에는 게임 화면을 숨김 */
+#game-container {
+    display: none;
+}
 /*보드*/
 .board {
     display: grid;

@@ -2,6 +2,7 @@ import "./style.css";
 
 const boardSize: number = 4; // 보드 크기
 const board = document.getElementById("board") as HTMLElement; // 보드 요소
+const startBtn = document.getElementById("start-btn") as HTMLButtonElement; // 게임 시작 버튼
 
 // 보드 스타일 설정
 board.style.display = "grid";
@@ -18,7 +19,6 @@ function updateBoard(): void {
         for (let col = 0; col < boardSize; col++) {
             const cell = document.createElement("div");
             cell.classList.add("cell");
-
             const value = grid[row][col];
             if (value !== 0) {
                 cell.textContent = value.toString();
@@ -92,7 +92,7 @@ function move(direction: Direction): void {
     updateBoard();
 }
 
-// 병합 로직 (작성 필요)
+// 병합 로직
 function mergeTiles(): void {
     // TODO: 병합 구현
 }
@@ -107,7 +107,21 @@ function changeLevel(): void {
     // TODO: 난이도 UI 및 보드 크기 변경 처리
 }
 
-// 초기 시작
-addRandomCell();
-addRandomCell();
-updateBoard();
+// 시작 버튼 클릭 시 게임 화면 표시 및 초기화
+startBtn.addEventListener("click", () => {
+    const startContainer = document.getElementById("start-container") as HTMLElement;
+    const gameContainer = document.getElementById("game-container") as HTMLElement;
+    startContainer.style.display = "none";
+    gameContainer.style.display = "block";
+    initGrid();
+});
+
+//초기화
+function initGrid() {
+    grid = Array(boardSize)
+        .fill(null)
+        .map(() => Array(boardSize).fill(0));
+    addRandomCell();
+    addRandomCell();
+    updateBoard();
+}
