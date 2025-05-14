@@ -13,9 +13,9 @@ interface getValue {
 // 테스트용
 const map: getValue = {
     borad: [
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
         [2, 0, 0, 0, 0],
-        [2, 0, 0, 0, 0],
-        [4, 0, 0, 0, 0],
         [4, 0, 0, 0, 0],
         [6, 0, 0, 0, 0],
     ],
@@ -67,7 +67,7 @@ export default function findMovetile(value: getValue) {
     }
 
     // 테스트용
-    // console.log(borad, move_arr);
+    console.log(borad, move_arr);
     return move_arr;
 }
 
@@ -97,14 +97,14 @@ function Condition(
 
             // 만약 배열을 넘는다면 , 마지막 부분인지 체크한다.
             if (!arrOverCheck(y, x, Max)) {
-                // console.log(`1. 현재 위치는`, i, j, " 이동해야할 위치는 ", y - add_y, x - add_x);
+                console.log(`1. 현재 위치는`, i, j, " 이동해야할 위치는 ", y - add_y, x - add_x);
                 move_arr.push([i, j, (y -= add_y), (x -= add_x)]);
                 break;
             }
 
             // 옆으로 이동시 숫자가 같다면, 옆이 같은 경우 , 현재 값이 0이 아니기 때문에 0 조건을 추가할 필요는 없을듯
             else if (borad[y][x] === borad[i][j]) {
-                // console.log(`2. 현재 위치는`, i, j, " 이동해야할 위치는 ", y, x);
+                console.log(`2. 현재 위치는`, i, j, " 이동해야할 위치는 ", y, x);
                 borad[i][j] = 0; // 현재 위치 초기화
                 move_arr.push([i, j, y, x]);
                 break;
@@ -112,7 +112,7 @@ function Condition(
 
             // 옆으로 이동시 값이 같지 않다면
             else if (borad[y][x] !== borad[i][j] && borad[y][x] !== 0) {
-                // console.log(`3. 현재 위치는`, i, j, " 이동해야할 위치는 ", y - add_y, x - add_x);
+                console.log(`3. 현재 위치는`, i, j, " 이동해야할 위치는 ", y - add_y, x - add_x);
                 borad[(y -= add_y)][(x -= add_x)] = borad[i][j];
 
                 // 바로 옆인지 확인
@@ -127,4 +127,4 @@ function Condition(
     }
 }
 
-// findMovetile(map);
+findMovetile(map);
