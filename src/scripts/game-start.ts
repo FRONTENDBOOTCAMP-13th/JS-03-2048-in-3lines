@@ -1,7 +1,7 @@
 import { createEmptyGrid, setGrid, addRandomCell } from "./add-random-cell";
 import { updateBoard } from "./board";
 import { mergeTiles } from "./marge-tiles";
-import { playBGM } from "./audio";
+import { playBGM, stopBGM } from "./audio";
 import { resetScore, renderScores } from "./score";
 //게임 시작
 export function startGame(): void {
@@ -35,6 +35,7 @@ export function startGame(): void {
         }
     });
 }
+//게임 재시작
 export function restartGame(): void {
     const gameContainer = document.getElementById("game-container")!;
     const startContainer = document.getElementById("start-container")!;
@@ -64,4 +65,12 @@ export function restartGame(): void {
                 break;
         }
     });
+}
+//홈 버튼
+export function home(): void {
+    const gameContainer = document.getElementById("game-container")!;
+    const startContainer = document.getElementById("start-container")!;
+    startContainer.style.display = "block";
+    gameContainer.style.display = "none";
+    stopBGM(); //배경음악 정지
 }
