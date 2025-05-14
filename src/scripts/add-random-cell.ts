@@ -1,15 +1,16 @@
-const boardSize: number = 4; // 보드 크기
-const board = document.getElementById("board") as HTMLElement; // 보드 요소
-// 보드 스타일 설정
-board.style.display = "grid";
-board.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
-board.style.gridTemplateRows = `repeat(${boardSize}, 1fr)`;
-// 2D 배열 초기화
-let grid: number[][] = Array.from({ length: boardSize }, () => Array(boardSize).fill(0));
-
-function addRandomCell(): void {
+import { boardSize } from "./boardsize";
+export let grid: number[][] = createEmptyGrid();
+//배열 초기화
+export function createEmptyGrid(): number[][] {
+    return Array.from({ length: boardSize }, () => Array(boardSize).fill(0));
+}
+//배열 배치
+export function setGrid(newGrid: number[][]) {
+    grid = newGrid;
+}
+//빈셀 찾기
+export function getEmptyCells(): { row: number; col: number }[] {
     const emptyCells: { row: number; col: number }[] = [];
-
     for (let row = 0; row < boardSize; row++) {
         for (let col = 0; col < boardSize; col++) {
             if (grid[row][col] === 0) {
@@ -17,10 +18,13 @@ function addRandomCell(): void {
             }
         }
     }
-
+    return emptyCells;
+}
+//빈셀에 2추가
+export function addRandomCell(): void {
+    const emptyCells = getEmptyCells();
     if (emptyCells.length > 0) {
-        const randomIndex = Math.floor(Math.random() * emptyCells.length);
-        const { row, col } = emptyCells[randomIndex];
+        const { row, col } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
         grid[row][col] = 2;
     }
 }
