@@ -1,11 +1,10 @@
 import "./style.css";
 import "./scripts/find-move-tile";
 import { setupBoard } from "./scripts/board";
-import { startGame } from "./scripts/game-start";
-import { playClickSound } from "./scripts/audio";
+import { startGame, restartGame } from "./scripts/game-start";
+import { playClickSound, stopBGM, playBGM } from "./scripts/audio";
+import { addScore, getCurrentScore, getBestScore } from "./scripts/score";
 
-
-type Direction = "up" | "down" | "left" | "right";
 //보드생성
 setupBoard();
 //시작버튼
@@ -18,16 +17,15 @@ startBtn.addEventListener("click", () => {
 const restartBtn = document.getElementById("restart-btn") as HTMLButtonElement;
 restartBtn.addEventListener("click", () => {
     playClickSound(); //클릭 사운드
-    startGame();
+    restartGame();
 });
-//키보드입력값
-document.addEventListener("keydown", (event: KeyboardEvent) => {
-    const keyToDirection: { [key: string]: Direction } = {
-        ArrowUp: "up",
-        ArrowDown: "down",
-        ArrowLeft: "left",
-        ArrowRight: "right",
-    };
-    const direction = keyToDirection[event.key];
-    //if (direction) move(direction); //이동용
-});
+// 콘솔 테스트용
+(window as any).score = {
+    add: addScore, // 점수 추가: ex)score.add(10)=>10점추가
+    current: getCurrentScore, //현재 점수 확인
+    best: getBestScore, //최고 점수 확인
+};
+(window as any).audio = {
+    play: playBGM, // 노래재생
+    stop: stopBGM, // 노래정지
+};
