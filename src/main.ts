@@ -1,7 +1,9 @@
 import "./style.css";
+import "./scripts/find-move-tile";
 import { setupBoard } from "./scripts/board";
 import { startGame } from "./scripts/game-start";
 import { playClickSound } from "./scripts/audio";
+
 
 type Direction = "up" | "down" | "left" | "right";
 //보드생성
