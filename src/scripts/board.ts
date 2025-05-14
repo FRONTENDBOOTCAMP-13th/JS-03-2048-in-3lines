@@ -2,7 +2,6 @@ import { grid } from "./add-random-cell";
 import { boardSize } from "./boardsize";
 //보드 요소
 const board = document.getElementById("board") as HTMLElement;
-
 //보드 속성, 크기 설정
 export function setupBoard(): void {
     board.style.display = "grid";
