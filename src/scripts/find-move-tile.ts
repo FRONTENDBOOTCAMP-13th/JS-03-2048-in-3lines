@@ -13,19 +13,17 @@ interface getValue {
 // 테스트용
 const map: getValue = {
     borad: [
-        [8, 4, 4, 0],
-        [8, 2, 0, 0],
-        [2, 0, 0, 0],
-        [0, 0, 0, 0],
+        [2, 0, 0, 0, 0],
+        [2, 0, 0, 0, 0],
+        [4, 0, 0, 0, 0],
+        [4, 0, 0, 0, 0],
+        [6, 0, 0, 0, 0],
     ],
     dir: "down",
 };
 
 export default function findMovetile(value: getValue) {
     const Max = value.borad.length; // 최대 길이
-
-    let same_x = []; // 중복 체크값
-    let same_y = []; // 중복 체크값
 
     // 오른쪽, 왼쪽 , 아래, 위 (y,x 순서)
     const dir = [
@@ -39,6 +37,9 @@ export default function findMovetile(value: getValue) {
     const add_y = dir[dir_str.indexOf(value.dir)][0]; // +할 y방향
     const add_x = dir[dir_str.indexOf(value.dir)][1]; // +할 x방향
 
+    let move_arr: number[][] = []; // 최종 반환 값
+    let borad = map.borad.map(row => row.slice()); // 전체 맵 복제
+
     // 왼쪽,위쪽만 구현
     if (value.dir === "left" || value.dir === "up") {
         // 모든 블럭 조사
@@ -47,64 +48,8 @@ export default function findMovetile(value: getValue) {
                 let y = i; // 현재 값 y
                 let x = j; // 현재 값 x
 
-                // 현재 값이 0이 아니라면
-                if (value.borad[i][j] > 0) {
-                    // 여기서 부터 입력 방향 쭉 조사
-                    for (let k = 0; k < Max; k++) {
-                        y += add_y; // 다음 조사할 y 값
-                        x += add_x; // 다음 조사할 x 값
-
-                        // 만약 배열을 넘는다면
-                        if (!arrOverCheck(y, x, Max)) {
-                            value.borad[y - add_y][x - add_x] = value.borad[i][j];
-
-                            // 끝 부분이 같은지 체크
-                            if (!(y - add_y === i && x - add_x === j)) {
-                                value.borad[i][j] = 0;
-                            }
-
-                            break;
-                        }
-
-                        // 옆에 값이 같다면
-                        else if (value.borad[i][j] === value.borad[y][x]) {
-                            // 만약 이미 한번 더해진 값이 아니라면
-                            if (same_y[y] !== 1 && same_x[x] !== 1) {
-                                // 바로 값을 2배로 변경한다.
-                                value.borad[y][x] += value.borad[y][x];
-                                value.borad[i][j] = 0;
-
-                                same_y[y] = 1;
-                                same_x[x] = 1;
-                            }
-
-                            // 그 전값으로 값을 이동한다
-                            else {
-                                value.borad[y - add_y][x - add_x] = value.borad[i][j];
-                                value.borad[i][j] = 0;
-                            }
-
-                            break;
-                        }
-
-                        // 옆에 값이 값이 다르다면
-                        else if (
-                            value.borad[y][x] !== 0 &&
-                            value.borad[i][j] !== value.borad[y][x]
-                        ) {
-                            if (value.borad[y - add_y][x - add_x] === 0) {
-                                value.borad[y - add_y][x - add_x] = value.borad[i][j];
-                                value.borad[i][j] = 0;
-                            }
-
-                            break;
-                        }
-                    }
-                }
+                Condition(borad, i, j, y, x, Max, add_y, add_x, move_arr);
             }
-
-            same_y = [];
-            same_x = [];
         }
     }
 
@@ -116,67 +61,14 @@ export default function findMovetile(value: getValue) {
                 let y = i; // 현재 값 y
                 let x = j; // 현재 값 x
 
-                // 현재 값이 0이 아니라면
-                if (value.borad[i][j] > 0) {
-                    // 여기서 부터 입력 방향 쭉 조사
-                    for (let k = 0; k < Max; k++) {
-                        y += add_y; // 다음 조사할 y 값
-                        x += add_x; // 다음 조사할 x 값
-
-                        // 만약 배열을 넘는다면
-                        if (!arrOverCheck(y, x, Max)) {
-                            value.borad[y - add_y][x - add_x] = value.borad[i][j];
-
-                            // 끝 부분이 같은지 체크
-                            if (!(y - add_y === i && x - add_x === j)) {
-                                value.borad[i][j] = 0;
-                            }
-
-                            break;
-                        }
-
-                        // 옆에 값이 같다면
-                        else if (value.borad[i][j] === value.borad[y][x]) {
-                            // 만약 이미 한번 더해진 값이 아니라면
-                            if (same_y[y] !== 1 && same_x[x] !== 1) {
-                                value.borad[y][x] += value.borad[y][x];
-                                value.borad[i][j] = 0;
-
-                                same_y[y] = 1;
-                                same_x[x] = 1;
-                            }
-
-                            // 그 전값으로 값을 이동한다
-                            else {
-                                value.borad[y - add_y][x - add_x] = value.borad[i][j];
-                                value.borad[i][j] = 0;
-                            }
-
-                            break;
-                        }
-
-                        // 옆에 값이 값이 다르다면
-                        else if (
-                            value.borad[y][x] !== 0 &&
-                            value.borad[i][j] !== value.borad[y][x]
-                        ) {
-                            if (value.borad[y - add_y][x - add_x] === 0) {
-                                value.borad[y - add_y][x - add_x] = value.borad[i][j];
-                                value.borad[i][j] = 0;
-                            }
-
-                            break;
-                        }
-                    }
-                }
+                Condition(borad, i, j, y, x, Max, add_y, add_x, move_arr);
             }
-
-            same_y = [];
-            same_x = [];
         }
     }
 
-    console.log(value.borad);
+    // 테스트용
+    // console.log(borad, move_arr);
+    return move_arr;
 }
 
 // 배열 초과 함수
@@ -185,4 +77,54 @@ function arrOverCheck(y: number, x: number, max: number): boolean {
     else return true;
 }
 
-findMovetile(map);
+function Condition(
+    borad: number[][],
+    i: number,
+    j: number,
+    y: number,
+    x: number,
+    Max: number,
+    add_y: number,
+    add_x: number,
+    move_arr: number[][],
+) {
+    // 현재 값이 0이 아니라면 (조건 탐색 시작)
+    if (borad[i][j] > 0) {
+        // 여기서 부터 입력 방향 쭉 조사
+        for (let k = 0; k < Max; k++) {
+            y += add_y; // 다음 조사할 y 값
+            x += add_x; // 다음 조사할 x 값
+
+            // 만약 배열을 넘는다면 , 마지막 부분인지 체크한다.
+            if (!arrOverCheck(y, x, Max)) {
+                // console.log(`1. 현재 위치는`, i, j, " 이동해야할 위치는 ", y - add_y, x - add_x);
+                move_arr.push([i, j, (y -= add_y), (x -= add_x)]);
+                break;
+            }
+
+            // 옆으로 이동시 숫자가 같다면, 옆이 같은 경우 , 현재 값이 0이 아니기 때문에 0 조건을 추가할 필요는 없을듯
+            else if (borad[y][x] === borad[i][j]) {
+                // console.log(`2. 현재 위치는`, i, j, " 이동해야할 위치는 ", y, x);
+                borad[i][j] = 0; // 현재 위치 초기화
+                move_arr.push([i, j, y, x]);
+                break;
+            }
+
+            // 옆으로 이동시 값이 같지 않다면
+            else if (borad[y][x] !== borad[i][j] && borad[y][x] !== 0) {
+                // console.log(`3. 현재 위치는`, i, j, " 이동해야할 위치는 ", y - add_y, x - add_x);
+                borad[(y -= add_y)][(x -= add_x)] = borad[i][j];
+
+                // 바로 옆인지 확인
+                if (y !== i || x !== j) {
+                    borad[i][j] = 0; // 현재 위치 초기화
+                }
+
+                move_arr.push([i, j, y, x]);
+                break;
+            }
+        }
+    }
+}
+
+// findMovetile(map);
