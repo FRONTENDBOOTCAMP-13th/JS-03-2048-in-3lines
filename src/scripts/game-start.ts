@@ -1,5 +1,6 @@
 import { createEmptyGrid, setGrid, addRandomCell } from "./add-random-cell";
 import { updateBoard } from "./board";
+import { mergeTiles } from "./marge-tiles";
 import { playBGM } from "./audio";
 //게임 시작
 export function startGame(): void {
@@ -13,4 +14,24 @@ export function startGame(): void {
     addRandomCell(); //빈셀에 2생성
     addRandomCell(); //빈셀에 2생성
     updateBoard(); //보드 업데이트
+
+    
+    //입력된 키에 따라 사용할 함수
+    document.addEventListener("keydown", event => {
+        switch (event.key) {
+            case "ArrowUp":
+                mergeTiles("up");
+                break;
+            case "ArrowDown":
+                mergeTiles("down");
+                break;
+            case "ArrowLeft":
+                mergeTiles("left");
+                break;
+            case "ArrowRight":
+                mergeTiles("right");
+                break;
+        }
+    });
+    
 }
