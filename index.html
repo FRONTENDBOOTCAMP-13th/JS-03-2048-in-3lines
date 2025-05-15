@@ -35,21 +35,18 @@
                             <div class="home-button">
                                 <img
                                     class="home-botton-img"
+                                    id="home-btn"
                                     src="/src/svg/home.svg"
                                     alt="홈 바로가기 버튼"
                                 />
                             </div>
                             <!-- 소리 버튼 -->
-                            <div class="sound-button">
+                            <div class="sound-button" id="bgm-toggle">
                                 <img
-                                    class="home-sound-off-img"
-                                    src="/src/svg/sound-off.svg"
-                                    alt="소리 끔 버튼"
-                                />
-                                <img
-                                    class="home-sound-on-img"
-                                    src="/src/svg/sound-on.svg"
-                                    alt="소리 킴 버튼"
+                                    class="sound-img"
+                                    id="bgm-icon"
+                                    src="./src/svg/sound-on.svg"
+                                    alt="BGM"
                                 />
                             </div>
                             <!--난이도-->
@@ -69,7 +66,7 @@
                             <!--점수-->
                             <div class="score-panel">
                                 <p class="score-text">점수</p>
-                                <p class="score-text2">2048</p>
+                                <span class="score-text2" id="score">0</span>
                             </div>
                         </div>
                     </div>
@@ -83,7 +80,7 @@
                     <!--버튼(실행취소,재시작)-->
                     <div class="bottom-btn">
                         <button class="undo-btn">실행 취소</button>
-                        <button class="restart-btn">재시작</button>
+                        <button class="restart-btn" id="restart-btn">재시작</button>
                     </div>
                     <!--게임오버-->
                     <div></div>
@@ -95,11 +92,11 @@
                         <h2 class="ranking-tit">최고 기록</h2>
                         <div class="score-today">
                             <p class="score-today-text">오늘</p>
-                            <p class="score-today-best">0</p>
+                            <span id="best-score">0</span>
                         </div>
                         <div class="score-total">
                             <p class="score-total-text">전체</p>
-                            <p class="score-total-text">0</p>
+                            <span id="best-score">0</span>
                         </div>
                     </div>
                     <!--게임 방법-->
