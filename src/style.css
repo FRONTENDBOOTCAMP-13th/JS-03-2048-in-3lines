@@ -80,3 +80,25 @@ h1 {
     text-transform: uppercase;
     cursor: pointer;
 }
+/* 게임 시작 전에는 게임 화면을 숨김 */
+#game-container {
+    display: none;
+    padding: 0;
+}
+/*게임창*/
+.game-screen-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+.game-screen {
+    display: grid;
+    padding: 22px 23px 20px 23px;
+    width: 700px;
+    height: 870px;
+    border: #2c3e50 solid 3px;
+    background: #fff;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+    padding: 0;
+}
