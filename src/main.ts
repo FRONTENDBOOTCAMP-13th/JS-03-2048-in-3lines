@@ -64,6 +64,12 @@ document.addEventListener("keydown", (event: KeyboardEvent) => {
     const direction = keyToDirection[event.key];
 
     // 타일 이동
+
+    // 배열 세팅(div 요소, 가로 길이)
+    elements = Array.from(document.querySelectorAll("#board div")) as HTMLDivElement[];
+    boradSetting(elements, 4);
+
+    // 타일 이동
     const changeData: number[][] = findMovetile(Map, direction);
     MoveTile(changeData, elements, Map.length);
     addRandomCell();

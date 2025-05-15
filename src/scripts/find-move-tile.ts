@@ -55,7 +55,7 @@ export function findMovetile(map: number[][], dir: string): number[][] {
 
     // 테스트용
     console.log("전체 맵", Borad);
-    console.log("이동 위치", MoveArr);
+    //console.log("이동 위치", MoveArr);
     //console.log(MergeCheck);
     return MoveArr;
 }
