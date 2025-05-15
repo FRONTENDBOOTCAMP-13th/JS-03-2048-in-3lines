@@ -471,6 +471,12 @@ h1 {
             font-size: 15px;
             font-weight: 400;
         }
+        .gameguide-list ::before {
+            content: "•";
+            color: black;
+            font-size: 15px;
+            margin-right: 5px;
+        }
         /* 컨트롤 방법 */
         .control-container {
             display: flex;
@@ -516,7 +522,7 @@ h1 {
 
         .control-text {
             margin: 15px 0 0 0;
-
+            text-align: start;
             font-size: 15px;
             font-weight: 400;
         }
