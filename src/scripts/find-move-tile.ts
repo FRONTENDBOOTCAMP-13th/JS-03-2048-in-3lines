@@ -1,130 +1,180 @@
-/**
- *  @param borad 전체 맵 배열
- *  @param x 현재 위치 x값
- *  @param y 현재 위치 y값
- *  @param dir 현재 방향 값
- */
+/* 단일 책임의 원칙을 준수할 것! */
 
-interface getValue {
-    borad: number[][];
-    dir: string;
+// // 테스트용
+// const map: getValue = {
+//     borad: [
+//         [2, 3, 0, 3, 6],
+//         [0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0],
+//     ],
+//     dir: "left",
+// };
+
+// findMovetile(map);
+
+export function findMovetile(map: number[][], dir: string): number[][] {
+    if (dir !== "right" && dir !== "left" && dir !== "up" && dir !== "down") return [];
+
+    const Max = map.length; // 최대 길이
+    const add_dir = setDirection(dir); // 이동 방향
+    const Borad = map.map(row => [...row]);
+    let MergeCheck: number[][] = []; // 현재 위치에 값이 더해 졌는지 확인
+    let MoveArr: number[][] = []; // 최종 반환값
+
+    // 왼쪽,위
+    if (dir === "left" || dir === "up") {
+        for (let y = 0; y < Max; y++) {
+            for (let x = 0; x < Max; x++) {
+                const NowValue = Borad[y][x];
+                const NowLocation = [y, x];
+
+                // 현재 값이 0이 아니라면
+                if (NowValue > 0) {
+                    moveConditions(NowLocation, add_dir, Max, Borad, MoveArr, MergeCheck);
+                }
+            }
+        }
+    }
+
+    // 오른쪽, 아래
+    else {
+        for (let y = Max - 1; y > -1; y--) {
+            for (let x = Max - 1; x > -1; x--) {
+                const NowValue = Borad[y][x];
+                const NowLocation = [y, x];
+
+                // 현재 값이 0이 아니라면
+                if (NowValue > 0) {
+                    moveConditions(NowLocation, add_dir, Max, Borad, MoveArr, MergeCheck);
+                }
+            }
+        }
+    }
+
+    // 테스트용
+    console.log("전체 맵", Borad);
+    console.log("이동 위치", MoveArr);
+    //console.log(MergeCheck);
+    return MoveArr;
 }
 
-// 테스트용
-const map: getValue = {
-    borad: [
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [2, 0, 0, 0, 0],
-        [4, 0, 0, 0, 0],
-        [6, 0, 0, 0, 0],
-    ],
-    dir: "down",
-};
+// 이동 조건
+function moveConditions(
+    NowLocation: number[],
+    add_dir: number[],
+    Max: number,
+    Borad: number[][],
+    MoveArr: number[][],
+    MergeCheck: number[][],
+) {
+    // 다음 위치
+    let NextArr = [NowLocation[0] + add_dir[0], NowLocation[1] + add_dir[1]];
+    const NowArr = [NowLocation[0], NowLocation[1]];
+    const NowValue = Borad[NowLocation[0]][NowLocation[1]];
+    let LastMove = true;
 
-export default function findMovetile(value: getValue) {
-    const Max = value.borad.length; // 최대 길이
+    for (let dir = 0; dir < Max; dir++) {
+        // 다음 위치가 배열을 초과하지 않는다면
+        if (!arrOverCheck(NextArr[0], NextArr[1], Max)) {
+            // 옆으로 탐색 가능 시점
 
-    // 오른쪽, 왼쪽 , 아래, 위 (y,x 순서)
-    const dir = [
+            // 탐색 위치에 다른 값이 있다면
+            if (Borad[NextArr[0]][NextArr[1]] !== 0) {
+                // 마지막 이동 조건 비활성화
+                LastMove = false;
+
+                // 탐색 위치의 값 != 현재 값
+                if (NowValue !== Borad[NextArr[0]][NextArr[1]]) {
+                    Borad[NowArr[0]][NowArr[1]] = 0;
+                    Borad[NextArr[0] - add_dir[0]][NextArr[1] - add_dir[1]] = NowValue;
+                    MoveArr.push([
+                        NowArr[0],
+                        NowArr[1],
+                        NextArr[0] - add_dir[0],
+                        NextArr[1] - add_dir[1],
+                    ]);
+                    break;
+                }
+
+                // 탐색 위치의 값 == 현재 값
+                else if (NowValue === Borad[NextArr[0]][NextArr[1]]) {
+                    // 값 변경 위치에 배열이 병합된적 있을 경우
+                    if (MergeSetting(MergeCheck, NextArr)) {
+                        Borad[NowArr[0]][NowArr[1]] = 0;
+                        Borad[NextArr[0] - add_dir[0]][NextArr[1] - add_dir[1]] = NowValue;
+                        // 여기서 3번째 4를 -> 2번째로 옮김
+                        MoveArr.push([
+                            NowArr[0],
+                            NowArr[1],
+                            NextArr[0] - add_dir[0],
+                            NextArr[1] - add_dir[1],
+                        ]);
+                    }
+                    // 값 변경 위치에 배열이 병합된적 없을 경우
+                    else {
+                        Borad[NowArr[0]][NowArr[1]] = 0;
+                        Borad[NextArr[0]][NextArr[1]] *= 2;
+                        MergeCheck.push([NextArr[0], NextArr[1]]);
+                        MoveArr.push([NowArr[0], NowArr[1], NextArr[0], NextArr[1]]);
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        // 배열 초과
+        else {
+            // 탐색 방향에 있는 값이 모두 0이라면
+            if (LastMove) {
+                Borad[NowArr[0]][NowArr[1]] = 0;
+                Borad[NextArr[0] - add_dir[0]][NextArr[1] - add_dir[1]] = NowValue;
+                MoveArr.push([
+                    NowArr[0],
+                    NowArr[1],
+                    NextArr[0] - add_dir[0],
+                    NextArr[1] - add_dir[1],
+                ]);
+            }
+
+            break;
+        }
+
+        // 다음 위치 세팅
+        NextArr[0] = NextArr[0] + add_dir[0];
+        NextArr[1] = NextArr[1] + add_dir[1];
+    }
+}
+
+// 이동 방향 세팅
+function setDirection(dir: string) {
+    const txtArr = ["right", "left", "down", "up"];
+    const dirArr = [
         [0, 1],
         [0, -1],
         [1, 0],
         [-1, 0],
     ];
 
-    const dir_str = ["right", "left", "down", "up"];
-    const add_y = dir[dir_str.indexOf(value.dir)][0]; // +할 y방향
-    const add_x = dir[dir_str.indexOf(value.dir)][1]; // +할 x방향
-
-    let move_arr: number[][] = []; // 최종 반환 값
-    let borad = map.borad.map(row => row.slice()); // 전체 맵 복제
-
-    // 왼쪽,위쪽만 구현
-    if (value.dir === "left" || value.dir === "up") {
-        // 모든 블럭 조사
-        for (let i = 0; i < Max; i++) {
-            for (let j = 0; j < Max; j++) {
-                let y = i; // 현재 값 y
-                let x = j; // 현재 값 x
-
-                Condition(borad, i, j, y, x, Max, add_y, add_x, move_arr);
-            }
-        }
-    }
-
-    // 오른쪽,아래만 구현
-    if (value.dir === "right" || value.dir === "down") {
-        // 모든 블럭 조사
-        for (let i = Max - 1; i > -1; i--) {
-            for (let j = Max - 1; j > -1; j--) {
-                let y = i; // 현재 값 y
-                let x = j; // 현재 값 x
-
-                Condition(borad, i, j, y, x, Max, add_y, add_x, move_arr);
-            }
-        }
-    }
-
-    // 테스트용
-    console.log(borad, move_arr);
-    return move_arr;
+    return [dirArr[txtArr.indexOf(dir)][0], dirArr[txtArr.indexOf(dir)][1]];
 }
 
-// 배열 초과 함수
+// 배열 초과 감지
 function arrOverCheck(y: number, x: number, max: number): boolean {
-    if (x < 0 || y < 0 || x > max - 1 || y > max - 1) return false;
-    else return true;
+    if (x < 0 || y < 0 || x > max - 1 || y > max - 1) return true;
+    else return false;
 }
 
-function Condition(
-    borad: number[][],
-    i: number,
-    j: number,
-    y: number,
-    x: number,
-    Max: number,
-    add_y: number,
-    add_x: number,
-    move_arr: number[][],
-) {
-    // 현재 값이 0이 아니라면 (조건 탐색 시작)
-    if (borad[i][j] > 0) {
-        // 여기서 부터 입력 방향 쭉 조사
-        for (let k = 0; k < Max; k++) {
-            y += add_y; // 다음 조사할 y 값
-            x += add_x; // 다음 조사할 x 값
-
-            // 만약 배열을 넘는다면 , 마지막 부분인지 체크한다.
-            if (!arrOverCheck(y, x, Max)) {
-                console.log(`1. 현재 위치는`, i, j, " 이동해야할 위치는 ", y - add_y, x - add_x);
-                move_arr.push([i, j, (y -= add_y), (x -= add_x)]);
-                break;
-            }
-
-            // 옆으로 이동시 숫자가 같다면, 옆이 같은 경우 , 현재 값이 0이 아니기 때문에 0 조건을 추가할 필요는 없을듯
-            else if (borad[y][x] === borad[i][j]) {
-                console.log(`2. 현재 위치는`, i, j, " 이동해야할 위치는 ", y, x);
-                borad[i][j] = 0; // 현재 위치 초기화
-                move_arr.push([i, j, y, x]);
-                break;
-            }
-
-            // 옆으로 이동시 값이 같지 않다면
-            else if (borad[y][x] !== borad[i][j] && borad[y][x] !== 0) {
-                console.log(`3. 현재 위치는`, i, j, " 이동해야할 위치는 ", y - add_y, x - add_x);
-                borad[(y -= add_y)][(x -= add_x)] = borad[i][j];
-
-                // 바로 옆인지 확인
-                if (y !== i || x !== j) {
-                    borad[i][j] = 0; // 현재 위치 초기화
-                }
-
-                move_arr.push([i, j, y, x]);
-                break;
-            }
+// 배열 병합 확인
+function MergeSetting(Merge: number[][], NextArr: number[]) {
+    // true이면 그 자리에 배열이 병합된적 있음
+    for (let i = 0; i < Merge.length; i++) {
+        if (Merge[i][0] == NextArr[0] && Merge[i][1] == NextArr[1]) {
+            return true;
         }
     }
-}
 
-findMovetile(map);
+    return false;
+}
