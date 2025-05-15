@@ -71,8 +71,11 @@ document.addEventListener("keydown", (event: KeyboardEvent) => {
 
     // 타일 이동
     const changeData: number[][] = findMovetile(Map, direction);
-    MoveTile(changeData, elements, Map.length);
-    addRandomCell();
+    // 변경값이 없다면
+    if (changeData.length !== 0) {
+        MoveTile(changeData, elements, Map.length);
+        addRandomCell();
+    }
 });
 
 // 현재 맵에서 배열 세팅하는 함수
