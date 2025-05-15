@@ -173,4 +173,66 @@ h1 {
             height: 15px;
         }
     }
+    /*난이도*/
+    .level {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 75px;
+        height: 55px;
+        background-color: #2c3e50;
+        border-radius: 5px;
+        color: #ffffff;
+        gap: 3px;
+        cursor: pointer;
+        position: relative;
+
+        .level-btn {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+        }
+        .level-text {
+            margin: 0;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .level-text2 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        /* 난이도 모달창 */
+        .level-modal {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            bottom: -118px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #ffffff;
+            border: #2c3e50 solid 3px;
+            border-radius: 5px;
+            width: 110px;
+            height: 150px;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition:
+                opacity 0.2s ease,
+                transform 0.2s ease;
+            .level3-modal,
+            .level4-modal,
+            .level5-modal {
+                width: 70px;
+                height: 35px;
+                background-color: #2c3e50;
+                border-radius: 5px;
+                color: #ffffff;
+                font-size: 15px;
+                font-weight: 600;
+            }
+        }
+    }
 }
