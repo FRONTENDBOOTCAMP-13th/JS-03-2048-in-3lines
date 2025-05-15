@@ -5,7 +5,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #dbdbdb;
+    background: #eaeaea;
+    font-family: "Open Sans", sans-serif;
 }
 /* 시작 화면과 게임 화면의 공통 스타일 */
 #game-container,
@@ -13,99 +14,69 @@ body {
     text-align: center;
     position: relative;
 }
-/* 게임 시작 전에는 게임 화면을 숨김 */
-#game-container {
-    display: none;
-}
-/*보드*/
-.board {
-    display: grid;
-    gap: 10px;
-    background: #2c3e50;
-    padding: 10px;
-    border-radius: 10px;
-}
-/*게임창*/
-.game-scren {
-    padding: 10px 10px 50px 10px;
-    border: #36454f solid 1px;
-    background: #fff;
-    border-radius: 5px;
-}
-/*설명*/
-h2 {
-    font-size: 15px;
-}
-/*설명 상단*/
-.explanation-top {
+/* 시작 화면 */
+#start-container {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 50px;
-}
-/*셀*/
-.cell {
-    width: 80px;
-    height: 80px;
-    background: #566573;
-    display: flex;
+    flex-flow: column wrap;
+    width: 700px;
+    height: 840px;
+    border: #2c3e50 solid 3px;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 5px;
+    background-color: #ffffff;
+    border-radius: 7px;
 }
-/*숫자값에 따른 색상변화*/
-.cell[data-value="2"] {
-    background: #f5f5dc;
-    color: #36454f;
+h1 {
+    all: unset;
+    margin: 0;
+    padding: 0;
+    font-size: 130px;
+    color: #2c3e50;
+    font-weight: 800;
 }
-.cell[data-value="4"] {
-    background: #cbddd6;
-    color: #36454f;
+.start-box {
+    display: flex;
+    flex-flow: row wrap;
+    font-size: 96px;
+    font-weight: 700;
+    color: #ffffff;
+    gap: 15px;
+    width: 315px;
+    margin-top: 20px;
+
+    .start-box1,
+    .start-box2,
+    .start-box3,
+    .start-box4 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 7px;
+        width: 150px;
+        height: 150px;
+    }
+    .start-box1 {
+        background-color: #d4a017;
+    }
+    .start-box2 {
+        background-color: #a8a8a8;
+    }
+    .start-box3 {
+        background-color: #8b3a3a;
+    }
+    .start-box4 {
+        background-color: #2c3e50;
+    }
 }
-.cell[data-value="8"] {
-    background: #c0d6df;
-    color: #36454f;
-}
-.cell[data-value="16"] {
-    background: #c4a69f;
-    color: #fff;
-}
-.cell[data-value="32"] {
-    background: #7a8a99;
-    color: #fff;
-}
-.cell[data-value="64"] {
-    background: #566573;
-    color: #fff;
-}
-.cell[data-value="128"] {
-    background: #26466d;
-    color: #fff;
-}
-.cell[data-value="256"] {
-    background: #191970;
-    color: #fff;
-}
-.cell[data-value="512"] {
-    background: #5d3a66;
-    color: #fff;
-}
-.cell[data-value="1024"] {
-    background: #8b3a3a;
-    color: #fff;
-}
-.cell[data-value="2048"] {
-    background: #d4a017;
-    color: #fff;
-}
-.cell[data-value="4096"] {
-    background: #708238;
-    color: #fff;
-}
-.cell[data-value="8192"] {
-    background: #b2ac88;
-    color: #fff;
+#start-btn {
+    background-color: #2c3e50;
+    border-radius: 7px;
+    width: 120px;
+    height: 50px;
+    margin-top: 60px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
 }
