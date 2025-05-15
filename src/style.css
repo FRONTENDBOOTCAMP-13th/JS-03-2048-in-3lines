@@ -429,4 +429,48 @@ h1 {
             }
         }
     }
+
+    /* 게임 방법 */
+    .gameguide-container {
+        display: flex;
+        flex-direction: column;
+        width: 320px;
+        height: 410px;
+        margin-top: 25px;
+        padding-left: 15px;
+        background-color: #ffffff;
+        border-radius: 7px;
+        border: #2c3e50 solid 3px;
+        align-items: start;
+        justify-content: center;
+
+        .gameguide-tit {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .gameguide-text {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 400;
+            margin-top: 10px;
+        }
+        .gameguide-list-container {
+            display: flex;
+            flex-flow: column wrap;
+            align-items: start;
+            text-align: start;
+            margin-top: 10px;
+        }
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .gameguide-list {
+            font-size: 15px;
+            font-weight: 400;
+        }
+    }
 }
