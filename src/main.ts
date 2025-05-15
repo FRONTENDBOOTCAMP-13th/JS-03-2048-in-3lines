@@ -1,4 +1,6 @@
 import "./style.css";
+import "./anime/animation.css";
+import "./scripts/find-move-tile";
 import { findMovetile } from "./scripts/find-move-tile";
 import { MoveTile } from "./scripts/tilemove";
 import { setupBoard } from "./scripts/board";
