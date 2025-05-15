@@ -5,16 +5,15 @@ import { findMovetile } from "./scripts/find-move-tile";
 import { MoveTile } from "./scripts/tilemove";
 import { setupBoard } from "./scripts/board";
 import { startGame, restartGame } from "./scripts/game-start";
+import { addRandomCell } from "./scripts/add-random-cell";
 import { playClickSound, stopBGM, playBGM } from "./scripts/audio";
 import { addScore, getCurrentScore, getBestScore } from "./scripts/score";
-
 
 type Direction = "up" | "down" | "left" | "right";
 
 // 전체 맵
 let Map: number[][];
 let elements: HTMLDivElement[];
-
 
 //보드생성
 setupBoard();
@@ -50,6 +49,7 @@ document.addEventListener("keydown", (event: KeyboardEvent) => {
     // 타일 이동
     const changeData: number[][] = findMovetile(Map, direction);
     MoveTile(changeData, elements, Map.length);
+    addRandomCell();
 });
 
 // 현재 맵에서 배열 세팅하는 함수
@@ -83,4 +83,3 @@ restartBtn.addEventListener("click", () => {
     play: playBGM, // 노래재생
     stop: stopBGM, // 노래정지
 };
-
