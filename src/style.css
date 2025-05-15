@@ -102,3 +102,17 @@ h1 {
     border-radius: 7px;
     padding: 0;
 }
+
+/*보드*/
+.board {
+    display: grid;
+    width: 640px;
+    height: 640px;
+    background: #2c3e50;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+}
