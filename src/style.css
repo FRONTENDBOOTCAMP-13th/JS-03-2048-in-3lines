@@ -5,7 +5,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #dbdbdb;
+    background: #eaeaea;
+    font-family: "Open Sans", sans-serif;
 }
 /* 시작 화면과 게임 화면의 공통 스타일 */
 #game-container,
@@ -13,48 +14,264 @@ body {
     text-align: center;
     position: relative;
 }
+/* 시작 화면 */
+#start-container {
+    display: flex;
+    flex-flow: column wrap;
+    width: 700px;
+    height: 840px;
+    border: #2c3e50 solid 3px;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 7px;
+}
+h1 {
+    all: unset;
+    margin: 0;
+    padding: 0;
+    font-size: 130px;
+    color: #2c3e50;
+    font-weight: 800;
+}
+.start-box {
+    display: flex;
+    flex-flow: row wrap;
+    font-size: 96px;
+    font-weight: 700;
+    color: #ffffff;
+    gap: 15px;
+    width: 315px;
+    margin-top: 20px;
+
+    .start-box1,
+    .start-box2,
+    .start-box3,
+    .start-box4 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 7px;
+        width: 150px;
+        height: 150px;
+    }
+    .start-box1 {
+        background-color: #d4a017;
+    }
+    .start-box2 {
+        background-color: #a8a8a8;
+    }
+    .start-box3 {
+        background-color: #8b3a3a;
+    }
+    .start-box4 {
+        background-color: #2c3e50;
+    }
+}
+#start-btn {
+    background-color: #2c3e50;
+    border-radius: 7px;
+    width: 120px;
+    height: 50px;
+    margin-top: 60px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+}
 /* 게임 시작 전에는 게임 화면을 숨김 */
 #game-container {
     display: none;
+    padding: 0;
+}
+/*게임창*/
+.game-screen-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+.game-screen {
+    display: grid;
+    padding: 22px 23px 20px 23px;
+    width: 700px;
+    height: 870px;
+    border: #2c3e50 solid 3px;
+    background: #fff;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+    padding: 0;
 }
 /*보드*/
 .board {
     display: grid;
-    gap: 10px;
+    width: 640px;
+    height: 640px;
     background: #2c3e50;
-    padding: 10px;
     border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
 }
-/*게임창*/
-.game-scren {
-    padding: 10px 10px 50px 10px;
-    border: #36454f solid 1px;
-    background: #fff;
-    border-radius: 5px;
-}
-/*설명*/
-h2 {
-    font-size: 15px;
-}
+
 /*설명 상단*/
 .explanation-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    height: 50px;
+    margin-block-start: 22px;
+    margin-block-end: 16px;
+
+    .explanation-text {
+        font-size: 18px;
+        font-weight: 400;
+    }
+    .button-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: end;
+        gap: 15px;
+    }
+    /*홈 버튼*/
+    .home-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        background-color: #2c3e50;
+        border-radius: 5px;
+        cursor: pointer;
+        .home-botton-img {
+            width: 15px;
+            height: 15px;
+        }
+    }
+    /*소리 버튼*/
+    .sound-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        background-color: #2c3e50;
+        border-radius: 5px;
+        cursor: pointer;
+        .home-sound-off-img {
+            width: 15px;
+            height: 15px;
+        }
+        /*버튼을 누르면 이미지 변경*/
+        .home-sound-on-img {
+            display: none;
+            width: 15px;
+            height: 15px;
+        }
+    }
+    /*난이도*/
+    .level {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 75px;
+        height: 55px;
+        background-color: #2c3e50;
+        border-radius: 5px;
+        color: #ffffff;
+        gap: 3px;
+        cursor: pointer;
+        position: relative;
+
+        .level-btn {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+        }
+        .level-text {
+            margin: 0;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .level-text2 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        /* 난이도 모달창 */
+        .level-modal {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            bottom: -118px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #ffffff;
+            border: #2c3e50 solid 3px;
+            border-radius: 5px;
+            width: 110px;
+            height: 150px;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition:
+                opacity 0.2s ease,
+                transform 0.2s ease;
+            .level3-modal,
+            .level4-modal,
+            .level5-modal {
+                width: 70px;
+                height: 35px;
+                background-color: #2c3e50;
+                border-radius: 5px;
+                color: #ffffff;
+                font-size: 15px;
+                font-weight: 600;
+            }
+        }
+    }
+
+    /*점수*/
+    .score-panel {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 75px;
+        height: 55px;
+        background-color: #2c3e50;
+        border-radius: 5px;
+        color: #ffffff;
+        gap: 3px;
+        .score-text {
+            margin: 0;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .score-text2 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+    }
 }
+
 /*셀*/
 .cell {
-    width: 80px;
-    height: 80px;
+    aspect-ratio: 1 / 1;
+    width: 100%;
     background: #566573;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 5px;
+    font-size: 68px;
+    font-weight: 600;
+    border-radius: 7px;
+    margin: 0;
 }
 /*숫자값에 따른 색상변화*/
 .cell[data-value="2"] {
@@ -108,4 +325,200 @@ h2 {
 .cell[data-value="8192"] {
     background: #b2ac88;
     color: #fff;
+}
+
+/* 설명하단 */
+.bottom-text {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 15px 0 10px 0;
+}
+/* 버튼(실행취소,재시작) */
+.bottom-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 7px;
+    margin-bottom: 20px;
+}
+.undo-btn {
+    all: unset;
+    cursor: pointer;
+    width: 78px;
+    height: 27px;
+    border-radius: 5px;
+    border: #2c3e50 solid 2px;
+    font-size: 12px;
+    color: #2c3e50;
+    font-weight: 700;
+}
+.restart-btn {
+    all: unset;
+    cursor: pointer;
+    width: 70px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #2c3e50;
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* 최고 기록 */
+.ranking-gameguide-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 25px;
+
+    .ranking {
+        display: flex;
+        flex-direction: column;
+        width: 335px;
+        height: 162px;
+        background-color: #ffffff;
+        border-radius: 7px;
+        border: #2c3e50 solid 3px;
+        align-items: center;
+        justify-content: center;
+
+        .ranking-tit {
+            margin: 0;
+            align-self: flex-start;
+            padding-left: 15px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .score-today {
+            display: flex;
+            flex-direction: row;
+            width: 285px;
+            height: 37px;
+            background-color: #2c3e50;
+            border-radius: 7px;
+            color: #ffffff;
+            justify-content: space-between;
+            align-items: center;
+            padding-inline: 10px;
+            margin-top: 15px;
+
+            .score-today-text,
+            .score-today-best {
+                margin: 0;
+                font-size: 13px;
+                font-weight: 400;
+            }
+        }
+        .score-total {
+            display: flex;
+            flex-direction: row;
+            width: 285px;
+            height: 37px;
+            background-color: #2c3e50;
+            border-radius: 7px;
+            color: #ffffff;
+            justify-content: space-between;
+            align-items: center;
+            padding-inline: 10px;
+            margin-top: 10px;
+
+            .score-total-text,
+            .score-total-text {
+                margin: 0;
+                font-size: 13px;
+                font-weight: 400;
+            }
+        }
+    }
+    /* 게임 방법 */
+    .gameguide-container {
+        display: flex;
+        flex-direction: column;
+        width: 320px;
+        height: 410px;
+        margin-top: 25px;
+        padding-left: 15px;
+        background-color: #ffffff;
+        border-radius: 7px;
+        border: #2c3e50 solid 3px;
+        align-items: start;
+        justify-content: center;
+
+        .gameguide-tit {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .gameguide-text {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 400;
+            margin-top: 10px;
+        }
+        .gameguide-list-container {
+            display: flex;
+            flex-flow: column wrap;
+            align-items: start;
+            text-align: start;
+            margin-top: 10px;
+        }
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .gameguide-list {
+            font-size: 15px;
+            font-weight: 400;
+        }
+        /* 컨트롤 방법 */
+        .control-container {
+            display: flex;
+            flex-flow: column wrap;
+            margin-top: 15px;
+            width: 308px;
+            height: 125px;
+            border-radius: 7px;
+            background-color: #2c3e50;
+            color: #ffffff;
+        }
+        .control {
+            font-size: 15px;
+            font-weight: 400;
+            text-align: left;
+            margin: 15px 0 0 15px;
+        }
+        .control-box-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .control-box-up,
+            .control-box-left,
+            .control-box-down,
+            .control-box-right {
+                display: flex;
+                width: 30px;
+                height: 30px;
+                border-radius: 5px;
+                background-color: #ffffff;
+                align-items: center;
+                justify-content: center;
+            }
+            .control-box-ldr {
+                display: flex;
+                flex-direction: row;
+                margin: 10px 0 10px 0;
+                gap: 65px;
+            }
+        }
+
+        .control-text {
+            margin: 15px 0 0 0;
+
+            font-size: 15px;
+            font-weight: 400;
+        }
+    }
 }
