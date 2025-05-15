@@ -2,14 +2,17 @@ import "./style.css";
 import { findMovetile } from "./scripts/find-move-tile";
 import { MoveTile } from "./scripts/tilemove";
 import { setupBoard } from "./scripts/board";
-import { startGame } from "./scripts/game-start";
-import { playClickSound } from "./scripts/audio";
+import { startGame, restartGame } from "./scripts/game-start";
+import { playClickSound, stopBGM, playBGM } from "./scripts/audio";
+import { addScore, getCurrentScore, getBestScore } from "./scripts/score";
+
 
 type Direction = "up" | "down" | "left" | "right";
 
 // 전체 맵
 let Map: number[][];
 let elements: HTMLDivElement[];
+
 
 //보드생성
 setupBoard();
@@ -62,3 +65,20 @@ function boradSetting(elements: HTMLDivElement[], Length: number) {
         Map[Math.floor(index / Length)][Math.floor(index % Length)] = data;
     });
 }
+
+const restartBtn = document.getElementById("restart-btn") as HTMLButtonElement;
+restartBtn.addEventListener("click", () => {
+    playClickSound(); //클릭 사운드
+    restartGame();
+});
+// 콘솔 테스트용
+(window as any).score = {
+    add: addScore, // 점수 추가: ex)score.add(10)=>10점추가
+    current: getCurrentScore, //현재 점수 확인
+    best: getBestScore, //최고 점수 확인
+};
+(window as any).audio = {
+    play: playBGM, // 노래재생
+    stop: stopBGM, // 노래정지
+};
+
