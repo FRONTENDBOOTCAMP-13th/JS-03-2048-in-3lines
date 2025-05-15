@@ -19,3 +19,7 @@ export function playClickSound() {
     clickSound.currentTime = 0;
     clickSound.play();
 }
+//현재 재생여부 확인
+export function isBGMPlaying(): boolean {
+    return !bgm.paused;
+}
