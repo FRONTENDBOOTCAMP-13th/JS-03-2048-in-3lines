@@ -259,3 +259,70 @@ h1 {
         }
     }
 }
+
+/*셀*/
+.cell {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    background: #566573;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 68px;
+    font-weight: 600;
+    border-radius: 7px;
+    margin: 0;
+}
+/*숫자값에 따른 색상변화*/
+.cell[data-value="2"] {
+    background: #f5f5dc;
+    color: #36454f;
+}
+.cell[data-value="4"] {
+    background: #cbddd6;
+    color: #36454f;
+}
+.cell[data-value="8"] {
+    background: #c0d6df;
+    color: #36454f;
+}
+.cell[data-value="16"] {
+    background: #c4a69f;
+    color: #fff;
+}
+.cell[data-value="32"] {
+    background: #7a8a99;
+    color: #fff;
+}
+.cell[data-value="64"] {
+    background: #566573;
+    color: #fff;
+}
+.cell[data-value="128"] {
+    background: #26466d;
+    color: #fff;
+}
+.cell[data-value="256"] {
+    background: #191970;
+    color: #fff;
+}
+.cell[data-value="512"] {
+    background: #5d3a66;
+    color: #fff;
+}
+.cell[data-value="1024"] {
+    background: #8b3a3a;
+    color: #fff;
+}
+.cell[data-value="2048"] {
+    background: #d4a017;
+    color: #fff;
+}
+.cell[data-value="4096"] {
+    background: #708238;
+    color: #fff;
+}
+.cell[data-value="8192"] {
+    background: #b2ac88;
+    color: #fff;
+}
