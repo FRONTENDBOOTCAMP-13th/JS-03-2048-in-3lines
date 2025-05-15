@@ -7,6 +7,9 @@ body {
     align-items: center;
     background: #eaeaea;
     font-family: "Open Sans", sans-serif;
+    @media (max-width: 767px) {
+        background: #ffffff;
+    }
 }
 /* 시작 화면과 게임 화면의 공통 스타일 */
 #game-container,
@@ -15,6 +18,7 @@ body {
     position: relative;
 }
 /* 시작 화면 */
+
 #start-container {
     display: flex;
     flex-flow: column wrap;
@@ -25,6 +29,15 @@ body {
     align-items: center;
     background-color: #ffffff;
     border-radius: 7px;
+
+    @media (max-width: 767px) {
+        #start-container {
+            display: flex;
+            flex-flow: column wrap;
+            background-color: #ffffff;
+            border: none;
+        }
+    }
 }
 h1 {
     all: unset;
@@ -79,6 +92,69 @@ h1 {
     font-weight: 800;
     text-transform: uppercase;
     cursor: pointer;
+}
+/* 모바일 전용 스타일 */
+@media (max-width: 767px) {
+    #start-container {
+        display: flex;
+        flex-flow: column wrap;
+        background-color: #ffffff;
+        border: none;
+    }
+    h1 {
+        all: unset;
+        margin: 0;
+        padding: 0;
+        font-size: 130px;
+        color: #2c3e50;
+        font-weight: 800;
+    }
+    .start-box {
+        display: flex;
+        flex-flow: row wrap;
+        font-size: 96px;
+        font-weight: 700;
+        color: #ffffff;
+        gap: 15px;
+        width: 315px;
+        margin-top: 20px;
+
+        .start-box1,
+        .start-box2,
+        .start-box3,
+        .start-box4 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 7px;
+            width: 150px;
+            height: 150px;
+        }
+        .start-box1 {
+            background-color: #d4a017;
+        }
+        .start-box2 {
+            background-color: #a8a8a8;
+        }
+        .start-box3 {
+            background-color: #8b3a3a;
+        }
+        .start-box4 {
+            background-color: #2c3e50;
+        }
+    }
+    #start-btn {
+        background-color: #2c3e50;
+        border-radius: 7px;
+        width: 120px;
+        height: 50px;
+        margin-top: 60px;
+        color: #ffffff;
+        font-size: 22px;
+        font-weight: 800;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
 }
 /* 게임 시작 전에는 게임 화면을 숨김 */
 #game-container {
