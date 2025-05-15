@@ -19,6 +19,8 @@ export function updateBoard(): void {
             if (value !== 0) {
                 cell.textContent = value.toString();
                 cell.dataset.value = value.toString();
+                cell.dataset.row = row.toString();
+                cell.dataset.col = col.toString();
             }
             board.appendChild(cell);
         }

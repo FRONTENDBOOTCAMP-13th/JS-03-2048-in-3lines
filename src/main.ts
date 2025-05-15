@@ -1,4 +1,5 @@
 import "./style.css";
+import "./anime/animation.css";
 import "./scripts/find-move-tile";
 import { setupBoard } from "./scripts/board";
 import { startGame } from "./scripts/game-start";

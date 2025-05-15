@@ -1,78 +1,121 @@
-import { boardSize } from "./boardsize";
 import { grid } from "./add-random-cell";
+import { boardSize } from "./boardsize";
 import { updateBoard } from "./board";
 
-
-export function mergeTiles(direction: "up" | "down" | "right" | "left"): void {
-    const targetBoxs = document.querySelectorAll(`[data-value]`);
-    targetBoxs.forEach(box => {
-        const htmlBox = box as HTMLElement;
-        for (const row in grid) {
-            for (const col in grid[row]) {
-                const rowIndex = Number(row);
-                const colIndex = Number(col);
-                const value = grid[rowIndex][colIndex];
-                if (value !== 0) {
-                    if (
-                        direction === "up" &&
-                        rowIndex - 1 >= 0 &&
-                        grid[rowIndex - 1][colIndex] === value
-                    ) {
-                        mergeUp(rowIndex, colIndex, htmlBox);
-                    } else if (
-                        direction === "down" &&
-                        rowIndex + 1 < boardSize &&
-                        grid[rowIndex + 1][colIndex] === value
-                    ) {
-                        mergeDown(rowIndex, colIndex, htmlBox);
-                    } else if (
-                        direction === "left" &&
-                        colIndex - 1 >= 0 &&
-                        grid[rowIndex][colIndex - 1] === value
-                    ) {
-                        mergeLeft(rowIndex, colIndex, htmlBox);
-                    } else if (
-                        direction === "right" &&
-                        colIndex + 1 < boardSize &&
-                        grid[rowIndex][colIndex + 1] === value
-                    ) {
-                        mergeRight(rowIndex, colIndex, htmlBox);
-                    }
+export function mergeTiles(direction: "up" | "down" | "left" | "right") {
+    if (direction === "up") {
+        for (let col = 0; col < boardSize; col++) {
+            for (let row = 1; row < boardSize; row++) {
+                const currentCell = grid[row][col];
+                const targetCell = grid[row - 1][col];
+                if (currentCell !== 0 && currentCell === targetCell) {
+                    mergeUpDown(row, col, row - 1, col);
                 }
             }
         }
-    });
-    updateBoard();
+    }
+    if (direction === "down") {
+        for (let col = 0; col < boardSize; col++) {
+            for (let row = boardSize - 2; row >= 0; row--) {
+                const currentCell = grid[row][col];
+                const targetCell = grid[row + 1][col];
+                if (currentCell !== 0 && currentCell === targetCell) {
+                    mergeUpDown(row, col, row + 1, col);
+                }
+            }
+        }
+    }
+    if (direction === "left") {
+        for (let row = 0; row < boardSize; row++) {
+            for (let col = 1; col < boardSize; col++) {
+                const currentCell = grid[row][col];
+                const targetCell = grid[row][col - 1];
+                if (currentCell !== 0 && currentCell === targetCell) {
+                    mergeLeftRight(row, col, row, col - 1);
+                }
+            }
+        }
+    }
+    if (direction === "right") {
+        for (let row = 0; row < boardSize; row++) {
+            for (let col = boardSize - 2; col >= 0; col--) {
+                const currentCell = grid[row][col];
+                const targetCell = grid[row][col + 1];
+                if (currentCell !== 0 && currentCell === targetCell) {
+                    mergeLeftRight(row, col, row, col + 1);
+                }
+            }
+        }
+    }
+
+    setTimeout(() => {
+        updateBoard();
+    }, 600);
 }
 
-//위로 병합
-function mergeUp(row: number, col: number, box: HTMLElement): void {
-    grid[row - 1][col] *= 2;
-    grid[row][col] = 0;
-    box.dataset.value = grid[row - 1][col].toString();
-    box.textContent = grid[row - 1][col].toString();
-}
+export function mergeUpDown(
+    currentCellRow: number,
+    currentCellCol: number,
+    targetCellRow: number,
+    targetCellCol: number,
+): void {
+    grid[targetCellRow][targetCellCol] *= 2;
+    grid[currentCellRow][currentCellCol] = 0;
 
-//아래로 병합
-function mergeDown(row: number, col: number, box: HTMLElement): void {
-    grid[row + 1][col] *= 2;
-    grid[row][col] = 0;
-    box.dataset.value = grid[row + 1][col].toString();
-    box.textContent = grid[row + 1][col].toString();
-}
+    const targetCell = document.querySelector(
+        `[data-row="${targetCellRow}"][data-col="${targetCellCol}"]`,
+    ) as HTMLElement; // 병합할 셀 선택(data-row 값이 targetCellRow 인속성과  data-col의 값이 targetCellCol 속성을 모두 가진 요소노드를 선택)
+    const currentCell = document.querySelector(
+        `[data-row="${currentCellRow}"][data-col="${currentCellCol}"]`,
+    ) as HTMLElement; // 병합될 셀 선택(data-row 값이 currentCellRow 인속성과  data-col의 값이 currentCellCol 속성을 모두 가진 요소노드를 선택)
 
-//왼쪽으로 병합
-function mergeLeft(row: number, col: number, box: HTMLElement): void {
-    grid[row][col - 1] *= 2;
-    grid[row][col] = 0;
-    box.dataset.value = grid[row][col - 1].toString();
-    box.textContent = grid[row][col - 1].toString();
-}
+    if (targetCell) {
+        targetCell.dataset.value = grid[targetCellRow][targetCellCol].toString();
+        targetCell.textContent = grid[targetCellRow][targetCellCol].toString();
 
-//오른쪽으로 병합
-function mergeRight(row: number, col: number, box: HTMLElement): void {
-    grid[row][col + 1] *= 2;
-    grid[row][col] = 0;
-    box.dataset.value = grid[row][col + 1].toString();
-    box.textContent = grid[row][col + 1].toString();
+        setTimeout(() => {
+            targetCell.classList.add("jello-vertical");
+        }, 200);
+        setTimeout(() => {
+            targetCell.classList.remove("jello-vertical");
+        }, 800);
+    }
+
+    if (currentCell) {
+        currentCell.textContent = "";
+        currentCell.dataset.value = "";
+    }
+}
+export function mergeLeftRight(
+    currentCellRow: number,
+    currentCellCol: number,
+    targetCellRow: number,
+    targetCellCol: number,
+): void {
+    grid[targetCellRow][targetCellCol] *= 2;
+    grid[currentCellRow][currentCellCol] = 0;
+
+    const targetCell = document.querySelector(
+        `[data-row="${targetCellRow}"][data-col="${targetCellCol}"]`,
+    ) as HTMLElement; // 병합할 셀 선택(data-row 값이 targetCellRow 인속성과  data-col의 값이 targetCellCol 속성을 모두 가진 요소노드를 선택)
+    const currentCell = document.querySelector(
+        `[data-row="${currentCellRow}"][data-col="${currentCellCol}"]`,
+    ) as HTMLElement; // 병합될 셀 선택(data-row 값이 currentCellRow 인속성과  data-col의 값이 currentCellCol 속성을 모두 가진 요소노드를 선택)
+
+    if (targetCell) {
+        targetCell.dataset.value = grid[targetCellRow][targetCellCol].toString();
+        targetCell.textContent = grid[targetCellRow][targetCellCol].toString();
+
+        setTimeout(() => {
+            targetCell.classList.add("jello-horizontal");
+        }, 200);
+        setTimeout(() => {
+            targetCell.classList.remove("jello-horizontal");
+        }, 800);
+    }
+
+    if (currentCell) {
+        currentCell.textContent = "";
+        currentCell.dataset.value = "";
+    }
 }
