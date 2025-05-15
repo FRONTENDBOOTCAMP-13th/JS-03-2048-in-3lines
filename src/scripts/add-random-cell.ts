@@ -27,7 +27,5 @@ export function addRandomCell(): void {
         const { row, col } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
         const newValue = Math.random() < 0.5 ? 2 : 4; //확률 50%
         grid[row][col] = newValue;
-        const newValue = Math.random() < 0.9 ? 2 : 4; //확률 90%
-        grid[row][col] = newValue;
     }
 }
