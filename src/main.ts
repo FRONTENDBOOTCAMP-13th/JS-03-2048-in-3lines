@@ -39,7 +39,7 @@ homeBtn.addEventListener("click", () => {
     stopBGM();
     const gameContainer = document.getElementById("game-container")!;
     const startContainer = document.getElementById("start-container")!;
-    startContainer.style.display = "block";
+    startContainer.style.display = "flex";
     gameContainer.style.display = "none";
 });
 const bgmToggle = document.getElementById("bgm-toggle") as HTMLButtonElement;
