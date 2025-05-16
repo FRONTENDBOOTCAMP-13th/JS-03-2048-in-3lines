@@ -1,7 +1,7 @@
-import { grid } from "./add-random-cell"; 
-import { boardSize } from "./boardsize"; 
-import { updateBoard } from "./board"; 
-import { addScore } from "./score"; 
+import { grid } from "./add-random-cell";
+import { boardSize } from "./boardsize";
+import { updateBoard } from "./board";
+import { addScore } from "./score";
 
 // 공통 병합 함수: 연속된 동일한 숫자를 하나로 병합하고 점수를 추가함
 function mergeLine(tiles: number[]): number[] {
@@ -58,20 +58,40 @@ export function mergeTiles(direction: "up" | "down" | "left" | "right") {
     if (direction === "left") {
         // 각 행을 왼쪽으로 병합
         for (let row = 0; row < boardSize; row++) {
-            let rowTiles = grid[row].filter(v => v !== 0); // 0을 제외한 타일 추출
+            let rowTiles: number[] = [];
+            // 왼쪽 방향으로 0이 아닌 값을 모음
+            for (let col = 0; col < boardSize; col++) {
+                if (grid[row][col] !== 0) {
+                    rowTiles.push(grid[row][col]);
+                }
+            }
+
             rowTiles = mergeLine(rowTiles); // 병합 처리
-            // 병합 결과 + 빈 칸을 합쳐서 다시 행 구성
-            grid[row] = [...rowTiles, ...Array(boardSize - rowTiles.length).fill(0)];
+
+            // 병합된 결과를 왼쪽부터 다시 채움
+            for (let col = 0; col < boardSize; col++) {
+                grid[row][col] = rowTiles[col] || 0;
+            }
         }
     }
 
     if (direction === "right") {
         // 각 행을 오른쪽으로 병합
         for (let row = 0; row < boardSize; row++) {
-            let rowTiles = grid[row].filter(v => v !== 0).reverse(); // 오른쪽 정렬을 위해 역순 처리
+            let rowTiles: number[] = [];
+            // 오른쪽 방향으로 0이 아닌 값을 역순으로 모음
+            for (let col = boardSize - 1; col >= 0; col--) {
+                if (grid[row][col] !== 0) {
+                    rowTiles.push(grid[row][col]);
+                }
+            }
+
             rowTiles = mergeLine(rowTiles); // 병합 처리
-            // 병합 결과를 다시 역순으로 돌려서 오른쪽 정렬된 행 구성
-            grid[row] = [...Array(boardSize - rowTiles.length).fill(0), ...rowTiles.reverse()];
+
+            // 병합된 결과를 오른쪽부터 다시 채움
+            for (let col = 0; col < boardSize; col++) {
+                grid[row][boardSize - 1 - col] = rowTiles[col] || 0;
+            }
         }
     }
 
