@@ -26,64 +26,77 @@
         <div id="game-container">
             <!--게임창-->
             <div class="game-screen-container">
-                <div class="game-screen">
-                    <!--설명상단-->
-                    <div class="explanation-top">
-                        <p class="explanation-text">숫자를 합쳐 2048 타일을 만드세요!</p>
-                        <div class="button-container">
-                            <!-- 홈 버튼 -->
-                            <div class="home-button">
-                                <img
-                                    class="home-botton-img"
-                                    id="home-btn"
-                                    src="/src/svg/home.svg"
-                                    alt="홈 바로가기 버튼"
-                                />
-                            </div>
-                            <!-- 소리 버튼 -->
-                            <div class="sound-button" id="bgm-toggle">
-                                <img
-                                    class="sound-img"
-                                    id="bgm-icon"
-                                    src="./src/svg/sound-on.svg"
-                                    alt="BGM"
-                                />
-                            </div>
-                            <!--난이도-->
-                            <div class="level">
-                                <div class="level-btn">
-                                    <p class="level-text">난이도</p>
-                                    <img src="/src/svg/arrow.svg" alt="난이도 조절 화살표" />
+                <div class="game-screen-mob">
+                    <div class="game-screen">
+                        <!--설명상단-->
+                        <div class="explanation-top">
+                            <p class="explanation-text">숫자를 합쳐 2048 타일을 만드세요!</p>
+                            <div class="button-container">
+                                <!-- 홈 버튼 -->
+                                <div class="home-button">
+                                    <img
+                                        class="home-botton-img"
+                                        id="home-btn"
+                                        src="/src/svg/home.svg"
+                                        alt="홈 바로가기 버튼"
+                                    />
                                 </div>
-                                <p class="level-text2">4*4</p>
-                                <!-- 난이도 모달창 -->
-                                <div class="level-modal" id="levelModal">
-                                    <button class="level3-modal">3 * 3</button>
-                                    <button class="level4-modal">4 * 4</button>
-                                    <button class="level5-modal">5 * 5</button>
+                                <!-- 소리 버튼 -->
+                                <div class="sound-button" id="bgm-toggle">
+                                    <img
+                                        class="sound-img"
+                                        id="bgm-icon"
+                                        src="./src/svg/sound-on.svg"
+                                        alt="BGM"
+                                    />
                                 </div>
-                            </div>
-                            <!--점수-->
-                            <div class="score-panel">
-                                <p class="score-text">점수</p>
-                                <span class="score-text2" id="score">0</span>
+                                <!--난이도-->
+                                <div class="level">
+                                    <div class="level-btn">
+                                        <p class="level-text">난이도</p>
+                                        <img src="/src/svg/arrow.svg" alt="난이도 조절 화살표" />
+                                    </div>
+                                    <p class="level-text2">4*4</p>
+                                    <!-- 난이도 모달창 -->
+                                    <div class="level-modal" id="levelModal">
+                                        <button class="level3-modal">3 * 3</button>
+                                        <button class="level4-modal">4 * 4</button>
+                                        <button class="level5-modal">5 * 5</button>
+                                    </div>
+                                </div>
+                                <!--점수-->
+                                <div class="score-panel">
+                                    <p class="score-text">점수</p>
+                                    <span class="score-text2" id="score">0</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!--게임 보드-->
-                    <div class="board" id="board">
-                        <!--여러 셀-->
-                    </div>
-                    <!--설명하단-->
-                    <p class="bottom-text">방향키 또는 스와이프로 타이을 움직이세요</p>
+                        <!--게임 보드-->
+                        <div class="board" id="board">
+                            <!--여러 셀-->
+                        </div>
+                        <!--설명하단-->
+                        <p class="bottom-text">방향키 또는 스와이프로 타이을 움직이세요</p>
 
-                    <!--버튼(실행취소,재시작)-->
-                    <div class="bottom-btn">
-                        <button class="undo-btn">실행 취소</button>
-                        <button class="restart-btn" id="restart-btn">재시작</button>
+                        <!--버튼(실행취소,재시작)-->
+                        <div class="bottom-btn">
+                            <button class="undo-btn">실행 취소</button>
+                            <button class="restart-btn" id="restart-btn">재시작</button>
+                        </div>
+                        <!--게임오버-->
+                        <div></div>
                     </div>
-                    <!--게임오버-->
-                    <div></div>
+                    <!--최고 기록 모바일-->
+                    <div class="ranking-mob">
+                        <div class="score-today-mob">
+                            <p class="score-today-text-mob">오늘 최고 기록</p>
+                            <span id="best-score-mob">0</span>
+                        </div>
+                        <div class="score-total-mob">
+                            <p class="score-total-text-mob">전체 최고 기록</p>
+                            <span id="best-score-mob">0</span>
+                        </div>
+                    </div>
                 </div>
 
                 <!--최고 기록-->

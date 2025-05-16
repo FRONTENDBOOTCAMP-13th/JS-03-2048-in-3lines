@@ -271,8 +271,8 @@ h1 {
         .game-screen {
             display: grid;
             padding: 22px 23px 20px 23px;
-            width: 580px;
-            height: 740px;
+            width: 560px;
+            height: 730px;
             border: #2c3e50 solid 3px;
             background: #fff;
             justify-content: center;
@@ -431,6 +431,50 @@ h1 {
             }
         }
     }
+    /* 최고 기록 모바일 */
+    .ranking-mob {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .score-today-mob {
+            display: flex;
+            flex-direction: row;
+            width: 480px;
+            height: 45px;
+            background-color: #2c3e50;
+            border-radius: 7px;
+            color: #ffffff;
+            justify-content: space-between;
+            align-items: center;
+            padding-inline: 10px;
+            margin-top: 30px;
+        }
+        .score-today-text-mob,
+        .best-score-mob,
+        .score-total-text-mob {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 400;
+        }
+        .score-total-mob {
+            display: flex;
+            flex-direction: row;
+            width: 480px;
+            height: 45px;
+            background-color: #2c3e50;
+            border-radius: 7px;
+            color: #ffffff;
+            justify-content: space-between;
+            align-items: center;
+            padding-inline: 10px;
+            margin-top: 13px;
+        }
+        @media (min-width: 768px) {
+            display: none;
+        }
+    }
 }
 
 /*셀*/
@@ -548,6 +592,10 @@ h1 {
     flex-direction: column;
     margin-left: 25px;
 
+    @media (max-width: 767px) {
+        margin: 0;
+    }
+
     .ranking {
         display: flex;
         flex-direction: column;
@@ -580,7 +628,7 @@ h1 {
             margin-top: 15px;
 
             .score-today-text,
-            .score-today-best {
+            .best-score {
                 margin: 0;
                 font-size: 13px;
                 font-weight: 400;
@@ -600,7 +648,7 @@ h1 {
             margin-top: 10px;
 
             .score-total-text,
-            .score-total-text {
+            .best-score {
                 margin: 0;
                 font-size: 13px;
                 font-weight: 400;
