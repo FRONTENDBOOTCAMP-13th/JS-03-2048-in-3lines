@@ -1,14 +1,17 @@
 import { boardSize } from "./boardsize";
 export let grid: number[][] = createEmptyGrid();
-//배열 초기화
+
+// 빈 배열 생성
 export function createEmptyGrid(): number[][] {
     return Array.from({ length: boardSize }, () => Array(boardSize).fill(0));
 }
-//배열 배치
+
+// 배열 외부 설정
 export function setGrid(newGrid: number[][]) {
     grid = newGrid;
 }
-//빈셀 찾기
+
+// 빈 셀 좌표 반환
 export function getEmptyCells(): { row: number; col: number }[] {
     const emptyCells: { row: number; col: number }[] = [];
     for (let row = 0; row < boardSize; row++) {
@@ -20,12 +23,18 @@ export function getEmptyCells(): { row: number; col: number }[] {
     }
     return emptyCells;
 }
-//빈셀에 2또는 4추가
-export function addRandomCell(): void {
+
+// 빈 셀에 랜덤 2 또는 4 추가
+export function addRandomCell(isInit: boolean = false): void {
     const emptyCells = getEmptyCells();
     if (emptyCells.length > 0) {
         const { row, col } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-        const newValue = Math.random() < 0.5 ? 2 : 4; //확률 50%
+        const newValue = Math.random() < 0.9 ? 2 : 4; //확률 90%
         grid[row][col] = newValue;
+
+        if (!isInit) {
+            const cell = document.querySelector(`#grid-container .cell-${row}-${col}`);
+            if (cell) cell.classList.add("new-tile");
+        }
     }
 }
