@@ -57,6 +57,24 @@ export function findMovetile(map: number[][], dir: string): number[][] {
     console.log("전체 맵", Borad);
     //console.log("이동 위치", MoveArr);
     //console.log(MergeCheck);
+
+    // 변경값 체크
+    let SameCheck = true;
+
+    for (let y = 0; y < Max; y++) {
+        for (let x = 0; x < Max; x++) {
+            if (Borad[y][x] !== map[y][x]) {
+                SameCheck = false;
+                break;
+            }
+        }
+    }
+
+    if (SameCheck) {
+        console.log("변경값 없음");
+        return [];
+    }
+
     return MoveArr;
 }
 
