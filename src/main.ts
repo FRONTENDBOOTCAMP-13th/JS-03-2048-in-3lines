@@ -3,6 +3,8 @@ import "./anime/animation.css";
 import { setupBoard } from "./scripts/board";
 import { initGrid, handleMove } from "./scripts/game-start";
 import { playClickSound, stopBGM, playBGM, isBGMPlaying } from "./scripts/audio";
+import { setupModal } from "./scripts/modal";
+setupModal();
 
 type Direction = "up" | "down" | "left" | "right";
 
@@ -31,8 +33,12 @@ const homeBtn = document.getElementById("home-btn") as HTMLButtonElement;
 homeBtn.addEventListener("click", () => {
     playClickSound();
     stopBGM();
-    document.getElementById("start-container")!.style.display = "block";
-    document.getElementById("game-container")!.style.display = "none";
+
+    const gameContainer = document.getElementById("game-container")!;
+    const startContainer = document.getElementById("start-container")!;
+    startContainer.style.display = "flex";
+    gameContainer.style.display = "none";
+
 });
 
 // 배경음 토글
