@@ -7,6 +7,8 @@ import { setupBoard } from "./scripts/board";
 import { startGame, restartGame } from "./scripts/game-start";
 import { addRandomCell } from "./scripts/add-random-cell";
 import { playClickSound, stopBGM, playBGM, isBGMPlaying } from "./scripts/audio";
+import { setupModal } from "./scripts/modal";
+setupModal();
 
 type Direction = "up" | "down" | "left" | "right";
 
