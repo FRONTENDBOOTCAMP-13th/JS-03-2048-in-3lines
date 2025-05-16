@@ -1,27 +1,25 @@
 /* 단일 책임의 원칙을 준수할 것! */
 
-// // 테스트용
-// const map: getValue = {
-//     borad: [
-//         [2, 3, 0, 3, 6],
-//         [0, 0, 0, 0, 0],
-//         [0, 0, 0, 0, 0],
-//         [0, 0, 0, 0, 0],
-//         [0, 0, 0, 0, 0],
-//     ],
-//     dir: "left",
-// };
+let PlusArr: number[][] = [];
+let Max: number = 0;
+let MoveArr: number[][] = [];
 
-// findMovetile(map);
-
-export function findMovetile(map: number[][], dir: string): number[][] {
+// 이동완료 , 이동 위치, 병합된 위치 반환
+export function findMovetile(dir: string) {
     if (dir !== "right" && dir !== "left" && dir !== "up" && dir !== "down") return [];
 
-    const Max = map.length; // 최대 길이
+    const map = getMapArr();
+    // const Max = map.length; // 최대 길이
+    Max = map.length;
     const add_dir = setDirection(dir); // 이동 방향
     const Borad = map.map(row => [...row]);
     let MergeCheck: number[][] = []; // 현재 위치에 값이 더해 졌는지 확인
-    let MoveArr: number[][] = []; // 최종 반환값
+
+    //let PlusArr: number[][] = []; // 병합된 위치(애니메이션 적용)
+    PlusArr = [];
+
+    // let MoveArr: number[][] = []; // 이동 전 이동 후 위치
+    MoveArr = [];
 
     // 왼쪽,위
     if (dir === "left" || dir === "up") {
@@ -32,7 +30,7 @@ export function findMovetile(map: number[][], dir: string): number[][] {
 
                 // 현재 값이 0이 아니라면
                 if (NowValue > 0) {
-                    moveConditions(NowLocation, add_dir, Max, Borad, MoveArr, MergeCheck);
+                    moveConditions(NowLocation, add_dir, Max, Borad, MoveArr, MergeCheck, PlusArr);
                 }
             }
         }
@@ -47,35 +45,124 @@ export function findMovetile(map: number[][], dir: string): number[][] {
 
                 // 현재 값이 0이 아니라면
                 if (NowValue > 0) {
-                    moveConditions(NowLocation, add_dir, Max, Borad, MoveArr, MergeCheck);
+                    moveConditions(NowLocation, add_dir, Max, Borad, MoveArr, MergeCheck, PlusArr);
                 }
             }
         }
     }
 
     // 테스트용
-    console.log("전체 맵", Borad);
-    //console.log("이동 위치", MoveArr);
-    //console.log(MergeCheck);
+    // console.log("원본 맵", map);
+    // console.log("이동 완료 맵", Borad);
+    // console.log("이동 위치", MoveArr);
+    // console.log("병합된 위치", PlusArr);
+    // console.log("병합된 div");
+    // console.log(MergeCheck);
+
+    let result = {
+        MoveEndBord: Borad, // 이동 완료 맵
+        MoveLocation: MoveArr, // 이동 위치
+        PlusLocation: PlusArr, // 병합된 위치
+    };
 
     // 변경값 체크
-    let SameCheck = true;
+    const Same = SameCheck(Max, Borad, map);
 
-    for (let y = 0; y < Max; y++) {
-        for (let x = 0; x < Max; x++) {
-            if (Borad[y][x] !== map[y][x]) {
-                SameCheck = false;
-                break;
-            }
+    // 변경값이 없을 경우
+    if (Same) {
+        result.MoveLocation = [];
+    }
+
+    return result;
+}
+
+// 이동 애니메이션 추가
+export function moveAniElement(dir: string, moveLength: number) {
+    const divArr = getElement();
+
+    for (let i = 0; i < MoveArr.length; i++) {
+        // 이동 시킬 상자
+        const div = divArr[MoveArr[i][0] * Max + MoveArr[i][1]];
+        div.style.transition = "all 0.5s";
+
+        const [move_y, move_x] = [
+            Math.abs(MoveArr[i][2] - MoveArr[i][0]),
+            Math.abs(MoveArr[i][3] - MoveArr[i][1]),
+        ];
+
+        // 오른쪽
+        if (dir === "right") {
+            div.style.transform = `translate(${move_x * moveLength}px,0px)`;
+        }
+
+        // 왼쪽
+        else if (dir === "left") {
+            div.style.transform = `translate(${-move_x * moveLength}px,0px)`;
+        }
+
+        // 위
+        else if (dir === "up") {
+            div.style.transform = `translate(0px,${-move_y * moveLength}px)`;
+        }
+
+        // 아래
+        else if (dir === "down") {
+            div.style.transform = `translate(0px,${move_y * moveLength}px)`;
+        }
+    }
+}
+
+// 병합된 div 요소 찾아서 애니메이션 클래스 추가
+export function AniElement(dir: string) {
+    const divArr = getElement();
+    for (let i = 0; i < PlusArr.length; i++) {
+        const div = divArr[PlusArr[i][0] * Max + PlusArr[i][1]];
+
+        if (dir === "right" || dir === "left") {
+            div.classList.add("jello-horizontal");
+        } else {
+            div.classList.add("jello-vertical");
+        }
+    }
+}
+
+// 2차원 배열로 변환하는 함수
+function getMapArr() {
+    const elementArr = getElement();
+
+    let length = 0;
+
+    // 각 한뼘의 길이 구하기
+    for (let i = 0; i < elementArr.length; i++) {
+        if (i * i === elementArr.length) {
+            length = i;
+            break;
         }
     }
 
-    if (SameCheck) {
-        console.log("변경값 없음");
-        return [];
-    }
+    let Arr: number[][] = Array.from({ length: length }, () => new Array(length).fill(0));
 
-    return MoveArr;
+    elementArr.forEach((item, index) => {
+        const value = item.dataset.value;
+        let number = 0;
+
+        if (value !== undefined) {
+            number = parseInt(value);
+        }
+
+        Arr[Math.floor(index / length)][Math.floor(index % length)] = number;
+    });
+
+    // 현재 맵 배열을 반환
+    return Arr;
+}
+
+// div 요소 찾아서 배열로 반환하는 것
+function getElement() {
+    const element = document.querySelectorAll("#board .cell");
+    const elementArr = Array.from(element);
+
+    return elementArr;
 }
 
 // 이동 조건
@@ -86,6 +173,7 @@ function moveConditions(
     Borad: number[][],
     MoveArr: number[][],
     MergeCheck: number[][],
+    PlusArr: number[][],
 ) {
     // 다음 위치
     let NextArr = [NowLocation[0] + add_dir[0], NowLocation[1] + add_dir[1]];
@@ -132,10 +220,12 @@ function moveConditions(
                     }
                     // 값 변경 위치에 배열이 병합된적 없을 경우
                     else {
+                        // 여기서 배열 병합
                         Borad[NowArr[0]][NowArr[1]] = 0;
                         Borad[NextArr[0]][NextArr[1]] *= 2;
                         MergeCheck.push([NextArr[0], NextArr[1]]);
                         MoveArr.push([NowArr[0], NowArr[1], NextArr[0], NextArr[1]]);
+                        PlusArr.push([NextArr[0], NextArr[1]]);
                     }
 
                     break;
@@ -195,4 +285,20 @@ function MergeSetting(Merge: number[][], NextArr: number[]) {
     }
 
     return false;
+}
+
+// 변경값 체크
+function SameCheck(Max: number, Borad: number[][], map: number[][]) {
+    let Same = true;
+
+    for (let y = 0; y < Max; y++) {
+        for (let x = 0; x < Max; x++) {
+            if (Borad[y][x] !== map[y][x]) {
+                Same = false;
+                break;
+            }
+        }
+    }
+
+    return Same;
 }
