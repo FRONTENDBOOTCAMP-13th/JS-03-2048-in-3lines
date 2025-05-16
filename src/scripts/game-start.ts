@@ -1,67 +1,23 @@
-import { createEmptyGrid, setGrid, addRandomCell } from "./add-random-cell";
-import { updateBoard } from "./board";
+import { createEmptyGrid, setGrid, grid, addRandomCell } from "./add-random-cell";
 import { mergeTiles } from "./marge-tiles";
-import { playBGM } from "./audio";
-import { resetScore, renderScores } from "./score";
-//게임 시작
-export function startGame(): void {
-    const gameContainer = document.getElementById("game-container")!;
-    const startContainer = document.getElementById("start-container")!;
-    startContainer.style.display = "none";
-    gameContainer.style.display = "block";
-    playBGM(); //배경음악 재생
-    const newGrid = createEmptyGrid(); //배열생성
-    setGrid(newGrid); //배열 배치
-    addRandomCell(); //빈셀에 2생성
-    addRandomCell(); //빈셀에 2생성
-    updateBoard(); //보드 업데이트
-    resetScore(); //점수초기화
-    renderScores(); //점수표시
-    //입력된 키에 따라 사용할 함수
-    document.addEventListener("keydown", event => {
-        switch (event.key) {
-            case "ArrowUp":
-                mergeTiles("up");
-                break;
-            case "ArrowDown":
-                mergeTiles("down");
-                break;
-            case "ArrowLeft":
-                mergeTiles("left");
-                break;
-            case "ArrowRight":
-                mergeTiles("right");
-                break;
-        }
-    });
+import { updateBoard } from "./board";
+
+export function initGrid(): void {
+    const newGrid = createEmptyGrid();
+    setGrid(newGrid);
+    addRandomCell(true); // 초기 셀 1
+    addRandomCell(true); // 초기 셀 2
+    updateBoard();
 }
-export function restartGame(): void {
-    const gameContainer = document.getElementById("game-container")!;
-    const startContainer = document.getElementById("start-container")!;
-    startContainer.style.display = "none";
-    gameContainer.style.display = "block";
-    const newGrid = createEmptyGrid(); //배열생성
-    setGrid(newGrid); //배열 배치
-    addRandomCell(); //빈셀에 2생성
-    addRandomCell(); //빈셀에 2생성
-    updateBoard(); //보드 업데이트
-    resetScore(); //점수초기화
-    renderScores(); //점수표시
-    //입력된 키에 따라 사용할 함수
-    document.addEventListener("keydown", event => {
-        switch (event.key) {
-            case "ArrowUp":
-                mergeTiles("up");
-                break;
-            case "ArrowDown":
-                mergeTiles("down");
-                break;
-            case "ArrowLeft":
-                mergeTiles("left");
-                break;
-            case "ArrowRight":
-                mergeTiles("right");
-                break;
-        }
-    });
+
+// 이전 상태와 비교하여 변경되었을 때만 처리
+export function handleMove(direction: "up" | "down" | "left" | "right"): void {
+    const oldGrid = JSON.stringify(grid);
+    mergeTiles(direction);
+    const newGrid = JSON.stringify(grid);
+
+    if (newGrid !== oldGrid) {
+        addRandomCell();
+        updateBoard();
+    }
 }

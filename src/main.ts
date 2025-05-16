@@ -1,47 +1,41 @@
 import "./style.css";
 import "./anime/animation.css";
-import "./scripts/find-move-tile";
-import { findMovetile } from "./scripts/find-move-tile";
-import { MoveTile } from "./scripts/tilemove";
 import { setupBoard } from "./scripts/board";
-import { startGame, restartGame } from "./scripts/game-start";
-import { addRandomCell } from "./scripts/add-random-cell";
+import { initGrid, handleMove } from "./scripts/game-start";
 import { playClickSound, stopBGM, playBGM, isBGMPlaying } from "./scripts/audio";
 
 type Direction = "up" | "down" | "left" | "right";
 
-// 전체 맵
-let Map: number[][];
-let elements: HTMLDivElement[];
-
-//보드생성
+// 보드 UI 구성
 setupBoard();
-//시작버튼
+
+// 시작 버튼 이벤트
 const startBtn = document.getElementById("start-btn") as HTMLButtonElement;
 startBtn.addEventListener("click", () => {
-    playClickSound(); //클릭 사운드
-    startGame();
-    // div 박스들
-    elements = Array.from(document.querySelectorAll("#board div")) as HTMLDivElement[];
-    // 배열 세팅(div 요소, 가로 길이)
-    boradSetting(elements, 4);
+    playClickSound();
+    playBGM();
+    initGrid();
+    document.getElementById("start-container")!.style.display = "none";
+    document.getElementById("game-container")!.style.display = "block";
 });
-//재시작 버튼
+
+// 재시작 버튼 이벤트
 const restartBtn = document.getElementById("restart-btn") as HTMLButtonElement;
 restartBtn.addEventListener("click", () => {
-    playClickSound(); //클릭 사운드
-    restartGame();
+    playClickSound();
+    initGrid();
 });
-//홈버튼
+
+// 홈 버튼
 const homeBtn = document.getElementById("home-btn") as HTMLButtonElement;
 homeBtn.addEventListener("click", () => {
-    playClickSound(); //클릭 사운드
+    playClickSound();
     stopBGM();
-    const gameContainer = document.getElementById("game-container")!;
-    const startContainer = document.getElementById("start-container")!;
-    startContainer.style.display = "block";
-    gameContainer.style.display = "none";
+    document.getElementById("start-container")!.style.display = "block";
+    document.getElementById("game-container")!.style.display = "none";
 });
+
+// 배경음 토글
 const bgmToggle = document.getElementById("bgm-toggle") as HTMLButtonElement;
 const bgmIcon = document.getElementById("bgm-icon") as HTMLImageElement;
 bgmToggle.addEventListener("click", () => {
@@ -53,7 +47,8 @@ bgmToggle.addEventListener("click", () => {
         bgmIcon.src = "./src/svg/sound-on.svg";
     }
 });
-//키보드입력값
+
+// 키 입력 처리 → 새 방식으로 이동 처리
 document.addEventListener("keydown", (event: KeyboardEvent) => {
     const keyToDirection: { [key: string]: Direction } = {
         ArrowUp: "up",
@@ -62,34 +57,7 @@ document.addEventListener("keydown", (event: KeyboardEvent) => {
         ArrowRight: "right",
     };
     const direction = keyToDirection[event.key];
-
-    // 타일 이동
-
-    // 배열 세팅(div 요소, 가로 길이)
-    elements = Array.from(document.querySelectorAll("#board div")) as HTMLDivElement[];
-    boradSetting(elements, 4);
-
-    // 타일 이동
-    const changeData: number[][] = findMovetile(Map, direction);
-    // 변경값이 없다면
-    if (changeData.length !== 0) {
-        MoveTile(changeData, elements, Map.length);
-        addRandomCell();
+    if (direction) {
+        handleMove(direction);
     }
 });
-
-// 현재 맵에서 배열 세팅하는 함수
-function boradSetting(elements: HTMLDivElement[], Length: number) {
-    // 배열 초기화
-    Map = Array.from({ length: Length }, () => Array(Length).fill(0));
-
-    elements.forEach((item, index) => {
-        let dataset = item.dataset.value;
-        let data: number = 0;
-
-        if (dataset === undefined) data = 0;
-        else data = parseInt(dataset);
-
-        Map[Math.floor(index / Length)][Math.floor(index % Length)] = data;
-    });
-}
