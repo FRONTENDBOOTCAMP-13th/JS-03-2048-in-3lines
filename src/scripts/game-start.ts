@@ -35,7 +35,9 @@ export function handleMove(direction: "up" | "down" | "left" | "right"): void {
         if (newGrid !== oldGrid) {
             addRandomCell();
             updateBoard();
-            AniElement(direction);
+
+            // 적용 애니메이션 버그로 인해 비활성화 시켜 둠
+            // AniElement(direction);
         }
     }, 500);
 }
