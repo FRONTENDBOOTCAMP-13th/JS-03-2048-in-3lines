@@ -433,7 +433,7 @@ h1 {
 }
 
 /*셀*/
-.cell {
+.box {
     aspect-ratio: 1 / 1;
     width: 100%;
     background: #566573;
@@ -449,6 +449,17 @@ h1 {
         font-size: 50px;
         font-weight: 600;
     }
+}
+.cell {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 68px;
+    font-weight: 600;
+    border-radius: 7px;
+    margin: 0;
 }
 /*숫자값에 따른 색상변화*/
 .cell[data-value="2"] {
