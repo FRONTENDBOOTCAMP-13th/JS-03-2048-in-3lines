@@ -112,6 +112,7 @@ export function moveAniElement(dir: string, moveLength: number) {
     }
 }
 
+// 버그로 인한 비활성화 함
 // 병합된 div 요소 찾아서 애니메이션 클래스 추가
 export function AniElement(dir: string) {
     const divArr = getElement();
