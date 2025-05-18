@@ -2,6 +2,7 @@ import { createEmptyGrid, setGrid, grid, addRandomCell } from "./add-random-cell
 import { mergeTiles } from "./marge-tiles";
 import { updateBoard } from "./board";
 import { findMovetile, AniElement, moveAniElement } from "./find-move-tile";
+import { tilesSearch } from "./grid-cell-verification-logic";
 
 let inputDelay = false;
 
@@ -11,6 +12,8 @@ export function initGrid(): void {
     addRandomCell(true); // 초기 셀 1
     addRandomCell(true); // 초기 셀 2
     updateBoard();
+    //테스트 용
+    tilesSearch();
 }
 
 // 이전 상태와 비교하여 변경되었을 때만 처리

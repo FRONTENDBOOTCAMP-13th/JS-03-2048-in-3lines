@@ -2,6 +2,7 @@ import { grid } from "./add-random-cell";
 import { boardSize } from "./boardsize";
 import { updateBoard } from "./board";
 import { addScore } from "./score";
+import { tilesSearch } from "./grid-cell-verification-logic";
 
 // 공통 병합 함수: 연속된 동일한 숫자를 하나로 병합하고 점수를 추가함
 function mergeLine(tiles: number[]): number[] {
@@ -23,18 +24,38 @@ function mergeLine(tiles: number[]): number[] {
 
 // 방향에 따라 타일을 병합하는 함수
 export function mergeTiles(direction: "up" | "down" | "left" | "right") {
+    // if (direction === "up") {
+    //     // 각 열을 위쪽으로 병합
+    //     for (let col = 0; col < boardSize; col++) {
+    //         let colTiles = [];
+    //         // 각 열의 0이 아닌 값을 위쪽 방향으로 모음
+    //         for (let row = 0; row < boardSize; row++) {
+    //             if (grid[row][col] !== 0) colTiles.push(grid[row][col]);
+    //         }
+    //         colTiles = mergeLine(colTiles); // 병합 처리
+    //         // 병합된 결과를 위에서 아래로 다시 채워 넣음
+    //         for (let row = 0; row < boardSize; row++) {
+    //             grid[row][col] = colTiles[row] || 0;
+    //         }
+    //     }
+    // }
     if (direction === "up") {
-        // 각 열을 위쪽으로 병합
+        const tiles = tilesSearch(); // [{row, col, value}, ...]
         for (let col = 0; col < boardSize; col++) {
-            let colTiles = [];
-            // 각 열의 0이 아닌 값을 위쪽 방향으로 모음
-            for (let row = 0; row < boardSize; row++) {
-                if (grid[row][col] !== 0) colTiles.push(grid[row][col]);
-            }
-            colTiles = mergeLine(colTiles); // 병합 처리
+            // 해당 열의 0이 아닌 값만 추출
+            const colTiles = tiles.filter(tile => tile.col === col); // 같은 col값의 위치한 타일을 반환
+            console.log(colTiles);
+            const rowTiles = colTiles.sort((a, b) => a.row - b.row); // row의 값이 작은 순서대로 정렬
+            console.log(rowTiles);
+            const tileMap = rowTiles.map(tile => tile.value); // {row, col, value}에서 value만 추출
+            console.log(tileMap); // 위에서 아래로 정렬
+            const merged = mergeLine(tileMap); // 병합 처리
+            console.log(merged); // 병합된 결과
+            // const merged = mergeLine(colTiles);
+
             // 병합된 결과를 위에서 아래로 다시 채워 넣음
             for (let row = 0; row < boardSize; row++) {
-                grid[row][col] = colTiles[row] || 0;
+                grid[row][col] = merged[row] || 0;
             }
         }
     }
