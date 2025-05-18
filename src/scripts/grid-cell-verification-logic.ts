@@ -10,6 +10,5 @@ export function tilesSearch() {
             }
         }
     }
-    console.log(tileArr);
     return tileArr;
 }
