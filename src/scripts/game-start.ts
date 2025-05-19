@@ -3,6 +3,7 @@ import { mergeTiles } from "./marge-tiles";
 import { updateBoard } from "./board";
 import { findMovetile, moveAniElement } from "./find-move-tile";
 import { boardSize } from "./boardsize";
+import { handleMoveWrapper } from "./game-win";
 
 let inputDelay = false;
 let previousGridState: number[][] = [];
@@ -13,6 +14,17 @@ export function initGrid(): void {
     addRandomCell(true); // 초기 셀 1
     addRandomCell(true); // 초기 셀 2
     updateBoard();
+
+
+    // 게임 승리 이미지 숨기기
+    const winEl = document.getElementById("game-win");
+    if (winEl) {
+        winEl.style.display = "none";
+    }
+
+    // 키 입력 이벤트 다시 등록
+    document.addEventListener("keydown", handleMoveWrapper);
+
 }
 export function backupGridState() {
     // 현재 보드의 상태를 깊은 복사로 저장
