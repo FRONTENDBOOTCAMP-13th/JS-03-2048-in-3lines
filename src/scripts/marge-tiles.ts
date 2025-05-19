@@ -3,6 +3,7 @@ import { boardSize } from "./boardsize";
 import { updateBoard } from "./board";
 import { addScore } from "./score";
 import { tilesSearch } from "./grid-cell-verification-logic";
+import { checkWin } from "./game-win";
 
 // 연속된 동일한 숫자를 하나로 병합하고 점수를 추가하는 함수
 function mergeLine(tiles: number[]): number[] {
@@ -29,9 +30,9 @@ export function mergeTiles(direction: "up" | "down" | "left" | "right") {
         const tiles = tilesSearch(); // 현재 grid에서 0이 아닌 셀의 {row, col, value} 배열 반환
         for (let col = 0; col < boardSize; col++) {
             // 해당 col에서 0이 아닌 타일만 추출
-            let colTiles = tiles.filter((tile) => tile.col === col);
+            let colTiles = tiles.filter(tile => tile.col === col);
             let rowTiles = colTiles.sort((a, b) => a.row - b.row);
-            let tileMap = rowTiles.map((tile) => tile.value);
+            let tileMap = rowTiles.map(tile => tile.value);
             // 병합 처리
             const merged = mergeLine(tileMap);
             // 디버깅용 로그
@@ -40,7 +41,7 @@ export function mergeTiles(direction: "up" | "down" | "left" | "right") {
             console.log(`[UP][col=${col}] 정렬된 타일의 value 배열:`, tileMap);
             console.log(`[UP][col=${col}] 병합된 value 배열:`, merged);
 
-            for (let row = 0; row < boardSize; row++){
+            for (let row = 0; row < boardSize; row++) {
                 grid[row][col] = merged[row] || 0; // 병합된 결과를 위에서 아래로 다시 grid에 반영
             }
         }
@@ -125,4 +126,5 @@ export function mergeTiles(direction: "up" | "down" | "left" | "right") {
     }
 
     updateBoard();
+    checkWin();
 }

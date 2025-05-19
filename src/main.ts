@@ -1,14 +1,12 @@
 import "./style.css";
 import "./anime/animation.css";
 import { setupBoard } from "./scripts/board";
-import { setBoardSize } from "./scripts/boardsize";
-import { initGrid, handleMove } from "./scripts/game-start";
+import { initGrid } from "./scripts/game-start";
 import { playClickSound, stopBGM, playBGM, isBGMPlaying } from "./scripts/audio";
 import { setupModal } from "./scripts/modal";
-import { resetScore } from "./scripts/score";
 setupModal();
-
-type Direction = "up" | "down" | "left" | "right";
+import { handleMoveWrapper } from "./scripts/game-win";
+document.addEventListener("keydown", handleMoveWrapper);
 
 // 보드 UI 구성
 setupBoard();
@@ -18,7 +16,6 @@ const startBtn = document.getElementById("start-btn") as HTMLButtonElement;
 startBtn.addEventListener("click", () => {
     playClickSound();
     playBGM();
-    resetScore();
     initGrid();
     document.getElementById("start-container")!.style.display = "none";
     document.getElementById("game-container")!.style.display = "block";
@@ -28,7 +25,6 @@ startBtn.addEventListener("click", () => {
 const restartBtn = document.getElementById("restart-btn") as HTMLButtonElement;
 restartBtn.addEventListener("click", () => {
     playClickSound();
-    resetScore();
     initGrid();
 });
 
@@ -56,32 +52,3 @@ bgmToggle.addEventListener("click", () => {
         bgmIcon.src = "./src/svg/sound-on.svg";
     }
 });
-
-// 키 입력 처리 → 새 방식으로 이동 처리
-document.addEventListener("keydown", (event: KeyboardEvent) => {
-    const keyToDirection: { [key: string]: Direction } = {
-        ArrowUp: "up",
-        ArrowDown: "down",
-        ArrowLeft: "left",
-        ArrowRight: "right",
-    };
-    const direction = keyToDirection[event.key];
-    if (direction) {
-        handleMove(direction);
-    }
-});
-
-// 난이도 버튼
-const level3Btn = document.querySelector(".level3-modal") as HTMLButtonElement;
-const level4Btn = document.querySelector(".level4-modal") as HTMLButtonElement;
-const level5Btn = document.querySelector(".level5-modal") as HTMLButtonElement;
-
-function changeBoardSize(size: number) {
-    setBoardSize(size);
-    setupBoard();
-    initGrid();
-}
-
-level3Btn.addEventListener("click", () => changeBoardSize(3));
-level4Btn.addEventListener("click", () => changeBoardSize(4));
-level5Btn.addEventListener("click", () => changeBoardSize(5));

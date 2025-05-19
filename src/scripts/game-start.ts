@@ -4,6 +4,7 @@ import { updateBoard } from "./board";
 import { findMovetile, AniElement, moveAniElement } from "./find-move-tile";
 import { tilesSearch } from "./grid-cell-verification-logic";
 import { boardSize } from "./boardsize";
+import { handleMoveWrapper } from "./game-win";
 
 let inputDelay = false;
 
@@ -15,6 +16,15 @@ export function initGrid(): void {
     updateBoard();
     //테스트 용
     tilesSearch();
+
+    // 게임 승리 이미지 숨기기
+    const winEl = document.getElementById("game-win");
+    if (winEl) {
+        winEl.style.display = "none";
+    }
+
+    // 키 입력 이벤트 다시 등록
+    document.addEventListener("keydown", handleMoveWrapper);
 }
 
 // 이전 상태와 비교하여 변경되었을 때만 처리
