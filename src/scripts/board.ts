@@ -13,6 +13,9 @@ export function updateBoard(): void {
     board.innerHTML = "";
     for (let row = 0; row < boardSize; row++) {
         for (let col = 0; col < boardSize; col++) {
+            const divContainer = document.querySelector("#board");
+            const box = document.createElement("div");
+            box.classList.add("box");
             const cell = document.createElement("div");
             cell.classList.add("cell"); //클래스 부여
             const value = grid[row][col];
@@ -22,7 +25,8 @@ export function updateBoard(): void {
                 cell.dataset.row = row.toString();
                 cell.dataset.col = col.toString();
             }
-            board.appendChild(cell);
+            divContainer?.appendChild(box);
+            box!.appendChild(cell);
         }
     }
 }

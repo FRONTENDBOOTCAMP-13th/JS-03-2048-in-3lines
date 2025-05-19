@@ -95,6 +95,5 @@ export function mergeTiles(direction: "up" | "down" | "left" | "right") {
         }
     }
 
-    // 100ms 후 보드를 업데이트하여 화면에 반영
-    setTimeout(updateBoard, 100);
+    updateBoard();
 }

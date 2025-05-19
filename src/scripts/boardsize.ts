@@ -1,3 +1,4 @@
+
 export let boardSize = 4; // 기본 보드 크기 (4x4)
 
 /**
@@ -7,3 +8,6 @@ export let boardSize = 4; // 기본 보드 크기 (4x4)
 export function setBoardSize(size: number): void {
     boardSize = size;
 }
+
+
+
