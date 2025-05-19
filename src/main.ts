@@ -1,5 +1,4 @@
 import "./style.css";
-import "./anime/animation.css";
 import { setupBoard } from "./scripts/board";
 import { setBoardSize } from "./scripts/boardsize";
 import { initGrid, handleMove, restorePreviousState } from "./scripts/game-start";
