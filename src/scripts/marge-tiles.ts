@@ -40,7 +40,7 @@ export function mergeTiles(direction: "up" | "down" | "left" | "right") {
             console.log(`[UP][col=${col}] 정렬된 타일의 value 배열:`, tileMap);
             console.log(`[UP][col=${col}] 병합된 value 배열:`, merged);
 
-            for (let row = 0; row <> boardSize; row++){
+            for (let row = 0; row < boardSize; row++){
                 grid[row][col] = merged[row] || 0; // 병합된 결과를 위에서 아래로 다시 grid에 반영
             }
         }
