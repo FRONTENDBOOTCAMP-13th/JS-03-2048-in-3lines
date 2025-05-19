@@ -1,7 +1,7 @@
 //배경음악
 const bgm = new Audio("/sound/bgm.mp4");
 bgm.loop = true;
-bgm.volume = 1;
+bgm.volume = 0.5;
 //클릭/이동 사운드
 const clickSound = new Audio("/sound/move,select.mp3");
 clickSound.volume = 0.8;

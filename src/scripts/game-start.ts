@@ -3,6 +3,7 @@ import { mergeTiles } from "./marge-tiles";
 import { updateBoard } from "./board";
 import { findMovetile, AniElement, moveAniElement } from "./find-move-tile";
 import { tilesSearch } from "./grid-cell-verification-logic";
+import { boardSize } from "./boardsize";
 
 let inputDelay = false;
 
@@ -18,7 +19,6 @@ export function initGrid(): void {
 
 // 이전 상태와 비교하여 변경되었을 때만 처리
 export function handleMove(direction: "up" | "down" | "left" | "right"): void {
-    // 방향키 입력 딜레이
     if (inputDelay) return;
     findMovetile(direction);
     inputDelay = true;
@@ -27,8 +27,13 @@ export function handleMove(direction: "up" | "down" | "left" | "right"): void {
         inputDelay = false;
     }, 600);
 
-    // 이동 애니메이션 실행
-    moveAniElement(direction, 162.5); // 방향 , 이동 값
+    // ✅ 이동값 동적으로 계산
+    const boardElement = document.getElementById("board");
+    if (!boardElement) return;
+
+    const tileSize = boardElement.clientWidth / boardSize; // ← 핵심 수정
+    moveAniElement(direction, tileSize);
+
     const oldGrid = JSON.stringify(grid);
 
     setTimeout(() => {
@@ -38,9 +43,6 @@ export function handleMove(direction: "up" | "down" | "left" | "right"): void {
         if (newGrid !== oldGrid) {
             addRandomCell();
             updateBoard();
-
-            // 적용 애니메이션 버그로 인해 비활성화 시켜 둠
-            // AniElement(direction);
         }
     }, 500);
 }

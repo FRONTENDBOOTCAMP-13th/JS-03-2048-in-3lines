@@ -5,6 +5,7 @@ import { setBoardSize } from "./scripts/boardsize";
 import { initGrid, handleMove } from "./scripts/game-start";
 import { playClickSound, stopBGM, playBGM, isBGMPlaying } from "./scripts/audio";
 import { setupModal } from "./scripts/modal";
+import { resetScore } from "./scripts/score";
 setupModal();
 
 type Direction = "up" | "down" | "left" | "right";
@@ -17,6 +18,7 @@ const startBtn = document.getElementById("start-btn") as HTMLButtonElement;
 startBtn.addEventListener("click", () => {
     playClickSound();
     playBGM();
+    resetScore();
     initGrid();
     document.getElementById("start-container")!.style.display = "none";
     document.getElementById("game-container")!.style.display = "block";
@@ -26,6 +28,7 @@ startBtn.addEventListener("click", () => {
 const restartBtn = document.getElementById("restart-btn") as HTMLButtonElement;
 restartBtn.addEventListener("click", () => {
     playClickSound();
+    resetScore();
     initGrid();
 });
 
