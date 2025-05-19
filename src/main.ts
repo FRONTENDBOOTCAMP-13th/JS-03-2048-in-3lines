@@ -2,7 +2,7 @@ import "./style.css";
 import "./anime/animation.css";
 import { setupBoard } from "./scripts/board";
 import { setBoardSize } from "./scripts/boardsize";
-import { initGrid, handleMove } from "./scripts/game-start";
+import { initGrid, handleMove, restorePreviousState } from "./scripts/game-start";
 import { playClickSound, stopBGM, playBGM, isBGMPlaying } from "./scripts/audio";
 import { setupModal } from "./scripts/modal";
 import { resetScore } from "./scripts/score";
@@ -85,3 +85,26 @@ function changeBoardSize(size: number) {
 level3Btn.addEventListener("click", () => changeBoardSize(3));
 level4Btn.addEventListener("click", () => changeBoardSize(4));
 level5Btn.addEventListener("click", () => changeBoardSize(5));
+
+// 터치 스와이프 이벤트
+let startX = 0,
+    startY = 0;
+window.addEventListener("touchstart", e => {
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+});
+window.addEventListener("touchend", e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+    if (Math.abs(dx) > Math.abs(dy)) {
+        handleMove(dx > 0 ? "right" : "left");
+    } else {
+        handleMove(dy > 0 ? "down" : "up");
+    }
+});
+//되돌리기 버튼
+const undoBtn = document.getElementById("undo-btn") as HTMLButtonElement;
+undoBtn.addEventListener("click", () => {
+    playClickSound(); // 선택
+    restorePreviousState();
+});
