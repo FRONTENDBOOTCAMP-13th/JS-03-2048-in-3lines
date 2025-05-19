@@ -1,6 +1,7 @@
 import "./style.css";
 import "./anime/animation.css";
 import { setupBoard } from "./scripts/board";
+import { setBoardSize } from "./scripts/boardsize";
 import { initGrid, handleMove } from "./scripts/game-start";
 import { playClickSound, stopBGM, playBGM, isBGMPlaying } from "./scripts/audio";
 import { setupModal } from "./scripts/modal";
@@ -38,7 +39,6 @@ homeBtn.addEventListener("click", () => {
     const startContainer = document.getElementById("start-container")!;
     startContainer.style.display = "flex";
     gameContainer.style.display = "none";
-
 });
 
 // 배경음 토글
@@ -67,3 +67,18 @@ document.addEventListener("keydown", (event: KeyboardEvent) => {
         handleMove(direction);
     }
 });
+
+// 난이도 버튼
+const level3Btn = document.querySelector(".level3-modal") as HTMLButtonElement;
+const level4Btn = document.querySelector(".level4-modal") as HTMLButtonElement;
+const level5Btn = document.querySelector(".level5-modal") as HTMLButtonElement;
+
+function changeBoardSize(size: number) {
+    setBoardSize(size);
+    setupBoard();
+    initGrid();
+}
+
+level3Btn.addEventListener("click", () => changeBoardSize(3));
+level4Btn.addEventListener("click", () => changeBoardSize(4));
+level5Btn.addEventListener("click", () => changeBoardSize(5));
