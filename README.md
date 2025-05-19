@@ -53,8 +53,11 @@
 <br>
 
 원활한 코딩 환경을 위해 아래의 명령어를 terminal창에 입력후 진행해 주세요
-```git clone https://github.com/FRONTENDBOOTCAMP-13th/JS-03-2048-in-3lines.git```
-```npm i```
+<br>
+```
+git clone https://github.com/FRONTENDBOOTCAMP-13th/JS-03-2048-in-3lines.git<
+npm i
+```
 <br>
 설치될 패키지 목록(최신버전을 유지해주세요)
 - typescript
@@ -68,9 +71,7 @@
 
 #### 팀 소개
 
->좋은글이네요
->하지만 읽지는 않았습니다
->그래서 누가 세줄요약좀?
+>좋은글이네요<br>하지만 읽지는 않았습니다<br>그래서 누가 세줄요약좀?<br>
 > -누군가의 명언-
 >
 >
