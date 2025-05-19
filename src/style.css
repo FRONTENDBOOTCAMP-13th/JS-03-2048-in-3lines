@@ -118,6 +118,7 @@ h1 {
     text-transform: uppercase;
     cursor: pointer;
 
+    box-shadow:3px 4px #141c24;
     @media (max-width: 767px) {
         border-radius: 0.7vw;
         width: 14vw;
@@ -126,7 +127,11 @@ h1 {
         font-size: 2.3vw;
     }
 }
-
+#start-btn:active{
+    transition: all 0.2s ease;
+    border-color:rgba(0,0,0,0.34) rgba(0,0,0,0.21) rgba(0,0,0,0.21);
+	box-shadow:0 1px 0 rgba(255,255,255,0.89),0 1px rgba(0,0,0,0.05) inset;
+} 
 /* 게임 시작 전에는 게임 화면을 숨김 */
 #game-container {
     display: none;
