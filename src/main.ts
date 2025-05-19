@@ -1,5 +1,4 @@
 import "./style.css";
-import "./anime/animation.css";
 import { setupBoard } from "./scripts/board";
 import { initGrid } from "./scripts/game-start";
 import { playClickSound, stopBGM, playBGM, isBGMPlaying } from "./scripts/audio";

@@ -13,7 +13,7 @@ export function findMovetile(dir: string) {
     Max = map.length;
     const add_dir = setDirection(dir); // 이동 방향
     const Borad = map.map(row => [...row]);
-    let MergeCheck: number[][] = []; // 현재 위치에 값이 더해 졌는지 확인
+    const MergeCheck: number[][] = []; // 현재 위치에 값이 더해 졌는지 확인
 
     //let PlusArr: number[][] = []; // 병합된 위치(애니메이션 적용)
     PlusArr = [];
@@ -59,7 +59,7 @@ export function findMovetile(dir: string) {
     // console.log("병합된 div");
     // console.log(MergeCheck);
 
-    let result = {
+    const result = {
         MoveEndBord: Borad, // 이동 완료 맵
         MoveLocation: MoveArr, // 이동 위치
         PlusLocation: PlusArr, // 병합된 위치
@@ -82,7 +82,7 @@ export function moveAniElement(dir: string, moveLength: number) {
 
     for (let i = 0; i < MoveArr.length; i++) {
         // 이동 시킬 상자
-        const div = divArr[MoveArr[i][0] * Max + MoveArr[i][1]];
+        const div = divArr[MoveArr[i][0] * Max + MoveArr[i][1]] as HTMLElement;
         div.style.transition = "all 0.5s";
 
         const [move_y, move_x] = [
@@ -141,7 +141,7 @@ function getMapArr() {
         }
     }
 
-    let Arr: number[][] = Array.from({ length: length }, () => new Array(length).fill(0));
+    const Arr: number[][] = Array.from({ length: length }, () => new Array(length).fill(0));
 
     elementArr.forEach((item, index) => {
         const value = item.dataset.value;
@@ -161,7 +161,7 @@ function getMapArr() {
 // div 요소 찾아서 배열로 반환하는 것
 function getElement() {
     const element = document.querySelectorAll("#board .cell");
-    const elementArr = Array.from(element);
+    const elementArr = Array.from(element) as HTMLDivElement[];
 
     return elementArr;
 }
@@ -177,7 +177,7 @@ function moveConditions(
     PlusArr: number[][],
 ) {
     // 다음 위치
-    let NextArr = [NowLocation[0] + add_dir[0], NowLocation[1] + add_dir[1]];
+    const NextArr = [NowLocation[0] + add_dir[0], NowLocation[1] + add_dir[1]];
     const NowArr = [NowLocation[0], NowLocation[1]];
     const NowValue = Borad[NowLocation[0]][NowLocation[1]];
     let LastMove = true;
