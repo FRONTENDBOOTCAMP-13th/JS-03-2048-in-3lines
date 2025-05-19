@@ -1,8 +1,7 @@
 import { createEmptyGrid, setGrid, grid, addRandomCell } from "./add-random-cell";
 import { mergeTiles } from "./marge-tiles";
 import { updateBoard } from "./board";
-import { findMovetile, AniElement, moveAniElement } from "./find-move-tile";
-import { tilesSearch } from "./grid-cell-verification-logic";
+import { findMovetile, moveAniElement } from "./find-move-tile";
 import { boardSize } from "./boardsize";
 
 let inputDelay = false;
@@ -14,8 +13,6 @@ export function initGrid(): void {
     addRandomCell(true); // 초기 셀 1
     addRandomCell(true); // 초기 셀 2
     updateBoard();
-    //테스트 용
-    tilesSearch();
 }
 export function backupGridState() {
     // 현재 보드의 상태를 깊은 복사로 저장

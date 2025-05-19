@@ -29,16 +29,16 @@ export function mergeTiles(direction: "up" | "down" | "left" | "right") {
         const tiles = tilesSearch(); // 현재 grid에서 0이 아닌 셀의 {row, col, value} 배열 반환
         for (let col = 0; col < boardSize; col++) {
             // 해당 col에서 0이 아닌 타일만 추출
-            let colTiles = tiles.filter((tile) => tile.col === col);
-            let rowTiles = colTiles.sort((a, b) => a.row - b.row);
-            let tileMap = rowTiles.map((tile) => tile.value);
+            const colTiles = tiles.filter((tile) => tile.col === col);
+            const rowTiles = colTiles.sort((a, b) => a.row - b.row);
+            const tileMap = rowTiles.map((tile) => tile.value);
             // 병합 처리
             const merged = mergeLine(tileMap);
             // 디버깅용 로그
-            console.log(`[UP][col=${col}] 0이 아닌 타일(객체) 목록:`, colTiles);
-            console.log(`[UP][col=${col}] row 오름차순 정렬된 타일(객체) 목록:`, rowTiles);
-            console.log(`[UP][col=${col}] 정렬된 타일의 value 배열:`, tileMap);
-            console.log(`[UP][col=${col}] 병합된 value 배열:`, merged);
+            // console.log(`[UP][col=${col}] 0이 아닌 타일(객체) 목록:`, colTiles);
+            // console.log(`[UP][col=${col}] row 오름차순 정렬된 타일(객체) 목록:`, rowTiles);
+            // console.log(`[UP][col=${col}] 정렬된 타일의 value 배열:`, tileMap);
+            // console.log(`[UP][col=${col}] 병합된 value 배열:`, merged);
 
             for (let row = 0; row < boardSize; row++){
                 grid[row][col] = merged[row] || 0; // 병합된 결과를 위에서 아래로 다시 grid에 반영
@@ -60,10 +60,10 @@ export function mergeTiles(direction: "up" | "down" | "left" | "right") {
             const merged = mergeLine(tileMap);
 
             // 디버깅용 로그
-            console.log(`[DOWN][col=${col}] 0이 아닌 타일(객체) 목록:`, colTiles);
-            console.log(`[DOWN][col=${col}] row 내림차순 정렬된 타일(객체) 목록:`, rowTiles);
-            console.log(`[DOWN][col=${col}] 정렬된 타일의 value 배열:`, tileMap);
-            console.log(`[DOWN][col=${col}] 병합된 value 배열:`, merged);
+            // console.log(`[DOWN][col=${col}] 0이 아닌 타일(객체) 목록:`, colTiles);
+            // console.log(`[DOWN][col=${col}] row 내림차순 정렬된 타일(객체) 목록:`, rowTiles);
+            // console.log(`[DOWN][col=${col}] 정렬된 타일의 value 배열:`, tileMap);
+            // console.log(`[DOWN][col=${col}] 병합된 value 배열:`, merged);
 
             // 6. 병합된 결과를 아래에서 위로 다시 grid에 반영
             for (let row = 0; row < boardSize; row++) {
@@ -86,10 +86,10 @@ export function mergeTiles(direction: "up" | "down" | "left" | "right") {
             const merged = mergeLine(tileMap);
 
             // 디버깅용 로그
-            console.log(`[LEFT][row=${row}] 0이 아닌 타일(객체) 목록:`, rowTiles);
-            console.log(`[LEFT][row=${row}] col 오름차순 정렬된 타일(객체) 목록:`, colTiles);
-            console.log(`[LEFT][row=${row}] 정렬된 타일의 value 배열:`, tileMap);
-            console.log(`[LEFT][row=${row}] 병합된 value 배열:`, merged);
+            // console.log(`[LEFT][row=${row}] 0이 아닌 타일(객체) 목록:`, rowTiles);
+            // console.log(`[LEFT][row=${row}] col 오름차순 정렬된 타일(객체) 목록:`, colTiles);
+            // console.log(`[LEFT][row=${row}] 정렬된 타일의 value 배열:`, tileMap);
+            // console.log(`[LEFT][row=${row}] 병합된 value 배열:`, merged);
 
             // 6. 병합된 결과를 왼쪽에서 오른쪽으로 다시 grid에 반영
             for (let col = 0; col < boardSize; col++) {
@@ -112,10 +112,10 @@ export function mergeTiles(direction: "up" | "down" | "left" | "right") {
             const merged = mergeLine(tileMap);
 
             // 디버깅용 로그
-            console.log(`[RIGHT][row=${row}] 0이 아닌 타일(객체) 목록:`, rowTiles);
-            console.log(`[RIGHT][row=${row}] col 내림차순 정렬된 타일(객체) 목록:`, colTiles);
-            console.log(`[RIGHT][row=${row}] 정렬된 타일의 value 배열:`, tileMap);
-            console.log(`[RIGHT][row=${row}] 병합된 value 배열:`, merged);
+            // console.log(`[RIGHT][row=${row}] 0이 아닌 타일(객체) 목록:`, rowTiles);
+            // console.log(`[RIGHT][row=${row}] col 내림차순 정렬된 타일(객체) 목록:`, colTiles);
+            // console.log(`[RIGHT][row=${row}] 정렬된 타일의 value 배열:`, tileMap);
+            // console.log(`[RIGHT][row=${row}] 병합된 value 배열:`, merged);
 
             // 6. 병합된 결과를 오른쪽에서 왼쪽으로 다시 grid에 반영
             for (let col = 0; col < boardSize; col++) {
