@@ -29,10 +29,14 @@ export function handleMove(direction: "up" | "down" | "left" | "right"): void {
 
     // ✅ 이동값 동적으로 계산
     const boardElement = document.getElementById("board");
-    if (!boardElement) return;
+    const div = boardElement?.querySelector(".box");
 
-    const tileSize = boardElement.clientWidth / boardSize; // ← 핵심 수정
-    moveAniElement(direction, tileSize);
+    if (!boardElement || !div) return;
+
+    moveAniElement(
+        direction,
+        parseFloat(getComputedStyle(div).width) + parseFloat(getComputedStyle(boardElement).gap),
+    );
 
     const oldGrid = JSON.stringify(grid);
 
