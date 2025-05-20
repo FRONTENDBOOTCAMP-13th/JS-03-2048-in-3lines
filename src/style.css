@@ -1,96 +1,956 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+    -webkit-user-select: none; /* Chrome, Safari, Opera */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* 표준 */
 }
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
+/*중앙 정렬*/
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eaeaea;
+    font-family: "Open Sans", sans-serif;
+    @media (max-width: 767px) {
+        background: #ffffff;
+    }
 }
+/* 시작 화면과 게임 화면의 공통 스타일 */
+#game-container,
+#start-container {
+    text-align: center;
+    position: relative;
+}
+/* 시작 화면 */
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #3178c6aa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
+#start-container {
+    display: flex;
+    flex-flow: column wrap;
+    width: 30vw;
+    height: 37vw;
+    border: #2c3e50 solid 0.2vw;
+    justify-content: center;
+    align-items: center;
     background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+    border-radius: 0.4vw;
+
+    @media (max-width: 767px) {
+        width: 90vw;
+        height: 117vw;
+        display: flex;
+        flex-flow: column wrap;
+        background-color: #ffffff;
+        border: none;
+    }
+}
+h1 {
+    all: unset;
+    margin: 0;
+    padding: 0;
+    font-size: 6vw;
+    color: #2c3e50;
+    font-weight: 800;
+
+    @media (max-width: 767px) {
+        font-size: 20vw;
+    }
+}
+.start-box {
+    display: flex;
+    flex-flow: row wrap;
+    font-size: 3.8vw;
+    font-weight: 700;
+    color: #ffffff;
+    gap: 0.6vw;
+    width: 12.6vw;
+    margin-top: 1vw;
+
+    @media (max-width: 767px) {
+        font-size: 12vw;
+        font-weight: 700;
+        color: #ffffff;
+        gap: 2vw;
+        width: 46vw;
+        margin-top: 3vw;
+    }
+
+    .start-box1,
+    .start-box2,
+    .start-box3,
+    .start-box4 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.4vw;
+        width: 6vw;
+        height: 6vw;
+
+        @media (max-width: 767px) {
+            border-radius: 1.2vw;
+            width: 22vw;
+            height: 22vw;
+        }
+    }
+    .start-box1 {
+        background-color: #d4a017;
+    }
+    .start-box2 {
+        background-color: #a8a8a8;
+    }
+    .start-box3 {
+        background-color: #8b3a3a;
+    }
+    .start-box4 {
+        background-color: #2c3e50;
+    }
+}
+#start-btn {
+    background-color: #2c3e50;
+    border-radius: 0.4vw;
+    width: 5vw;
+    height: 2.1vw;
+    margin-top: 2vw;
+    color: #ffffff;
+    font-size: 0.9vw;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    box-shadow: 3px 4px #141c24;
+    @media (max-width: 767px) {
+        border-radius: 0.7vw;
+        width: 14vw;
+        height: 6vw;
+        margin-top: 7vw;
+        font-size: 2.3vw;
+    }
+}
+#start-btn:active {
+    transition: all 0.2s ease;
+    border-color: rgba(0, 0, 0, 0.34) rgba(0, 0, 0, 0.21) rgba(0, 0, 0, 0.21);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.89),
+        0 1px rgba(0, 0, 0, 0.05) inset;
+}
+/* 게임 시작 전에는 게임 화면을 숨김 */
+#game-container {
+    display: none;
+    padding: 0;
+}
+/*게임창*/
+.game-screen-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+
+    .game-screen {
+        display: grid;
+        padding: 2vw;
+        width: 30vw;
+        height: 37vw;
+        border: #2c3e50 solid 0.2vw;
+        background: #fff;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0.4vw;
+        padding: 0;
+        position: relative;
+        /* game-win 화면 */
+        .game-win {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .game-win-img {
+            width: 28vw;
+            height: 35vw;
+            border-radius: 0.4vw;
+        }
+        /* game-over 화면 */
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .game-over-img {
+            width: 28vw;
+            height: 35vw;
+            border-radius: 0.4vw;
+        }
+    }
+    /*보드*/
+    .board {
+        display: grid;
+        width: 27vw;
+        width: 27vw;
+        background: #2c3e50;
+        border-radius: 0.5vw;
+        justify-content: center;
+        align-items: center;
+        gap: 0.4vw;
+        padding: 0.45vw;
+        grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    }
+    /*설명 상단*/
+    .explanation-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-block-start: 1vw;
+        margin-block-end: 0.5vw;
+
+        .explanation-text {
+            font-size: 0.8vw;
+            font-weight: 400;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: end;
+            gap: 0.6vw;
+        }
+        /*홈 버튼*/
+        .home-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 1.3vw;
+            height: 1.3vw;
+            background-color: #2c3e50;
+            border-radius: 0.2vw;
+            cursor: pointer;
+            .home-botton-img {
+                width: 0.7vw;
+                height: 0.7vw;
+            }
+        }
+        /*소리 버튼*/
+        .sound-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 1.3vw;
+            height: 1.3vw;
+            background-color: #2c3e50;
+            border-radius: 0.2vw;
+            cursor: pointer;
+            .sound-img {
+                width: 0.7vw;
+                height: 0.7vw;
+            }
+        }
+        /*난이도*/
+        .level {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 3.5vw;
+            height: 2.3vw;
+            background-color: #2c3e50;
+            border-radius: 0.25vw;
+            color: #ffffff;
+            gap: 3px;
+            cursor: pointer;
+            position: relative;
+
+            .level-btn {
+                display: flex;
+                flex-direction: row;
+                gap: 5px;
+
+                img {
+                    width: 0.6vw;
+                }
+            }
+            .level-text {
+                margin: 0;
+                font-size: 0.5vw;
+                font-weight: 600;
+            }
+            .level-text2 {
+                margin: 0;
+                font-size: 0.7vw;
+                font-weight: 600;
+            }
+            /* 난이도 모달창 */
+            .level-modal {
+                z-index: 1;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translateX(-50%) translateY(10px);
+                background: #ffffff;
+                border: #2c3e50 solid 0.2vw;
+                border-radius: 0.2vw;
+                width: 4.7vw;
+                height: 6.2vw;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 0.35vw;
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition:
+                    opacity 0.2s ease,
+                    transform 0.2s ease;
+                .level3-modal,
+                .level4-modal,
+                .level5-modal {
+                    width: 3vw;
+                    height: 1.45vw;
+                    background-color: #2c3e50;
+                    border-radius: 0.2vw;
+                    color: #ffffff;
+                    font-size: 0.6vw;
+                    font-weight: 600;
+                    cursor: pointer;
+                }
+            }
+
+            &.open {
+                .level-modal {
+                    opacity: 1;
+                    visibility: visible;
+                    pointer-events: auto;
+                    transform: translateX(-50%) translateY(0);
+                }
+            }
+        }
+
+        /*점수*/
+        .score-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 3.3vw;
+            height: 2.3vw;
+            background-color: #2c3e50;
+            border-radius: 0.25vw;
+            color: #ffffff;
+            gap: 3px;
+            .score-text {
+                margin: 0;
+                font-size: 0.5vw;
+                font-weight: 600;
+            }
+            .score-text2 {
+                margin: 0;
+                font-size: 0.7vw;
+                font-weight: 600;
+            }
+        }
+    }
+    /* 모바일 게임 창 */
+    @media (max-width: 767px) {
+        .game-screen {
+            display: grid;
+            padding: 2vw;
+            width: 90vw;
+            height: 117vw;
+            border: #2c3e50 solid 3px;
+            background: #fff;
+            justify-content: center;
+            align-items: center;
+            border-radius: 1vw;
+            padding: 0;
+            /* game-win 화면 */
+            .game-win {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 10;
+                pointer-events: none;
+            }
+
+            .game-win-img {
+                width: 88vw;
+                height: 115vw;
+                border-radius: 0.4vw;
+            }
+            /* game-over 화면 */
+            .game-over {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 10;
+                pointer-events: none;
+            }
+
+            .game-over-img {
+                width: 88vw;
+                height: 115vw;
+                border-radius: 0.4vw;
+            }
+        }
+        /*보드*/
+        .board {
+            display: grid;
+            width: 80vw;
+            height: 80vw;
+            background: #2c3e50;
+            border-radius: 1vw;
+            justify-content: center;
+            align-items: center;
+            gap: 1.2vw;
+            padding: 1.3vw;
+            grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+        }
+        /*설명 상단*/
+        .explanation-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-block-start: 3vw;
+            margin-block-end: 0.5vw;
+
+            .explanation-text {
+                font-size: 2.7vw;
+                font-weight: 400;
+            }
+            .button-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: end;
+                gap: 1.5vw;
+            }
+            /*홈 버튼*/
+            .home-button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 4.8vw;
+                height: 4.8vw;
+                background-color: #2c3e50;
+                border-radius: 0.7vw;
+                cursor: pointer;
+                .home-botton-img {
+                    width: 2.6vw;
+                    height: 2.6vw;
+                }
+            }
+            /*소리 버튼*/
+            .sound-button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 4.8vw;
+                height: 4.8vw;
+                background-color: #2c3e50;
+                border-radius: 0.7vw;
+                cursor: pointer;
+                .sound-img {
+                    width: 2.6vw;
+                    height: 2.6vw;
+                }
+            }
+
+            /*난이도*/
+            .level {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 12vw;
+                height: 9vw;
+                background-color: #2c3e50;
+                border-radius: 0.7vw;
+                color: #ffffff;
+                gap: 3px;
+                cursor: pointer;
+                position: relative;
+
+                .level-btn {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 5px;
+
+                    img {
+                        width: 2vw;
+                    }
+                }
+                .level-text {
+                    margin: 0;
+                    font-size: 2vw;
+                    font-weight: 600;
+                }
+                .level-text2 {
+                    margin: 0;
+                    font-size: 2.3vw;
+                    font-weight: 600;
+                }
+                /* 난이도 모달창 */
+                .level-modal {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translateX(-50%) translateY(10px);
+                    background: #ffffff;
+                    border: #2c3e50 solid 0.2vw;
+                    border-radius: 1vw;
+                    width: 17vw;
+                    height: 24vw;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 1.5vw;
+                    opacity: 0;
+                    visibility: hidden;
+                    pointer-events: none;
+                    transition:
+                        opacity 0.2s ease,
+                        transform 0.2s ease;
+                    .level3-modal,
+                    .level4-modal,
+                    .level5-modal {
+                        width: 12vw;
+                        height: 5vw;
+                        border-radius: 1vw;
+                        font-size: 2.3vw;
+                        cursor: pointer;
+                    }
+                }
+
+                &.open {
+                    .level-modal {
+                        opacity: 1;
+                        visibility: visible;
+                        pointer-events: auto;
+                        transform: translateX(-50%) translateY(0);
+                    }
+                }
+            }
+
+            /*점수*/
+            .score-panel {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 11vw;
+                height: 9vw;
+                background-color: #2c3e50;
+                border-radius: 0.7vw;
+                color: #ffffff;
+                gap: 3px;
+                .score-text {
+                    margin: 0;
+                    font-size: 2vw;
+                    font-weight: 600;
+                }
+                .score-text2 {
+                    margin: 0;
+                    font-size: 2.3vw;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+    /* 최고 기록 모바일 */
+    .ranking-mob {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .score-today-mob {
+            display: flex;
+            flex-direction: row;
+            width: 69vw;
+            height: 6.5vw;
+            background-color: #2c3e50;
+            border-radius: 1vw;
+            color: #ffffff;
+            justify-content: space-between;
+            align-items: center;
+            padding-inline: 1.5vw;
+            margin-top: 5vw;
+        }
+        .score-today-text-mob,
+        .best-score-mob,
+        .score-total-text-mob {
+            margin: 0;
+            font-size: 2.1vw;
+            font-weight: 400;
+        }
+        .score-total-mob {
+            display: flex;
+            flex-direction: row;
+            width: 69vw;
+            height: 6.5vw;
+            background-color: #2c3e50;
+            border-radius: 1vw;
+            color: #ffffff;
+            justify-content: space-between;
+            align-items: center;
+            padding-inline: 1.5vw;
+            margin-top: 1.6vw;
+        }
+        @media (min-width: 768px) {
+            display: none;
+        }
+    }
+}
+
+/*셀*/
+.box {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    background: #566573;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 6vw;
+    font-weight: 600;
+    border-radius: 0.4vw;
+    margin: 0;
+
+    @media (max-width: 767px) {
+        font-size: 50px;
+        font-weight: 600;
+    }
+}
+.cell {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.6vw;
+    font-weight: 600;
+    border-radius: 0.4vw;
+    margin: 0;
+
+    @media (max-width: 767px) {
+        font-size: 6.3vw;
+        font-weight: 600;
+        border-radius: 1vw;
+    }
+}
+/*숫자값에 따른 색상변화*/
+.cell[data-value="2"] {
+    background: #f5f5dc;
+    color: #36454f;
+}
+.cell[data-value="4"] {
+    background: #cbddd6;
+    color: #36454f;
+}
+.cell[data-value="8"] {
+    background: #c0d6df;
+    color: #36454f;
+}
+.cell[data-value="16"] {
+    background: #c4a69f;
+    color: #fff;
+}
+.cell[data-value="32"] {
+    background: #7a8a99;
+    color: #fff;
+}
+.cell[data-value="64"] {
+    background: #5a6e85;
+    color: #fff;
+}
+.cell[data-value="128"] {
+    background: #26466d;
+    color: #fff;
+}
+.cell[data-value="256"] {
+    background: #191970;
+    color: #fff;
+}
+.cell[data-value="512"] {
+    background: #5d3a66;
+    color: #fff;
+}
+.cell[data-value="1024"] {
+    background: #8b3a3a;
+    color: #fff;
+}
+.cell[data-value="2048"] {
+    background: #d4a017;
+    color: #fff;
+}
+.cell[data-value="4096"] {
+    background: #708238;
+    color: #fff;
+}
+.cell[data-value="8192"] {
+    background: #b2ac88;
+    color: #fff;
+}
+
+/* 설명하단 */
+.bottom-text {
+    font-size: 0.6vw;
+    font-weight: 400;
+    margin: 0.8vw 0 0.4vw 0;
+
+    @media (max-width: 767px) {
+        font-size: 2.3vw;
+        font-weight: 400;
+        margin: 0.8vw 0 0.4vw 0;
+    }
+}
+/* 버튼(실행취소,재시작) */
+.bottom-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 7px;
+    margin-bottom: 1vw;
+
+    .undo-btn {
+        all: unset;
+        cursor: pointer;
+        width: 3.3vw;
+        height: 1.1vw;
+        border-radius: 0.3vw;
+        border: #2c3e50 solid 0.12vw;
+        font-size: 0.5vw;
+        color: #2c3e50;
+        font-weight: 700;
+    }
+    .restart-btn {
+        all: unset;
+        cursor: pointer;
+        width: 3vw;
+        height: 1.3vw;
+        border-radius: 0.3vw;
+        background-color: #2c3e50;
+        font-size: 0.5vw;
+        color: #ffffff;
+        font-weight: 700;
+    }
+
+    @media (max-width: 767px) {
+        gap: 7px;
+        margin-bottom: 1vw;
+
+        .undo-btn {
+            all: unset;
+            cursor: pointer;
+            width: 11vw;
+            height: 4vw;
+            border-radius: 0.8vw;
+            border: #2c3e50 solid 0.2vw;
+            font-size: 1.8vw;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+        .restart-btn {
+            all: unset;
+            cursor: pointer;
+            width: 10vw;
+            height: 4.5vw;
+            border-radius: 0.8vw;
+            background-color: #2c3e50;
+            font-size: 1.8vw;
+            color: #ffffff;
+            font-weight: 700;
+        }
+    }
+}
+
+/* 최고 기록 */
+.ranking-gameguide-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1vw;
+
+    @media (max-width: 767px) {
+        margin: 0;
+    }
+
+    .ranking {
+        display: flex;
+        flex-direction: column;
+        width: 14vw;
+        height: 7vw;
+        background-color: #ffffff;
+        border-radius: 0.4vw;
+        border: #2c3e50 solid 0.2vw;
+        align-items: center;
+        justify-content: center;
+
+        .ranking-tit {
+            margin: 0;
+            align-self: flex-start;
+            padding-left: 0.7vw;
+            font-size: 0.75vw;
+            font-weight: 600;
+        }
+        .score-today {
+            display: flex;
+            flex-direction: row;
+            width: 11.8vw;
+            height: 1.5vw;
+            background-color: #2c3e50;
+            border-radius: 0.3vw;
+            color: #ffffff;
+            justify-content: space-between;
+            align-items: center;
+            padding-inline: 0.5vw;
+            margin-top: 0.7vw;
+
+            .score-today-text,
+            #best-score {
+                margin: 0;
+                font-size: 0.6vw;
+                font-weight: 400;
+            }
+        }
+        .score-total {
+            display: flex;
+            flex-direction: row;
+            width: 11.8vw;
+            height: 1.5vw;
+            background-color: #2c3e50;
+            border-radius: 0.3vw;
+            color: #ffffff;
+            justify-content: space-between;
+            align-items: center;
+            padding-inline: 0.5vw;
+            margin-top: 0.4vw;
+
+            .score-total-text,
+            #best-score {
+                margin: 0;
+                font-size: 0.6vw;
+                font-weight: 400;
+            }
+        }
+        @media (max-width: 767px) {
+            display: none;
+        }
+    }
+
+    /* 게임 방법 */
+    .gameguide-container {
+        display: flex;
+        flex-direction: column;
+        width: 13.4vw;
+        height: 17.5vw;
+        margin-top: 1vw;
+        padding-left: 0.7vw;
+        background-color: #ffffff;
+        border-radius: 0.4vw;
+        border: #2c3e50 solid 0.2vw;
+        align-items: start;
+        justify-content: center;
+
+        .gameguide-tit {
+            margin: 0;
+            font-size: 0.75vw;
+            font-weight: 600;
+        }
+        .gameguide-text {
+            margin: 0;
+            font-size: 0.65vw;
+            font-weight: 400;
+            margin-top: 0.4vw;
+        }
+        .gameguide-list-container {
+            display: flex;
+            flex-flow: column wrap;
+            align-items: start;
+            text-align: start;
+            margin-top: 0.3vw;
+        }
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .gameguide-list {
+            font-size: 0.65vw;
+            font-weight: 400;
+        }
+        .gameguide-list ::before {
+            content: "•";
+            color: black;
+            font-size: 0.7vw;
+            margin-right: 5px;
+        }
+        /* 컨트롤 방법 */
+        .control-container {
+            display: flex;
+            flex-flow: column wrap;
+            margin-top: 0.7vw;
+            width: 12.6vw;
+            height: 5.2vw;
+            border-radius: 0.3vw;
+            background-color: #2c3e50;
+            color: #ffffff;
+        }
+        .control {
+            font-size: 0.65vw;
+            font-weight: 400;
+            text-align: left;
+            margin: 0.6vw 0 0 0.6vw;
+        }
+        .control-box-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .control-box-up,
+            .control-box-left,
+            .control-box-down,
+            .control-box-right {
+                display: flex;
+                width: 1.3vw;
+                height: 1.3vw;
+                border-radius: 0.3vw;
+                background-color: #ffffff;
+                align-items: center;
+                justify-content: center;
+
+                img {
+                    width: 0.8vw;
+                    height: 0.8vw;
+                }
+            }
+            .control-box-ldr {
+                display: flex;
+                flex-direction: row;
+                margin: 0.4vw 0 0.4vw 0;
+                gap: 3vw;
+            }
+        }
+
+        .control-text {
+            margin: 0.7vw 0 0 0;
+            text-align: start;
+            font-size: 0.65vw;
+            font-weight: 400;
+        }
+
+        @media (max-width: 767px) {
+            display: none;
+        }
+    }
 }
