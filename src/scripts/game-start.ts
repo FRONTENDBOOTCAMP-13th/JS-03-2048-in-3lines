@@ -22,6 +22,11 @@ export function initGrid(): void {
     if (winEl) {
         winEl.style.display = "none";
     }
+    // 게임 오버 이미지 숨기기
+    const gameOverEl = document.getElementById("game-over");
+    if (gameOverEl) {
+        gameOverEl.style.display = "none";
+    }
 
     // 키 입력 이벤트 다시 등록
     document.addEventListener("keydown", handleMoveWrapper);

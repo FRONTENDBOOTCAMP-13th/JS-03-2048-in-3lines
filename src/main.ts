@@ -3,6 +3,7 @@ import "./style.css";
 import { setupBoard } from "./scripts/board";
 import { initGrid } from "./scripts/game-start";
 import { playClickSound, stopBGM, playBGM, isBGMPlaying } from "./scripts/audio";
+import { setBoardSize } from "./scripts/boardsize";
 import { setupModal } from "./scripts/modal";
 import { handleMoveWrapper } from "./scripts/game-win";
 import { restorePreviousState } from "./scripts/game-start";
@@ -86,6 +87,32 @@ bgmToggle.addEventListener("click", () => {
         bgmIcon.src = "./src/svg/sound-on.svg";
     }
 });
+
+
+// 난이도 버튼
+const level3Btn = document.querySelector(".level3-modal") as HTMLButtonElement;
+const level4Btn = document.querySelector(".level4-modal") as HTMLButtonElement;
+const level5Btn = document.querySelector(".level5-modal") as HTMLButtonElement;
+
+function changeBoardSize(size: number) {
+    setBoardSize(size);
+    setupBoard();
+    initGrid();
+}
+
+level3Btn.addEventListener("click", () => changeBoardSize(3));
+level4Btn.addEventListener("click", () => changeBoardSize(4));
+level5Btn.addEventListener("click", () => changeBoardSize(5));
+
+// 모바일에서 스크롤 방지 (스와이프는 허용)
+document.addEventListener(
+    "touchmove",
+    function (e) {
+        e.preventDefault();
+    },
+    { passive: false },
+);
+
 // 아래는 모바일 스와이프용
 let touchStartX = 0;
 let touchStartY = 0;
@@ -121,3 +148,4 @@ document.addEventListener("touchend", e => {
         }
     }
 });
+
