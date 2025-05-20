@@ -23,3 +23,30 @@ export function playClickSound() {
 export function isBGMPlaying(): boolean {
     return !bgm.paused;
 }
+// 슬라이더 요소
+const masterVolumeSlider = document.getElementById("master-volume") as HTMLInputElement;
+
+// 초기 볼륨 설정
+const initialVolume = parseInt(masterVolumeSlider.value) / 100;
+bgm.volume = initialVolume;
+clickSound.volume = initialVolume;
+
+// 이벤트 리스너로 전체 볼륨 조절
+masterVolumeSlider.addEventListener("input", () => {
+    const volume = parseInt(masterVolumeSlider.value) / 100;
+    bgm.volume = volume;
+    clickSound.volume = volume;
+});
+// 저장
+masterVolumeSlider.addEventListener("change", () => {
+    localStorage.setItem("masterVolume", masterVolumeSlider.value);
+});
+
+// 복원
+const savedVolume = localStorage.getItem("masterVolume");
+if (savedVolume) {
+    masterVolumeSlider.value = savedVolume;
+    const volume = parseInt(savedVolume) / 100;
+    bgm.volume = volume;
+    clickSound.volume = volume;
+}

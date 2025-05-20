@@ -954,3 +954,11 @@ h1 {
         }
     }
 }
+
+.volume-control {
+    margin: 10px 0;
+}
+
+.volume-control input[type="range"] {
+    width: 150px;
+}
