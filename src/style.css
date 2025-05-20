@@ -807,15 +807,31 @@ h1 {
     margin-bottom: 1vw;
 
     .undo-btn {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
         all: unset;
         cursor: pointer;
-        width: 3.3vw;
-        height: 1.1vw;
+        width: 4vw;
+        height: 1.3vw;
         border-radius: 0.3vw;
         border: #2c3e50 solid 0.12vw;
-        font-size: 0.5vw;
+        font-size: 0.6vw;
         color: #2c3e50;
         font-weight: 700;
+
+        .undo-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3vw;
+        }
+
+        .undo-icon {
+            width: 0.7vw;
+            height: 0.7vw;
+        }
     }
     .restart-btn {
         all: unset;
@@ -843,6 +859,11 @@ h1 {
             font-size: 1.8vw;
             color: #2c3e50;
             font-weight: 700;
+
+            .undo-icon {
+                width: 11vw;
+                height: 4vw;
+            }
         }
         .restart-btn {
             all: unset;
