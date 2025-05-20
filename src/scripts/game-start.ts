@@ -15,7 +15,28 @@ export function initGrid(): void {
     setGrid(newGrid);
     addRandomCell(true); // 초기 셀 1
     addRandomCell(true); // 초기 셀 2
-    addRandomXCell(true); //이동불가셀
+    updateBoard();
+
+    // 게임 승리 이미지 숨기기
+    const winEl = document.getElementById("game-win");
+    if (winEl) {
+        winEl.style.display = "none";
+    }
+    // 게임 오버 이미지 숨기기
+    const gameOverEl = document.getElementById("game-over");
+    if (gameOverEl) {
+        gameOverEl.style.display = "none";
+    }
+
+    // 키 입력 이벤트 다시 등록
+    document.addEventListener("keydown", handleMoveWrapper);
+}
+export function HardinitGrid(): void {
+    const newGrid = createEmptyGrid();
+    setGrid(newGrid);
+    addRandomCell(true); // 초기 셀 1
+    addRandomCell(true); // 초기 셀 2
+    addRandomXCell(true); //이동 불가 셀
     updateBoard();
 
     // 게임 승리 이미지 숨기기
