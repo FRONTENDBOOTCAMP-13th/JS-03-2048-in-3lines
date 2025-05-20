@@ -700,6 +700,10 @@ h1 {
     background: #b2ac88;
     color: #fff;
 }
+.cell[data-value="-1"] {
+    background: black;
+    color: transparent;
+}
 
 /* 설명하단 */
 .bottom-text {

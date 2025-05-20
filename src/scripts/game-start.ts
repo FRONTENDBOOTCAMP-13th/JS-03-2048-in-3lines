@@ -1,4 +1,4 @@
-import { createEmptyGrid, setGrid, grid, addRandomCell } from "./add-random-cell";
+import { createEmptyGrid, setGrid, grid, addRandomCell, addRandomXCell } from "./add-random-cell";
 import { mergeTiles } from "./marge-tiles";
 import { updateBoard } from "./board";
 import { findMovetile, moveAniElement } from "./find-move-tile";
@@ -15,6 +15,7 @@ export function initGrid(): void {
     setGrid(newGrid);
     addRandomCell(true); // 초기 셀 1
     addRandomCell(true); // 초기 셀 2
+    addRandomXCell(true); //이동불가셀
     updateBoard();
 
     // 게임 승리 이미지 숨기기

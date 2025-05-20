@@ -38,3 +38,17 @@ export function addRandomCell(isInit: boolean = false): void {
         }
     }
 }
+// 빈 셀에 랜덤 이동불가 생성
+export function addRandomXCell(isInit: boolean = false): void {
+    const emptyCells = getEmptyCells();
+    if (emptyCells.length > 0) {
+        const { row, col } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        const newValue = -1; //확률 90%
+        grid[row][col] = newValue;
+
+        if (!isInit) {
+            const cell = document.querySelector(`#grid-container .cell-${row}-${col}`);
+            if (cell) cell.classList.add("new-tile");
+        }
+    }
+}
