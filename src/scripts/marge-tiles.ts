@@ -31,9 +31,9 @@ export function mergeTiles(direction: "up" | "down" | "left" | "right") {
         for (let col = 0; col < boardSize; col++) {
             // 해당 col에서 0이 아닌 타일만 추출
 
-            const colTiles = tiles.filter((tile) => tile.col === col);
+            const colTiles = tiles.filter(tile => tile.col === col);
             const rowTiles = colTiles.sort((a, b) => a.row - b.row);
-            const tileMap = rowTiles.map((tile) => tile.value);
+            const tileMap = rowTiles.map(tile => tile.value);
             // 병합 처리
             const merged = mergeLine(tileMap);
             // 디버깅용 로그
