@@ -6,7 +6,7 @@ import { playClickSound, stopBGM, playBGM, isBGMPlaying } from "./scripts/audio"
 import { setBoardSize } from "./scripts/boardsize";
 import { setupModal } from "./scripts/modal";
 import { handleMoveWrapper } from "./scripts/game-win";
-import { restorePreviousState } from "./scripts/game-start";
+import { restorePreviousState, backupGridState } from "./scripts/game-start";
 import { resetScore } from "./scripts/score";
 
 setupModal();
@@ -44,6 +44,7 @@ startBtn.addEventListener("click", () => {
     playBGM();
     resetScore();
     initGrid();
+    backupGridState();
     document.getElementById("start-container")!.style.display = "none";
     document.getElementById("game-container")!.style.display = "block";
 });
@@ -53,6 +54,7 @@ const restartBtn = document.getElementById("restart-btn") as HTMLButtonElement;
 restartBtn.addEventListener("click", () => {
     playClickSound();
     initGrid();
+    backupGridState();
 });
 
 // 되돌리기 버튼
@@ -87,7 +89,6 @@ bgmToggle.addEventListener("click", () => {
         bgmIcon.src = "./src/svg/sound-on.svg";
     }
 });
-
 
 // 난이도 버튼
 const level3Btn = document.querySelector(".level3-modal") as HTMLButtonElement;
@@ -148,4 +149,3 @@ document.addEventListener("touchend", e => {
         }
     }
 });
-

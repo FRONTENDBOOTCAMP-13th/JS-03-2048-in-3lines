@@ -1,6 +1,7 @@
 import { boardSize } from "./boardsize";
 import { grid } from "./add-random-cell";
-import { handleMove } from "./game-start";
+import { handleMove, backupGridState } from "./game-start";
+import { resetScore } from "./score";
 
 // 2048 생성 시 game win 이미지 표시
 export function checkWin(): void {
@@ -20,6 +21,8 @@ function showGameStartImage() {
     const winEl = document.getElementById("game-win");
     if (winEl) {
         winEl.style.display = "flex";
+        resetScore();
+        backupGridState();
     }
 }
 

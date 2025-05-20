@@ -1,5 +1,7 @@
 import { boardSize } from "./boardsize";
 import { grid } from "./add-random-cell";
+import { resetScore } from "./score";
+import { backupGridState } from "./game-start";
 
 // 게임 오버 조건 확인 및 이미지 표시
 export function checkGameOver(): void {
@@ -29,6 +31,8 @@ function canMoveOrMerge(): boolean {
 // 이미지 띄우기
 function showGameOverImage(): void {
     const gameOverEl = document.getElementById("game-over");
+    resetScore();
+    backupGridState();
     if (gameOverEl) {
         gameOverEl.style.display = "flex";
     }
