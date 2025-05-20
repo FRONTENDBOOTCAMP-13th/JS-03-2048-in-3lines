@@ -67,3 +67,12 @@ function changeBoardSize(size: number) {
 level3Btn.addEventListener("click", () => changeBoardSize(3));
 level4Btn.addEventListener("click", () => changeBoardSize(4));
 level5Btn.addEventListener("click", () => changeBoardSize(5));
+
+// 모바일에서 스크롤 방지 (스와이프는 허용)
+document.addEventListener(
+    "touchmove",
+    function (e) {
+        e.preventDefault();
+    },
+    { passive: false },
+);
