@@ -29,7 +29,7 @@ body {
     display: flex;
     flex-flow: column wrap;
     width: 30vw;
-    height: 37vw;
+    height: 40vw;
     border: #2c3e50 solid 0.2vw;
     justify-content: center;
     align-items: center;
@@ -38,7 +38,7 @@ body {
 
     @media (max-width: 767px) {
         width: 90vw;
-        height: 117vw;
+        height: 137vw;
         display: flex;
         flex-flow: column wrap;
         background-color: #ffffff;
@@ -108,7 +108,7 @@ h1 {
 }
 #start-btn,
 #hard-start-btn,
-#time-attack-btn {
+#time-attack-btn,
 #ai-start-btn {
     background-color: #2c3e50;
     border-radius: 0.4vw;
@@ -132,6 +132,7 @@ h1 {
 }
 #start-btn:active,
 #hard-start-btn:active,
+#time-attack-btn:active,
 #ai-start-btn:active {
     transition: all 0.2s ease;
     border-color: rgba(0, 0, 0, 0.34) rgba(0, 0, 0, 0.21) rgba(0, 0, 0, 0.21);
