@@ -700,6 +700,10 @@ h1 {
     background: #b2ac88;
     color: #fff;
 }
+.cell[data-value="-1"] {
+    background: black;
+    color: transparent;
+}
 
 /* 설명하단 */
 .bottom-text {
@@ -953,4 +957,12 @@ h1 {
             display: none;
         }
     }
+}
+
+.volume-control {
+    margin: 10px 0;
+}
+
+.volume-control input[type="range"] {
+    width: 150px;
 }

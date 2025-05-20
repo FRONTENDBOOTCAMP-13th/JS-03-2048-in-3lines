@@ -1,4 +1,3 @@
-// 기존 코드 상단 부분 그대로 유지
 import "./style.css";
 import { setupBoard } from "./scripts/board";
 import { initGrid } from "./scripts/game-start";
@@ -15,15 +14,10 @@ import soundOff from "./svg/sound-off.svg";
 setupModal();
 document.addEventListener("keydown", handleMoveWrapper);
 
-document.addEventListener("load", () => {
-    // 초기 상태 설정
-    const bgmIcon = document.getElementById("bgm-icon") as HTMLImageElement;
-    if (isBGMPlaying()) {
-        bgmIcon.src = soundOn;
-    } else {
-        bgmIcon.src = soundOff;
-    }
-    // 상태 자동 갱신
+// 초기 BGM 상태 아이콘 설정 및 주기적 갱신
+const bgmIcon = document.getElementById("bgm-icon") as HTMLImageElement;
+if (bgmIcon) {
+    bgmIcon.src = isBGMPlaying() ? soundOn : soundOff;
     setInterval(() => {
         if (isBGMPlaying()) {
             if (bgmIcon.src.includes("sound-off.svg")) {
@@ -35,7 +29,7 @@ document.addEventListener("load", () => {
             }
         }
     }, 500);
-});
+}
 
 // 보드 UI 구성
 setupBoard();
@@ -47,6 +41,7 @@ startBtn.addEventListener("click", () => {
     playBGM();
     resetScore();
     initGrid();
+    bgmIcon.src = soundOn;
     backupGridState();
     document.getElementById("start-container")!.style.display = "none";
     document.getElementById("game-container")!.style.display = "block";
@@ -81,15 +76,13 @@ homeBtn.addEventListener("click", () => {
 
 // 배경음 토글 버튼
 const bgmToggle = document.getElementById("bgm-toggle") as HTMLButtonElement;
-const bgmIcon = document.getElementById("bgm-icon") as HTMLImageElement;
-
 bgmToggle.addEventListener("click", () => {
     if (isBGMPlaying()) {
         stopBGM();
-        bgmIcon.src = soundOff;
+        if (bgmIcon) bgmIcon.src = soundOff;
     } else {
         playBGM();
-        bgmIcon.src = soundOn;
+        if (bgmIcon) bgmIcon.src = soundOn;
     }
 });
 
