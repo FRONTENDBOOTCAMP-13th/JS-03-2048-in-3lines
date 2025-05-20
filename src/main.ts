@@ -99,6 +99,12 @@ function changeBoardSize(size: number) {
     setBoardSize(size);
     setupBoard();
     initGrid();
+
+    // 난이도 텍스트도 같이 변경
+    const levelText = document.querySelector(".level-text2") as HTMLElement;
+    if (levelText) {
+        levelText.textContent = `${size}*${size}`;
+    }
 }
 
 level3Btn.addEventListener("click", () => changeBoardSize(3));
