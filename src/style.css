@@ -30,7 +30,7 @@ body {
     flex-flow: column wrap;
     width: 30vw;
     height: 37vw;
-    border: #2c3e50 solid 3px;
+    border: #2c3e50 solid 0.2vw;
     justify-content: center;
     align-items: center;
     background-color: #ffffff;
@@ -150,7 +150,7 @@ h1 {
         padding: 2vw;
         width: 30vw;
         height: 37vw;
-        border: #2c3e50 solid 3px;
+        border: #2c3e50 solid 0.2vw;
         background: #fff;
         justify-content: center;
         align-items: center;
@@ -288,11 +288,11 @@ h1 {
             /* 난이도 모달창 */
             .level-modal {
                 position: absolute;
-                bottom: -128px;
+                top: 50%;
                 left: 50%;
                 transform: translateX(-50%) translateY(10px);
                 background: #ffffff;
-                border: #2c3e50 solid 3px;
+                border: #2c3e50 solid 0.2vw;
                 border-radius: 0.2vw;
                 width: 4.7vw;
                 height: 6.2vw;
@@ -500,11 +500,11 @@ h1 {
                 /* 난이도 모달창 */
                 .level-modal {
                     position: absolute;
-                    bottom: -130px;
+                    top: 50%;
                     left: 50%;
                     transform: translateX(-50%) translateY(10px);
                     background: #ffffff;
-                    border: #2c3e50 solid 3px;
+                    border: #2c3e50 solid 0.2vw;
                     border-radius: 1vw;
                     width: 17vw;
                     height: 24vw;
@@ -726,7 +726,7 @@ h1 {
         width: 3.3vw;
         height: 1.1vw;
         border-radius: 0.3vw;
-        border: #2c3e50 solid 2px;
+        border: #2c3e50 solid 0.12vw;
         font-size: 0.5vw;
         color: #2c3e50;
         font-weight: 700;
@@ -735,7 +735,7 @@ h1 {
         all: unset;
         cursor: pointer;
         width: 3vw;
-        height: 1.2vw;
+        height: 1.3vw;
         border-radius: 0.3vw;
         background-color: #2c3e50;
         font-size: 0.5vw;
@@ -753,7 +753,7 @@ h1 {
             width: 11vw;
             height: 4vw;
             border-radius: 0.8vw;
-            border: #2c3e50 solid 2px;
+            border: #2c3e50 solid 0.2vw;
             font-size: 1.8vw;
             color: #2c3e50;
             font-weight: 700;
@@ -762,7 +762,7 @@ h1 {
             all: unset;
             cursor: pointer;
             width: 10vw;
-            height: 4.3vw;
+            height: 4.5vw;
             border-radius: 0.8vw;
             background-color: #2c3e50;
             font-size: 1.8vw;
@@ -789,7 +789,7 @@ h1 {
         height: 7vw;
         background-color: #ffffff;
         border-radius: 0.4vw;
-        border: #2c3e50 solid 3px;
+        border: #2c3e50 solid 0.2vw;
         align-items: center;
         justify-content: center;
 
@@ -855,7 +855,7 @@ h1 {
         padding-left: 0.7vw;
         background-color: #ffffff;
         border-radius: 0.4vw;
-        border: #2c3e50 solid 3px;
+        border: #2c3e50 solid 0.2vw;
         align-items: start;
         justify-content: center;
 
