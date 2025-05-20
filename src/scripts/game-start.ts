@@ -100,7 +100,7 @@ export function handleMove(direction: "up" | "down" | "left" | "right"): void {
 
     setTimeout(() => {
         inputDelay = false;
-    }, 600);
+    }, 310);
 
     // ✅ 이동값 동적으로 계산
     const boardElement = document.getElementById("board");
@@ -111,6 +111,7 @@ export function handleMove(direction: "up" | "down" | "left" | "right"): void {
     moveAniElement(
         direction,
         parseFloat(getComputedStyle(div).width) + parseFloat(getComputedStyle(boardElement).gap),
+        0.3,
     );
 
     const oldGrid = JSON.stringify(grid);
@@ -127,5 +128,5 @@ export function handleMove(direction: "up" | "down" | "left" | "right"): void {
                 checkGameOver();
             }
         }
-    }, 500);
+    }, 300);
 }

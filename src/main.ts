@@ -17,6 +17,9 @@ import {
     setTimeAttackMode,
 } from "./scripts/game-over";
 
+// 하드모드 여부 변수
+let isHardMode = false;
+
 setupModal();
 document.addEventListener("keydown", handleMoveWrapper);
 
@@ -47,6 +50,7 @@ startBtn.addEventListener("click", () => {
     playClickSound();
     playBGM();
     resetScore();
+    isHardMode = false; // 일반 모드
     initGrid();
     bgmIcon.src = soundOn;
     backupGridState();
@@ -76,6 +80,7 @@ hardstartBtn.addEventListener("click", () => {
     playClickSound();
     playBGM();
     resetScore();
+    isHardMode = true; // 하드 모드
     HardinitGrid();
     bgmIcon.src = soundOn;
     backupGridState();
@@ -88,7 +93,11 @@ const restartBtn = document.getElementById("restart-btn") as HTMLButtonElement;
 restartBtn.addEventListener("click", () => {
     setTimeAttackMode(false);
     playClickSound();
-    initGrid();
+    if (isHardMode) {
+        HardinitGrid();
+    } else {
+        initGrid();
+    }
     backupGridState();
     resetGameOver();
     if (getTimeAttackMode()) {
@@ -137,9 +146,12 @@ const level5Btn = document.querySelector(".level5-modal") as HTMLButtonElement;
 function changeBoardSize(size: number) {
     setBoardSize(size);
     setupBoard();
-    initGrid();
+    if (isHardMode) {
+        HardinitGrid();
+    } else {
+        initGrid();
+    }
 
-    // 난이도 텍스트도 같이 변경
     const levelText = document.querySelector(".level-text2") as HTMLElement;
     if (levelText) {
         levelText.textContent = `${size}*${size}`;
@@ -168,7 +180,7 @@ document.addEventListener(
     { passive: false },
 );
 
-// 아래는 모바일 스와이프용
+// 모바일 스와이프 처리
 let touchStartX = 0;
 let touchStartY = 0;
 
