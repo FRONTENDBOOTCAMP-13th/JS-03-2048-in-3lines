@@ -157,7 +157,7 @@ h1 {
         border-radius: 0.4vw;
         padding: 0;
         position: relative;
-
+        /* game-win 화면 */
         .game-win {
             position: absolute;
             top: 50%;
@@ -168,6 +168,21 @@ h1 {
         }
 
         .game-win-img {
+            width: 28vw;
+            height: 35vw;
+            border-radius: 0.4vw;
+        }
+        /* game-over 화면 */
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .game-over-img {
             width: 28vw;
             height: 35vw;
             border-radius: 0.4vw;
@@ -353,6 +368,36 @@ h1 {
             align-items: center;
             border-radius: 1vw;
             padding: 0;
+            /* game-win 화면 */
+            .game-win {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 10;
+                pointer-events: none;
+            }
+
+            .game-win-img {
+                width: 88vw;
+                height: 115vw;
+                border-radius: 0.4vw;
+            }
+            /* game-over 화면 */
+            .game-over {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 10;
+                pointer-events: none;
+            }
+
+            .game-over-img {
+                width: 88vw;
+                height: 115vw;
+                border-radius: 0.4vw;
+            }
         }
         /*보드*/
         .board {
