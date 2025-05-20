@@ -17,7 +17,7 @@ import { checkGameOver } from "./game-over";
 let inputDelay = false;
 let previousGridState: number[][] = [];
 
-// ✅ 공통 초기화 설정
+// 공통 초기화 설정
 function resetGameUI() {
     const winEl = document.getElementById("game-win");
     if (winEl) winEl.style.display = "none";
@@ -34,7 +34,7 @@ function resetGameUI() {
     document.addEventListener("keydown", handleMoveWrapper);
 }
 
-// ✅ 일반 난이도
+// 일반 난이도
 export function initGrid(): void {
     const newGrid = createEmptyGrid();
     setGrid(newGrid);
@@ -44,7 +44,7 @@ export function initGrid(): void {
     resetGameUI();
 }
 
-// ✅ AI 전용 보드 초기화
+// AI 전용 보드 초기화
 export function aiinitGrid(): void {
     const newGrid = createEmptyGrid();
     setGrid(newGrid);
@@ -57,7 +57,7 @@ export function aiinitGrid(): void {
     resetGameUI();
 }
 
-// ✅ 하드 모드
+// 하드 모드
 export function HardinitGrid(): void {
     const newGrid = createEmptyGrid();
     setGrid(newGrid);
@@ -68,12 +68,12 @@ export function HardinitGrid(): void {
     resetGameUI();
 }
 
-// ✅ 현재 상태 백업
+// 현재 상태 백업
 export function backupGridState() {
     previousGridState = grid.map(row => [...row]);
 }
 
-// ✅ 백업 상태 복구
+// 백업 상태 복구
 export function restorePreviousState() {
     for (let i = 0; i < boardSize; i++) {
         for (let j = 0; j < boardSize; j++) {
@@ -83,7 +83,7 @@ export function restorePreviousState() {
     updateBoard();
 }
 
-// ✅ 방향 이동 처리
+// 방향 이동 처리
 export function handleMove(direction: "up" | "down" | "left" | "right"): void {
     if (inputDelay) return;
 

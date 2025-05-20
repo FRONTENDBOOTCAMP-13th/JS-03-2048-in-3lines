@@ -5,7 +5,7 @@ import { boardSize } from "./boardsize";
 const board = document.getElementById("board") as HTMLElement;
 const board2 = document.getElementById("board2") as HTMLElement;
 
-// ✅ 공통 보드 렌더링 함수
+//공통 보드 렌더링 함수
 function renderBoard(grid: number[][], boardElement: HTMLElement): void {
     boardElement.innerHTML = "";
 
