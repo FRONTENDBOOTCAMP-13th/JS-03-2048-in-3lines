@@ -1,6 +1,6 @@
 import "./style.css";
 import { setupBoard } from "./scripts/board";
-import { initGrid } from "./scripts/game-start";
+import { initGrid, HardinitGrid } from "./scripts/game-start";
 import { playClickSound, stopBGM, playBGM, isBGMPlaying } from "./scripts/audio";
 import { setBoardSize } from "./scripts/boardsize";
 import { setupModal } from "./scripts/modal";
@@ -41,6 +41,19 @@ startBtn.addEventListener("click", () => {
     playBGM();
     resetScore();
     initGrid();
+    bgmIcon.src = soundOn;
+    backupGridState();
+    document.getElementById("start-container")!.style.display = "none";
+    document.getElementById("game-container")!.style.display = "block";
+});
+
+// 하드 시작 버튼 이벤트
+const hardstartBtn = document.getElementById("hard-start-btn") as HTMLButtonElement;
+hardstartBtn.addEventListener("click", () => {
+    playClickSound();
+    playBGM();
+    resetScore();
+    HardinitGrid();
     bgmIcon.src = soundOn;
     backupGridState();
     document.getElementById("start-container")!.style.display = "none";
