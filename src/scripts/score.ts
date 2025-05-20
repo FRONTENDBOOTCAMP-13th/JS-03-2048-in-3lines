@@ -28,7 +28,14 @@ export function getBestScore(): number {
 //점수 표시
 export function renderScores() {
     const scoreEl = document.getElementById("score");
-    const bestEl = document.getElementById("best-score");
+    const besttodayEl = document.getElementById("best-today");
+    const besttotalEl = document.getElementById("best-total");
+    const besttodaymobEl = document.getElementById("best-today-mob");
+    const besttotalmobEl = document.getElementById("best-total-mob");
+
     if (scoreEl) scoreEl.textContent = getCurrentScore().toString();
-    if (bestEl) bestEl.textContent = getBestScore().toString();
+    if (besttodayEl) besttodayEl.textContent = getBestScore().toString();
+    if (besttotalEl) besttotalEl.textContent = getBestScore().toString();
+    if (besttodaymobEl) besttodaymobEl.textContent = getBestScore().toString();
+    if (besttotalmobEl) besttotalmobEl.textContent = getBestScore().toString();
 }
