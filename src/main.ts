@@ -2,6 +2,7 @@ import "./style.css";
 import { setupBoard } from "./scripts/board";
 import { initGrid } from "./scripts/game-start";
 import { playClickSound, stopBGM, playBGM, isBGMPlaying } from "./scripts/audio";
+import { setBoardSize } from "./scripts/boardsize";
 import { setupModal } from "./scripts/modal";
 setupModal();
 import { handleMoveWrapper } from "./scripts/game-win";
@@ -51,3 +52,18 @@ bgmToggle.addEventListener("click", () => {
         bgmIcon.src = "./src/svg/sound-on.svg";
     }
 });
+
+// 난이도 버튼
+const level3Btn = document.querySelector(".level3-modal") as HTMLButtonElement;
+const level4Btn = document.querySelector(".level4-modal") as HTMLButtonElement;
+const level5Btn = document.querySelector(".level5-modal") as HTMLButtonElement;
+
+function changeBoardSize(size: number) {
+    setBoardSize(size);
+    setupBoard();
+    initGrid();
+}
+
+level3Btn.addEventListener("click", () => changeBoardSize(3));
+level4Btn.addEventListener("click", () => changeBoardSize(4));
+level5Btn.addEventListener("click", () => changeBoardSize(5));
