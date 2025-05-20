@@ -5,6 +5,7 @@ import { findMovetile, moveAniElement } from "./find-move-tile";
 import { boardSize } from "./boardsize";
 import { handleMoveWrapper } from "./game-win";
 import { canMoveOrMerge } from "./can-move";
+import { checkGameOver } from "./game-over";
 
 let inputDelay = false;
 let previousGridState: number[][] = [];
@@ -71,7 +72,7 @@ export function handleMove(direction: "up" | "down" | "left" | "right"): void {
             updateBoard();
 
             if (!canMoveOrMerge()) {
-                alert("게임 오버!");
+                checkGameOver();
             }
         }
     }, 500);
