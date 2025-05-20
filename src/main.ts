@@ -9,26 +9,29 @@ import { handleMoveWrapper } from "./scripts/game-win";
 import { restorePreviousState, backupGridState } from "./scripts/game-start";
 import { resetScore } from "./scripts/score";
 
+import soundOn from "./svg/sound-on.svg";
+import soundOff from "./svg/sound-off.svg";
+
 setupModal();
 document.addEventListener("keydown", handleMoveWrapper);
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("load", () => {
     // 초기 상태 설정
     const bgmIcon = document.getElementById("bgm-icon") as HTMLImageElement;
     if (isBGMPlaying()) {
-        bgmIcon.src = "./src/svg/sound-on.svg";
+        bgmIcon.src = soundOn;
     } else {
-        bgmIcon.src = "./src/svg/sound-off.svg";
+        bgmIcon.src = soundOff;
     }
     // 상태 자동 갱신
     setInterval(() => {
         if (isBGMPlaying()) {
             if (bgmIcon.src.includes("sound-off.svg")) {
-                bgmIcon.src = "./src/svg/sound-on.svg";
+                bgmIcon.src = soundOn;
             }
         } else {
             if (bgmIcon.src.includes("sound-on.svg")) {
-                bgmIcon.src = "./src/svg/sound-off.svg";
+                bgmIcon.src = soundOff;
             }
         }
     }, 500);
@@ -83,10 +86,10 @@ const bgmIcon = document.getElementById("bgm-icon") as HTMLImageElement;
 bgmToggle.addEventListener("click", () => {
     if (isBGMPlaying()) {
         stopBGM();
-        bgmIcon.src = "./src/svg/sound-off.svg";
+        bgmIcon.src = soundOff;
     } else {
         playBGM();
-        bgmIcon.src = "./src/svg/sound-on.svg";
+        bgmIcon.src = soundOn;
     }
 });
 
