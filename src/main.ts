@@ -1,6 +1,6 @@
 import "./style.css";
 import { setupBoard } from "./scripts/board";
-import { initGrid, HardinitGrid } from "./scripts/game-start";
+import { initGrid, HardinitGrid, timeAttackInitGrid } from "./scripts/game-start";
 import { playClickSound, stopBGM, playBGM, isBGMPlaying } from "./scripts/audio";
 import { setBoardSize } from "./scripts/boardsize";
 import { setupModal } from "./scripts/modal";
@@ -10,6 +10,12 @@ import { resetScore } from "./scripts/score";
 
 import soundOn from "./svg/sound-on.svg";
 import soundOff from "./svg/sound-off.svg";
+import {
+    timeAttack,
+    resetGameOver,
+    getTimeAttackMode,
+    setTimeAttackMode,
+} from "./scripts/game-over";
 
 // 하드모드 여부 변수
 let isHardMode = false;
@@ -40,6 +46,7 @@ setupBoard();
 // 시작 버튼 이벤트
 const startBtn = document.getElementById("start-btn") as HTMLButtonElement;
 startBtn.addEventListener("click", () => {
+    setTimeAttackMode(false);
     playClickSound();
     playBGM();
     resetScore();
@@ -51,9 +58,25 @@ startBtn.addEventListener("click", () => {
     document.getElementById("game-container")!.style.display = "block";
 });
 
+// 타임어택 시작 버튼 이벤트
+const timeAttackBtn = document.getElementById("time-attack-btn") as HTMLButtonElement;
+timeAttackBtn.addEventListener("click", () => {
+    setTimeAttackMode(true);
+    playClickSound();
+    playBGM();
+    resetScore();
+    timeAttackInitGrid();
+    bgmIcon.src = soundOn;
+    backupGridState();
+    document.getElementById("start-container")!.style.display = "none";
+    document.getElementById("game-container")!.style.display = "block";
+    timeAttack();
+});
+
 // 하드 시작 버튼 이벤트
 const hardstartBtn = document.getElementById("hard-start-btn") as HTMLButtonElement;
 hardstartBtn.addEventListener("click", () => {
+    setTimeAttackMode(false);
     playClickSound();
     playBGM();
     resetScore();
@@ -68,6 +91,7 @@ hardstartBtn.addEventListener("click", () => {
 // 재시작 버튼 이벤트
 const restartBtn = document.getElementById("restart-btn") as HTMLButtonElement;
 restartBtn.addEventListener("click", () => {
+    setTimeAttackMode(false);
     playClickSound();
     if (isHardMode) {
         HardinitGrid();
@@ -75,6 +99,10 @@ restartBtn.addEventListener("click", () => {
         initGrid();
     }
     backupGridState();
+    resetGameOver();
+    if (getTimeAttackMode()) {
+        timeAttack();
+    }
 });
 
 // 되돌리기 버튼
@@ -87,6 +115,7 @@ undoBtn.addEventListener("click", () => {
 // 홈 버튼
 const homeBtn = document.getElementById("home-btn") as HTMLButtonElement;
 homeBtn.addEventListener("click", () => {
+    setTimeAttackMode(false);
     playClickSound();
     stopBGM();
 
@@ -94,6 +123,7 @@ homeBtn.addEventListener("click", () => {
     const startContainer = document.getElementById("start-container")!;
     startContainer.style.display = "flex";
     gameContainer.style.display = "none";
+    resetGameOver();
 });
 
 // 배경음 토글 버튼
@@ -128,9 +158,18 @@ function changeBoardSize(size: number) {
     }
 }
 
-level3Btn.addEventListener("click", () => changeBoardSize(3));
-level4Btn.addEventListener("click", () => changeBoardSize(4));
-level5Btn.addEventListener("click", () => changeBoardSize(5));
+level3Btn.addEventListener("click", () => {
+    changeBoardSize(3);
+    resetGameOver();
+});
+level4Btn.addEventListener("click", () => {
+    changeBoardSize(4);
+    resetGameOver();
+});
+level5Btn.addEventListener("click", () => {
+    changeBoardSize(5);
+    resetGameOver();
+});
 
 // 모바일에서 스크롤 방지 (스와이프는 허용)
 document.addEventListener(
