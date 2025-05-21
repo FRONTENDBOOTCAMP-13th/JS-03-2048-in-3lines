@@ -20,14 +20,30 @@
                 <div class="start-box3">4</div>
                 <div class="start-box4">8</div>
             </div>
-            <button id="start-btn">기본</button>
-            <button id="time-attack-btn">타임어택</button>
-            <button id="hard-start-btn">하드</button>
-            <button id="ai-start-btn">ai</button>
+
+            <div class="start-btn-container">
+              <button id="start-btn">기본</button>
+              <button id="time-attack-btn">타임어택</button>
+              <button id="hard-start-btn">하드</button>
+              <button id="ai-start-btn">ai</button>
+            </div>
+
         </div>
         <!--게임 실행 요소(시작전까지는 display:none 후에는block)-->
         <div id="game-container">
             <!--게임창-->
+            <!-- 타임어택 -->
+            <div class="time-attack-container">
+                <img
+                    class="time-attack-img"
+                    src="/src/svg/time-attack.svg"
+                    alt="타임어택 모드 hp"
+                />
+                <div class="time-attack-bar">
+                    <div class="time-attack"></div>
+                </div>
+            </div>
+            <!-- 일반 게임창 -->
             <div class="game-screen-container">
                 <div class="game-screen-mob">
                     <div class="game-screen">
@@ -52,6 +68,16 @@
                                         src="/src/svg/sound-on.svg"
                                         alt="BGM"
                                     />
+                                    <div class="volume-control">
+                                        <label for="master-volume"></label>
+                                        <input
+                                            type="range"
+                                            id="master-volume"
+                                            min="0"
+                                            max="100"
+                                            value="50"
+                                        />
+                                    </div>
                                 </div>
                                 <!--난이도-->
                                 <div class="level" id="level">
@@ -99,11 +125,18 @@
 
                         <!--버튼(실행취소,재시작)-->
                         <div class="bottom-btn">
-                            <button class="undo-btn" id="undo-btn">실행 취소</button>
+                            <button class="undo-btn" id="undo-btn">
+                                <span class="undo-content">
+                                    되돌리기
+                                    <img
+                                        class="undo-icon"
+                                        src="/src/svg/undo.svg"
+                                        alt="되돌리기 아이콘"
+                                    />
+                                </span>
+                            </button>
                             <button class="restart-btn" id="restart-btn">재시작</button>
                         </div>
-                        <!--게임오버-->
-                        <div></div>
                         <!-- 게임 승리 화면 -->
                         <div id="game-win" class="game-win" style="display: none">
                             <img
@@ -210,10 +243,6 @@
                             모바일에서는 화면을 스와이프하여<br />타일을 움직일 수 있습니다.
                         </p>
                     </div>
-                </div>
-                <div class="volume-control">
-                    <label for="master-volume">Volume</label>
-                    <input type="range" id="master-volume" min="0" max="100" value="50" />
                 </div>
             </div>
         </div>
