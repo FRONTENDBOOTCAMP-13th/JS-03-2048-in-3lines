@@ -104,8 +104,5 @@ export function resetGameOver() {
     }
     isGameOver = false;
     resetScore();
-    // 타임어택 모드가 아닐 때만 타이머 취소
-    if (!isTimeAttackMode) {
-        cancelTimeAttack();
-    }
+    cancelTimeAttack();
 }
