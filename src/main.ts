@@ -24,9 +24,12 @@ let isHardMode = false;
 export let isTimeAttackMode = false;
 //ai모드 여부 변수
 export let isAIMode = false;
-let aiScore = document.getElementById("ai-score");
-let socreBoard = aiScore!.parentElement;
 
+const aiScore = document.getElementById("ai-score");
+const socreBoard = aiScore!.parentElement;
+const hpBar = document.getElementsByClassName("time-attack-container")[0] as HTMLDivElement;
+const gameScreendSize = document.getElementById("game-screen-box") as HTMLElement;
+console.log(gameScreendSize);
 setupModal();
 document.addEventListener("keydown", handleMoveWrapper);
 
@@ -74,6 +77,8 @@ startBtn.addEventListener("click", () => {
         levelText.textContent = `4*4`;
     }
     socreBoard!.style.display = "none"; // AI 점수판 숨기기
+    gameScreendSize.style.width = "32vw";
+    hpBar!.style.display = "none";
 });
 
 // 타임어택 시작 버튼 이벤트
@@ -99,7 +104,9 @@ timeAttackBtn.addEventListener("click", () => {
     if (levelText) {
         levelText.textContent = `4*4`;
     }
+    hpBar!.style.display = "flex";
     socreBoard!.style.display = "none"; // AI 점수판 숨기기
+    gameScreendSize.style.width = "32vw";
     timeAttack(); // 타임어택 모드에서만 실행
 });
 
@@ -126,6 +133,8 @@ hardstartBtn.addEventListener("click", () => {
         levelText.textContent = `4*4`;
     }
     socreBoard!.style.display = "none"; // AI 점수판 숨기기
+    gameScreendSize.style.width = "32vw";
+    hpBar!.style.display = "none";
 });
 
 //ai 시작 버튼 이벤트
@@ -155,6 +164,9 @@ aistartBtn.addEventListener("click", () => {
         levelText.textContent = `4*4`;
     }
     socreBoard!.style.display = "flex"; // AI 점수판 숨기기
+    hpBar!.style.display = "none";
+
+    gameScreendSize.style.width = "64vw";
 });
 
 // 재시작 버튼 이벤트
@@ -163,13 +175,19 @@ restartBtn.addEventListener("click", () => {
     resetGameOver();
     playClickSound();
     if (isAIMode) {
+        gameScreendSize.style.width = "64vw";
         aiinitGrid();
         startAutoMove();
     } else if (isHardMode) {
+        gameScreendSize.style.width = "32vw";
         HardinitGrid();
     } else if (isTimeAttackMode) {
+        gameScreendSize.style.width = "32vw";
         timeAttackInitGrid();
         timeAttack(); // 타임어택 모드에서만 재시작 시 타임어택 실행
+    } else {
+        gameScreendSize.style.width = "32vw";
+        initGrid();
     }
     backupGridState();
 });
@@ -237,9 +255,6 @@ function changeBoardSize(size: number) {
     if (levelText) {
         levelText.textContent = `${size}*${size}`;
     }
-    // 모달 닫기
-    const levelWrapper = document.querySelector(".level") as HTMLElement;
-    levelWrapper?.classList.remove("open");
 }
 level3Btn.addEventListener("click", () => {
     changeBoardSize(3);
