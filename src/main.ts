@@ -1,5 +1,5 @@
 import "./style.css";
-import { setupBoard } from "./scripts/board";
+import { setupBoard, setupBoard2 } from "./scripts/board";
 import {
     initGrid,
     HardinitGrid,
@@ -51,6 +51,7 @@ if (bgmIcon) {
 
 // 보드 UI 구성
 setupBoard();
+setupBoard2();
 
 // 시작 버튼 이벤트
 const startBtn = document.getElementById("start-btn") as HTMLButtonElement;
@@ -58,6 +59,7 @@ startBtn.addEventListener("click", () => {
     playClickSound();
     playBGM();
     resetScore();
+    setupBoard();
     isHardMode = false; // 일반 모드
     isAIMode = false;
     initGrid();
@@ -75,6 +77,7 @@ timeAttackBtn.addEventListener("click", () => {
     playClickSound();
     playBGM();
     resetScore();
+    setupBoard();
     timeAttackInitGrid();
     bgmIcon.src = soundOn;
     isHardMode = false; // 하드 모드
@@ -92,6 +95,7 @@ hardstartBtn.addEventListener("click", () => {
     playClickSound();
     playBGM();
     resetScore();
+    setupBoard();
     isHardMode = true; // 하드 모드
     isAIMode = false;
     HardinitGrid();
@@ -108,6 +112,8 @@ aistartBtn.addEventListener("click", () => {
     playClickSound();
     playBGM();
     resetScore();
+    setupBoard();
+    setupBoard2();
     isHardMode = false;
     isAIMode = true;
     aiinitGrid(); // AI 보드 초기화
@@ -178,12 +184,15 @@ const level5Btn = document.querySelector(".level5-modal") as HTMLButtonElement;
 
 function changeBoardSize(size: number) {
     setBoardSize(size);
-    setupBoard();
     if (isHardMode) {
+        setupBoard();
         HardinitGrid();
     } else if (isAIMode) {
+        setupBoard();
+        setupBoard2();
         aiinitGrid();
     } else {
+        setupBoard();
         initGrid();
     }
 
