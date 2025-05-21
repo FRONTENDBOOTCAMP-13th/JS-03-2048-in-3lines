@@ -259,6 +259,7 @@ h1 {
         padding: 2vw;
         width: 32vw;
         height: 41vw;
+
         border: #2c3e50 solid 0.2vw;
         background: #fff;
         justify-content: center;
@@ -288,6 +289,22 @@ h1 {
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 99;
+            pointer-events: none;
+        }
+        .game-over-1p {
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            pointer-events: none;
+        }
+        .game-over-2p {
+            position: absolute;
+            top: 50%;
+            left: 75%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
             pointer-events: none;
         }
 

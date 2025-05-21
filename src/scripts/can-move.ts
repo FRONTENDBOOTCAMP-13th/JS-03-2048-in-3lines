@@ -1,4 +1,4 @@
-import { grid } from "./add-random-cell";
+import { grid, grid2 } from "./add-random-cell";
 import { boardSize } from "./boardsize";
 
 /**
@@ -18,6 +18,25 @@ export function canMoveOrMerge(): boolean {
             }
             // 아래쪽 비교
             if (row < boardSize - 1 && grid[row + 1][col] === current) {
+                return true;
+            }
+        }
+    }
+    return false; // 이동/병합 불가능
+}
+export function canMoveOrMerge2(): boolean {
+    for (let row = 0; row < boardSize; row++) {
+        for (let col = 0; col < boardSize; col++) {
+            const current = grid2[row][col];
+
+            if (current === 0) return true; // 빈 칸 있음
+
+            // 오른쪽 비교
+            if (col < boardSize - 1 && grid2[row][col + 1] === current) {
+                return true;
+            }
+            // 아래쪽 비교
+            if (row < boardSize - 1 && grid2[row + 1][col] === current) {
                 return true;
             }
         }

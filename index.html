@@ -20,13 +20,14 @@
                 <div class="start-box3">4</div>
                 <div class="start-box4">8</div>
             </div>
-            <div class="start-btn-container">
-                <button id="start-btn">기본</button>
-                <button id="time-attack-btn">타임어택</button>
 
-                <button id="hard-start-btn">하드</button>
-                <button id="ai-start-btn">ai(구현중)</button>
+            <div class="start-btn-container">
+              <button id="start-btn">기본</button>
+              <button id="time-attack-btn">타임어택</button>
+              <button id="hard-start-btn">하드</button>
+              <button id="ai-start-btn">ai</button>
             </div>
+
         </div>
         <!--게임 실행 요소(시작전까지는 display:none 후에는block)-->
         <div id="game-container">
@@ -101,14 +102,23 @@
                                     <p class="score-text">점수</p>
                                     <span class="score-text2" id="score">0</span>
                                 </div>
+                                <!--ai점수-->
+                                <div class="score-panel">
+                                    <p class="score-text">ai점수</p>
+                                    <span class="score-text2" id="ai-score">0</span>
+                                </div>
                             </div>
                         </div>
                         <!--게임 보드-->
-                        <div class="board" id="board">
-                            <!--여러 셀-->
-                        </div>
-                        <div class="board2" id="board">
-                            <!--여러 셀-->
+                        <div class="board-screen">
+                            <!--1p-->
+                            <div class="board" id="board">
+                                <!--여러 셀-->
+                            </div>
+                            <!--2p-->
+                            <div class="board" id="board2">
+                                <!--여러 셀-->
+                            </div>
                         </div>
                         <!--설명하단-->
                         <p class="bottom-text">방향키 또는 스와이프로 타이을 움직이세요</p>
@@ -136,7 +146,22 @@
                             />
                         </div>
                         <!-- 게임 오버 화면 -->
-                        <div id="game-over" class="game-over" style="display: none">
+                        <!-- 게임 오버 화면 -->
+                        <div id="game-over" class="game-over">
+                            <img
+                                src="/src/svg/game-over.svg"
+                                alt="Game Over"
+                                class="game-over-img"
+                            />
+                        </div>
+                        <div id="game-over-1p" class="game-over-1p">
+                            <img
+                                src="/src/svg/game-over.svg"
+                                alt="Game Over"
+                                class="game-over-img"
+                            />
+                        </div>
+                        <div id="game-over-2p" class="game-over-2p">
                             <img
                                 src="/src/svg/game-over.svg"
                                 alt="Game Over"

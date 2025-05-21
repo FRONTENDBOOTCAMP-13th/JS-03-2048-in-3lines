@@ -1,127 +1,196 @@
-import { grid } from "./add-random-cell";
+import { addRandomCell2, grid, grid2 } from "./add-random-cell";
 import { boardSize } from "./boardsize";
-import { updateBoard } from "./board";
-import { addScore } from "./score";
+import { updateBoard, updateBoard2 } from "./board";
+import { addScore, aiaddScore } from "./score"; // aiaddScore 추가 임포트
 import { tilesSearch } from "./grid-cell-verification-logic";
 import { checkWin } from "./game-win";
+import { canMoveOrMerge2 } from "./can-move";
+import { checkGameOver2 } from "./game-over";
+import { findMovetile, moveAniElement } from "./find-move-tile";
 
-// -1 고정 타일을 경계로 타일 병합 후 다시 위치에 삽입하는 함수
-function mergeLine(tiles: number[]): number[] {
+// 공통 mergeLine 함수, 점수 추가 함수 주입 + 점수 추가 여부 제어
+function mergeLineWithScore(
+    tiles: number[],
+    shouldAddScore: boolean,
+    addScoreFn: (value: number) => void,
+): number[] {
     const mergedWithFixed: number[] = [];
     let startIdx = 0;
 
     while (startIdx < tiles.length) {
-        // 다음 -1 위치 찾기 (startIdx 포함 이후)
         let endIdx = tiles.indexOf(-1, startIdx);
-        if (endIdx === -1) endIdx = tiles.length; // -1 없으면 끝까지
+        if (endIdx === -1) endIdx = tiles.length;
 
-        // 현재 구간 (startIdx ~ endIdx-1) 처리
         const segment = tiles.slice(startIdx, endIdx);
-        const filtered = segment.filter(v => v > 0); // 0과 -1 제외
+        const filtered = segment.filter(v => v > 0);
 
-        // 병합 처리
-        const mergedSegment: number[] = [];
-        let i = 0;
-        while (i < filtered.length) {
-            if (i < filtered.length - 1 && filtered[i] === filtered[i + 1]) {
-                mergedSegment.push(filtered[i] * 2);
-                addScore(filtered[i] * 2);
-                i += 2;
-            } else {
-                mergedSegment.push(filtered[i]);
-                i++;
+        let mergedSegment: number[] = [];
+
+        if (filtered.length === 0) {
+            mergedSegment = [...segment];
+        } else {
+            let i = 0;
+            while (i < filtered.length) {
+                if (i < filtered.length - 1 && filtered[i] === filtered[i + 1]) {
+                    const mergedValue = filtered[i] * 2;
+                    mergedSegment.push(mergedValue);
+                    if (shouldAddScore) addScoreFn(mergedValue);
+                    i += 2;
+                } else {
+                    mergedSegment.push(filtered[i]);
+                    i++;
+                }
+            }
+
+            while (mergedSegment.length < segment.length) {
+                mergedSegment.push(0);
             }
         }
 
-        // 병합된 결과 + 0 패딩 (segment 길이만큼)
-        while (mergedSegment.length < segment.length) {
-            mergedSegment.push(0);
-        }
-
-        // 결과 합침
         mergedWithFixed.push(...mergedSegment);
 
-        // 만약 endIdx가 tiles 길이면 종료
         if (endIdx === tiles.length) break;
-
-        // -1 고정 타일 삽입
         mergedWithFixed.push(-1);
-
-        // 다음 구간 시작
         startIdx = endIdx + 1;
     }
 
     return mergedWithFixed;
 }
 
-// 방향에 따라 타일 병합 (고정 타일 처리 포함)
+// 통합된 mergeTiles 함수 (점수 추가 함수 주입)
+function mergeTilesGeneric(
+    direction: "up" | "down" | "left" | "right" | "w" | "s" | "a" | "d",
+    gridRef: number[][],
+    tilesProvider: () => { row: number; col: number; value: number }[],
+    update: () => void,
+    shouldCheckWin: boolean,
+    shouldAddScore: boolean,
+    addScoreFn: (value: number) => void, // 점수 함수 주입
+) {
+    const tiles = tilesProvider();
+    const vertical =
+        direction === "up" || direction === "down" || direction === "w" || direction === "s";
+    const reverse =
+        direction === "down" || direction === "right" || direction === "s" || direction === "d";
+    // 깊은 복사
+    const newGrid = gridRef.map(row => [...row]);
+
+    // 만약 AI 라면 애니메이션 실행 (태경)
+    if (direction === "w" || direction === "a" || direction === "s" || direction === "d") {
+        findMovetile(direction, true);
+        const boardElement = document.getElementById("board");
+        const div = boardElement?.querySelector(".box") as HTMLDivElement;
+
+        if (!boardElement) return;
+
+        moveAniElement(
+            direction,
+            parseFloat(getComputedStyle(div).width) +
+                parseFloat(getComputedStyle(boardElement).gap),
+            true,
+        );
+    }
+
+    if (vertical) {
+        for (let col = 0; col < boardSize; col++) {
+            const colTiles = tiles.filter(tile => tile.col === col);
+            const rowTiles = colTiles.sort((a, b) => (reverse ? b.row - a.row : a.row - b.row));
+            const tileMap = Array(boardSize).fill(0);
+            rowTiles.forEach(tile => {
+                tileMap[reverse ? boardSize - 1 - tile.row : tile.row] = tile.value;
+            });
+            const merged = mergeLineWithScore(tileMap, shouldAddScore, addScoreFn);
+            for (let row = 0; row < boardSize; row++) {
+                newGrid[reverse ? boardSize - 1 - row : row][col] = merged[row];
+            }
+        }
+    } else {
+        for (let row = 0; row < boardSize; row++) {
+            const rowTiles = tiles.filter(tile => tile.row === row);
+            const colTiles = rowTiles.sort((a, b) => (reverse ? b.col - a.col : a.col - b.col));
+            const tileMap = Array(boardSize).fill(0);
+            colTiles.forEach(tile => {
+                tileMap[reverse ? boardSize - 1 - tile.col : tile.col] = tile.value;
+            });
+            const merged = mergeLineWithScore(tileMap, shouldAddScore, addScoreFn);
+            for (let col = 0; col < boardSize; col++) {
+                newGrid[row][reverse ? boardSize - 1 - col : col] = merged[col];
+            }
+        }
+    }
+    // gridRef에 반영
+    for (let i = 0; i < boardSize; i++) {
+        for (let j = 0; j < boardSize; j++) {
+            gridRef[i][j] = newGrid[i][j];
+        }
+    }
+
+    // AI일때 애니메이션 실행 (태경)
+    if (direction === "w" || direction === "a" || direction === "s" || direction === "d") {
+        setTimeout(() => {
+            update();
+            if (shouldCheckWin) checkWin();
+        }, 300);
+    }
+
+    // AI 아닐경우 실행 (태경)
+    else {
+        update();
+        if (shouldCheckWin) checkWin();
+    }
+}
+
+// 사용자용: 방향은 up/down/left/right
 export function mergeTiles(direction: "up" | "down" | "left" | "right") {
-    const tiles = tilesSearch(); // value !== 0 or -1 포함하도록 구현되어야 함
+    mergeTilesGeneric(
+        direction,
+        grid,
+        () => tilesSearch(grid),
+        updateBoard,
+        true,
+        true,
+        addScore, // 플레이어 점수 함수 주입
+    );
+}
 
-    if (direction === "up") {
-        for (let col = 0; col < boardSize; col++) {
-            const colTiles = tiles.filter(tile => tile.col === col);
-            const rowTiles = colTiles.sort((a, b) => a.row - b.row);
-            const tileMap: number[] = Array(boardSize).fill(0);
-            rowTiles.forEach(tile => {
-                tileMap[tile.row] = tile.value;
-            });
+// AI용: 방향은 w/s/a/d
+export function mergeTiles2(direction: "w" | "s" | "a" | "d") {
+    mergeTilesGeneric(
+        direction,
+        grid2,
+        () => tilesSearch(grid2),
+        updateBoard2,
+        false,
+        true,
+        aiaddScore,
+    );
+}
+// === 자동 이동 기능 ===
 
-            const merged = mergeLine(tileMap);
-            for (let row = 0; row < boardSize; row++) {
-                grid[row][col] = merged[row];
-            }
+let autoMoveInterval: ReturnType<typeof setInterval> | null = null;
+
+function getRandomDirection(): "w" | "s" | "a" | "d" {
+    const directions = ["w", "s", "a", "d"] as const;
+    return directions[Math.floor(Math.random() * directions.length)];
+}
+
+export function startAutoMove() {
+    if (autoMoveInterval !== null) return;
+
+    // setInterval 시간 적용 최소 0.3초 이상으로 적용할 것 , 애니메이션 이동시간이 0.3초임 (태경)
+    autoMoveInterval = setInterval(() => {
+        const direction = getRandomDirection();
+        mergeTiles2(direction);
+        addRandomCell2();
+        if (!canMoveOrMerge2()) {
+            checkGameOver2();
         }
+    }, 1500);
+}
+
+export function stopAutoMove() {
+    if (autoMoveInterval !== null) {
+        clearInterval(autoMoveInterval);
+        autoMoveInterval = null;
     }
-
-    if (direction === "down") {
-        for (let col = 0; col < boardSize; col++) {
-            const colTiles = tiles.filter(tile => tile.col === col);
-            const rowTiles = colTiles.sort((a, b) => b.row - a.row);
-            const tileMap: number[] = Array(boardSize).fill(0);
-            rowTiles.forEach(tile => {
-                tileMap[boardSize - 1 - tile.row] = tile.value;
-            });
-
-            const merged = mergeLine(tileMap);
-            for (let row = 0; row < boardSize; row++) {
-                grid[boardSize - 1 - row][col] = merged[row];
-            }
-        }
-    }
-
-    if (direction === "left") {
-        for (let row = 0; row < boardSize; row++) {
-            const rowTiles = tiles.filter(tile => tile.row === row);
-            const colTiles = rowTiles.sort((a, b) => a.col - b.col);
-            const tileMap: number[] = Array(boardSize).fill(0);
-            colTiles.forEach(tile => {
-                tileMap[tile.col] = tile.value;
-            });
-
-            const merged = mergeLine(tileMap);
-            for (let col = 0; col < boardSize; col++) {
-                grid[row][col] = merged[col];
-            }
-        }
-    }
-
-    if (direction === "right") {
-        for (let row = 0; row < boardSize; row++) {
-            const rowTiles = tiles.filter(tile => tile.row === row);
-            const colTiles = rowTiles.sort((a, b) => b.col - a.col);
-            const tileMap: number[] = Array(boardSize).fill(0);
-            colTiles.forEach(tile => {
-                tileMap[boardSize - 1 - tile.col] = tile.value;
-            });
-
-            const merged = mergeLine(tileMap);
-            for (let col = 0; col < boardSize; col++) {
-                grid[row][boardSize - 1 - col] = merged[col];
-            }
-        }
-    }
-
-    updateBoard();
-    checkWin();
 }
