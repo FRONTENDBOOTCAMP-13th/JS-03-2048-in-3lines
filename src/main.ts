@@ -1,5 +1,5 @@
 import "./style.css";
-import { setupBoard } from "./scripts/board";
+import { setupBoard, setupBoard2 } from "./scripts/board";
 import {
     initGrid,
     HardinitGrid,
@@ -21,7 +21,7 @@ import { timeAttack, resetGameOver } from "./scripts/game-over";
 
 // 하드모드 여부 변수
 let isHardMode = false;
-let isTimeAttackMode = false;
+export let isTimeAttackMode = false;
 //ai모드 여부 변수
 export let isAIMode = false;
 
@@ -47,6 +47,7 @@ if (bgmIcon) {
 
 // 보드 UI 구성
 setupBoard();
+setupBoard2();
 
 // 시작 버튼 이벤트
 const startBtn = document.getElementById("start-btn") as HTMLButtonElement;
@@ -73,6 +74,7 @@ timeAttackBtn.addEventListener("click", () => {
     playClickSound();
     playBGM();
     resetScore();
+    timeAttackInitGrid();
     bgmIcon.src = soundOn;
     isHardMode = false;
     isAIMode = false;
@@ -91,7 +93,6 @@ hardstartBtn.addEventListener("click", () => {
     playClickSound();
     playBGM();
     resetScore();
-    isTimeAttackMode = false; // 타임어택 모드
     isHardMode = true; // 하드 모드
     isAIMode = false;
     HardinitGrid();
@@ -109,6 +110,8 @@ aistartBtn.addEventListener("click", () => {
     playClickSound();
     playBGM();
     resetScore();
+    setupBoard();
+    setupBoard2();
     isHardMode = false;
     isAIMode = true;
     aiinitGrid(); // AI 보드 초기화
@@ -157,7 +160,7 @@ homeBtn.addEventListener("click", () => {
     const startContainer = document.getElementById("start-container")!;
     startContainer.style.display = "flex";
     gameContainer.style.display = "none";
-    resetGameOver(); 
+    resetGameOver();
 });
 
 // 배경음 토글 버튼
@@ -178,13 +181,21 @@ const level4Btn = document.querySelector(".level4-modal") as HTMLButtonElement;
 const level5Btn = document.querySelector(".level5-modal") as HTMLButtonElement;
 
 function changeBoardSize(size: number) {
+    resetGameOver();
     setBoardSize(size);
-    setupBoard();
     if (isHardMode) {
+        setupBoard();
         HardinitGrid();
     } else if (isAIMode) {
+        setupBoard();
+        setupBoard2();
         aiinitGrid();
+    } else if (isTimeAttackMode) {
+        setupBoard();
+        timeAttackInitGrid();
+        timeAttack(); // 타임어택 모드에서만 실행
     } else {
+        setupBoard();
         initGrid();
     }
 
@@ -193,20 +204,15 @@ function changeBoardSize(size: number) {
         levelText.textContent = `${size}*${size}`;
     }
 }
-
 level3Btn.addEventListener("click", () => {
     changeBoardSize(3);
-    resetGameOver();
 });
 level4Btn.addEventListener("click", () => {
     changeBoardSize(4);
-    resetGameOver();
 });
 level5Btn.addEventListener("click", () => {
     changeBoardSize(5);
-    resetGameOver();
 });
-
 // 모바일에서 스크롤 방지 (스와이프는 허용)
 document.addEventListener(
     "touchmove",

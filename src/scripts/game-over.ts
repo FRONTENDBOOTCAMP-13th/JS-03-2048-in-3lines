@@ -2,11 +2,10 @@ import { boardSize } from "./boardsize";
 import { grid, grid2 } from "./add-random-cell";
 import { resetScore } from "./score";
 import { backupGridState } from "./game-start";
-import { isAIMode } from "../main";
+import { isAIMode, isTimeAttackMode } from "../main";
 
 export let isGameOver = false;
 let timeAttackTimeoutId: number | null = null;
-
 
 // 게임 오버 조건 확인 및 이미지 표시
 export function checkGameOver(): void {
@@ -81,6 +80,7 @@ function canMoveOrMerge2(): boolean {
     return false;
 }
 export function timeAttack(): void {
+    console.log("타임어택 모드");
     cancelTimeAttack(); // 항상 기존 타이머 취소
     timeAttackTimeoutId = window.setTimeout(() => {
         const gameOverEl = document.getElementById("game-over");
@@ -88,8 +88,9 @@ export function timeAttack(): void {
         isGameOver = true;
         checkGameOver();
         timeAttackTimeoutId = null;
-    }, 5000);
+    }, 5000); // 1분 후 게임 오버
 }
+//1000 * 60 * 2
 export function cancelTimeAttack(): void {
     if (timeAttackTimeoutId !== null) {
         clearTimeout(timeAttackTimeoutId);
@@ -103,5 +104,8 @@ export function resetGameOver() {
     }
     isGameOver = false;
     resetScore();
-    cancelTimeAttack();
+    // 타임어택 모드가 아닐 때만 타이머 취소
+    if (!isTimeAttackMode) {
+        cancelTimeAttack();
+    }
 }
