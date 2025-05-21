@@ -114,20 +114,20 @@ timeAttackBtn.addEventListener("click", () => {
     }
     hpBar!.style.display = "flex";
     socreBoard!.style.display = "none"; // AI 점수판 숨기기
-    gameScreendSize.style.width = "32vw";
     if (isMobile()) {
-        const hpBar = document.getElementById("time-attack-hp") as HTMLDivElement;
-        console.log(hpBar.style.width);
-        if (hpBar) {
-            hpBar.style.width = "79.5vw";
-        }
         gameScreendSize.style.width = "91vw";
+        document.getElementById("time-attack-hp")?.classList.add("animate-hp-mobile");
+        setTimeout(() => {
+            document.getElementById("time-attack-hp")?.classList.remove("animate-hp-mobile");
+        }, 120000);
+    } else {
+        gameScreendSize.style.width = "32vw";
+        document.getElementById("time-attack-hp")?.classList.add("animate-hp");
+        setTimeout(() => {
+            document.getElementById("time-attack-hp")?.classList.remove("animate-hp");
+        }, 120000);
     }
     timeAttack(); // 타임어택 모드에서만 실행
-    document.getElementById("time-attack-hp")?.classList.add("animate-hp");
-    setTimeout(() => {
-        document.getElementById("time-attack-hp")?.classList.remove("animate-hp");
-    }, 120000);
 });
 
 // 하드 시작 버튼 이벤트
@@ -213,10 +213,19 @@ restartBtn.addEventListener("click", () => {
             hpBar.classList.remove("animate-hp");
             // 모바일/PC에 따라 초기 width 다르게 적용
             if (isMobile()) {
-                hpBar.style.width = "79.5vw";
                 gameScreendSize.style.width = "91vw";
+                document.getElementById("time-attack-hp")?.classList.add("animate-hp-mobile");
+                setTimeout(() => {
+                    document
+                        .getElementById("time-attack-hp")
+                        ?.classList.remove("animate-hp-mobile");
+                }, 120000);
             } else {
-                hpBar.style.width = "27.7vw";
+                gameScreendSize.style.width = "32vw";
+                document.getElementById("time-attack-hp")?.classList.add("animate-hp");
+                setTimeout(() => {
+                    document.getElementById("time-attack-hp")?.classList.remove("animate-hp");
+                }, 120000);
             }
             void hpBar.offsetWidth;
             hpBar.classList.add("animate-hp");
@@ -297,29 +306,35 @@ function changeBoardSize(size: number) {
             // 모바일/PC에 따라 초기 width 다르게 적용
             if (isMobile()) {
                 gameScreendSize.style.width = "91vw";
-                hpBar.style.width = "79.5vw";
-                setupBoard();
+                document.getElementById("time-attack-hp")?.classList.add("animate-hp-mobile");
+                setTimeout(() => {
+                    document
+                        .getElementById("time-attack-hp")
+                        ?.classList.remove("animate-hp-mobile");
+                }, 120000);
             } else {
-                hpBar.style.width = "27.7vw";
+                gameScreendSize.style.width = "32vw";
+                document.getElementById("time-attack-hp")?.classList.add("animate-hp");
+                setTimeout(() => {
+                    document.getElementById("time-attack-hp")?.classList.remove("animate-hp");
+                }, 120000);
             }
-            void hpBar.offsetWidth;
-            hpBar.classList.add("animate-hp");
+            setupBoard();
+            timeAttackInitGrid();
+            timeAttack();
+        } else {
+            setupBoard();
+            gameScreendSize.style.width = "32vw";
+            if (isMobile()) {
+                gameScreendSize.style.width = "91vw";
+            }
+            initGrid();
         }
-        setupBoard();
-        timeAttackInitGrid();
-        timeAttack();
-    } else {
-        setupBoard();
-        gameScreendSize.style.width = "32vw";
-        if (isMobile()) {
-            gameScreendSize.style.width = "91vw";
-        }
-        initGrid();
-    }
 
-    const levelText = document.querySelector(".level-text2") as HTMLElement;
-    if (levelText) {
-        levelText.textContent = `${size}*${size}`;
+        const levelText = document.querySelector(".level-text2") as HTMLElement;
+        if (levelText) {
+            levelText.textContent = `${size}*${size}`;
+        }
     }
 }
 level3Btn.addEventListener("click", () => {

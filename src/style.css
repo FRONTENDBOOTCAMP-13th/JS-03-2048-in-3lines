@@ -223,7 +223,6 @@ h1 {
     }
     #time-attack-hp.animate-hp {
         animation: hpDecreasePC 120s linear forwards;
-        animation-iteration-count: 1;
     }
     @media (max-width: 767px) {
         display: flex;
@@ -254,9 +253,8 @@ h1 {
             transition: width 0.2s ease;
         }
     }
-    #time-attack-hp.animate-hp {
+    #time-attack-hp.animate-hp-mobile {
         animation: hpDecreaseMobile 120s linear forwards;
-        animation-iteration-count: 1;
     }
 }
 /*게임창*/
