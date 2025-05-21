@@ -33,11 +33,14 @@ function renderBoard(grid: number[][], boardElement: HTMLElement): void {
 
 // 보드 속성 및 크기 설정
 export function setupBoard(): void {
-    [board, board2].forEach(b => {
-        b.style.display = "grid";
-        b.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
-        b.style.gridTemplateRows = `repeat(${boardSize}, 1fr)`;
-    });
+    board.style.display = "grid";
+    board.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
+    board.style.gridTemplateRows = `repeat(${boardSize}, 1fr)`;
+}
+export function setupBoard2(): void {
+    board2.style.display = "grid";
+    board2.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
+    board2.style.gridTemplateRows = `repeat(${boardSize}, 1fr)`;
 }
 
 // 사용자 보드 업데이트
