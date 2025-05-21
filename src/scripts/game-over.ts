@@ -88,9 +88,8 @@ export function timeAttack(): void {
         isGameOver = true;
         checkGameOver();
         timeAttackTimeoutId = null;
-    }, 5000); // 1분 후 게임 오버
+    }, 1000 * 60 * 2); 
 }
-//1000 * 60 * 2
 export function cancelTimeAttack(): void {
     if (timeAttackTimeoutId !== null) {
         clearTimeout(timeAttackTimeoutId);
