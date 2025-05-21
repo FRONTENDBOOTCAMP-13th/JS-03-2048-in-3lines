@@ -193,6 +193,61 @@ h1 {
     display: none;
     padding: 0;
 }
+/* 타임어택 */
+.time-attack-container {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    margin-bottom: 1vw;
+    .time-attack-img {
+        width: 2.5vw;
+    }
+    .time-attack-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28.5vw;
+        height: 2vw;
+        border: #2c3e50 solid 0.2vw;
+        margin-left: 1vw;
+        border-radius: 2vw;
+        background-color: #ffffff;
+    }
+    .time-attack {
+        width: 27.3vw;
+        height: 1.2vw;
+        border-radius: 2vw;
+        background-color: #2c3e50;
+    }
+
+    @media (max-width: 767px) {
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        margin-bottom: 3vw;
+        .time-attack-img {
+            margin-left: 0.5vw;
+            width: 6vw;
+        }
+        .time-attack-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 82vw;
+            height: 4.5vw;
+            border: #2c3e50 solid 0.6vw;
+            margin-left: 2vw;
+            border-radius: 5vw;
+            background-color: #ffffff;
+        }
+        .time-attack {
+            width: 79.5vw;
+            height: 2.5vw;
+            border-radius: 3vw;
+            background-color: #2c3e50;
+        }
+    }
+}
 /*게임창*/
 .game-screen-container {
     display: flex;
@@ -217,13 +272,13 @@ h1 {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 10;
+            z-index: 99;
             pointer-events: none;
         }
 
         .game-win-img {
-            width: 28vw;
-            height: 35vw;
+            width: 32vw;
+            height: 41vw;
             border-radius: 0.4vw;
         }
         /* game-over 화면 */
@@ -232,13 +287,13 @@ h1 {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 10;
+            z-index: 99;
             pointer-events: none;
         }
 
         .game-over-img {
-            width: 28vw;
-            height: 35vw;
+            width: 32vw;
+            height: 41vw;
             border-radius: 0.4vw;
         }
     }
@@ -308,17 +363,18 @@ h1 {
             background-color: #2c3e50;
             border-radius: 0.2vw;
             cursor: pointer;
+            z-index: 10;
             .sound-img {
                 width: 0.9vw;
                 height: 0.9vw;
             }
             .volume-control {
                 position: absolute;
-                bottom: 50%; /* 바로 위에 딱 붙음 */
+                top: -290%; /* 바로 위에 딱 붙음 */
                 left: 50%;
                 transform: translateX(-50%);
-                width: 1vw;
-                height: 8vw;
+                width: 1.2vw;
+                height: 4.5vw;
                 border: #2c3e50 solid 0.2vw;
                 background-color: #ffffff;
                 opacity: 0;
@@ -335,11 +391,11 @@ h1 {
                 writing-mode: bt-lr;
                 -webkit-appearance: slider-vertical;
                 width: 0.3vw;
-                height: 7vw;
+                height: 4vw;
                 background: transparent;
                 border: none;
                 padding: 0;
-                margin: 1.1vw 0 0 0;
+                margin: 0.5vw 0 0 0;
             }
 
             /* Chrome/Safari 바 스타일 */
@@ -503,13 +559,13 @@ h1 {
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                z-index: 10;
+                z-index: 99;
                 pointer-events: none;
             }
 
             .game-win-img {
-                width: 88vw;
-                height: 115vw;
+                width: 91vw;
+                height: 120vw;
                 border-radius: 0.4vw;
             }
             /* game-over 화면 */
@@ -518,13 +574,13 @@ h1 {
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                z-index: 10;
+                z-index: 99;
                 pointer-events: none;
             }
 
             .game-over-img {
-                width: 88vw;
-                height: 115vw;
+                width: 91vw;
+                height: 120vw;
                 border-radius: 0.4vw;
             }
         }
