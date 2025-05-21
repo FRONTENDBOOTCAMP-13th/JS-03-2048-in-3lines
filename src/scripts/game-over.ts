@@ -89,7 +89,7 @@ export function timeAttack(): void {
         // isGameOver = true;
         checkGameOver();
         timeAttackTimeoutId = null;
-    }, 5000);
+    }, 1000*60*2);
 }
 export function cancelTimeAttack(): void {
     if (timeAttackTimeoutId !== null) {
