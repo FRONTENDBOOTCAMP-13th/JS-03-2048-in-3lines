@@ -1,3 +1,4 @@
+import soundOn from "../svg/sound-on.svg";
 //배경음악
 const bgm = new Audio("/sound/bgm.mp4");
 bgm.loop = true;
@@ -36,6 +37,15 @@ masterVolumeSlider.addEventListener("input", () => {
     const volume = parseInt(masterVolumeSlider.value) / 100;
     bgm.volume = volume;
     clickSound.volume = volume;
+
+    // 음소거 상태에서 슬라이더 조작 시 자동 재생
+    if (bgm.paused && volume > 0) {
+        playBGM();
+        const bgmIcon = document.getElementById("bgm-icon") as HTMLImageElement;
+        if (bgmIcon) {
+            bgmIcon.src = soundOn;
+        }
+    }
 });
 // 저장
 masterVolumeSlider.addEventListener("change", () => {
