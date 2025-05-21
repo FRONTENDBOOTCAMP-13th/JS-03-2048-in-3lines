@@ -2,6 +2,7 @@ const CURRENT_SCORE = "currentScore"; // 현재 점수
 const BEST_SCORE_TOTAL = "bestScoreTotal"; // 전체 최고 점수
 const BEST_SCORE_TODAY = "bestScoreToday"; // 오늘 최고 점수
 const BEST_SCORE_TODAY_DATE = "bestScoreTodayDate"; // 오늘 최고 점수 저장한 날짜 (yyyyMMdd)
+const AI_SCORE = "aiScore"; //ai점수
 
 // 날짜를 'yyyyMMdd' 형태로 반환하는 함수
 function getTodayString(): string {
@@ -26,6 +27,7 @@ function checkAndResetTodayBestScore() {
 // 현재 점수 초기화
 export function resetScore() {
     localStorage.setItem(CURRENT_SCORE, "0");
+    localStorage.setItem(AI_SCORE, "0");
     checkAndResetTodayBestScore();
     renderScores();
 }
@@ -53,6 +55,13 @@ export function addScore(points: number) {
     renderScores();
 }
 
+// ai점수 추가
+export function aiaddScore(points: number) {
+    const current = getaiScore() + points;
+    localStorage.setItem(AI_SCORE, current.toString());
+    renderScores();
+}
+
 // 현재 점수 가져오기
 export function getCurrentScore(): number {
     return parseInt(localStorage.getItem(CURRENT_SCORE) || "0", 10);
@@ -64,6 +73,11 @@ export function getBestScoreToday(): number {
     return parseInt(localStorage.getItem(BEST_SCORE_TODAY) || "0", 10);
 }
 
+//ai 점수 가져오기
+export function getaiScore(): number {
+    return parseInt(localStorage.getItem(AI_SCORE) || "0", 10);
+}
+
 // 전체 최고 점수 가져오기
 export function getBestScoreTotal(): number {
     return parseInt(localStorage.getItem(BEST_SCORE_TOTAL) || "0", 10);
@@ -72,12 +86,14 @@ export function getBestScoreTotal(): number {
 // 점수 표시
 export function renderScores() {
     const scoreEl = document.getElementById("score");
+    const aiscoreEl = document.getElementById("ai-score");
     const besttodayEl = document.getElementById("best-today");
     const besttotalEl = document.getElementById("best-total");
     const besttodaymobEl = document.getElementById("best-today-mob");
     const besttotalmobEl = document.getElementById("best-total-mob");
 
     if (scoreEl) scoreEl.textContent = getCurrentScore().toString();
+    if (aiscoreEl) aiscoreEl.textContent = getaiScore().toString();
     if (besttodayEl) besttodayEl.textContent = getBestScoreToday().toString();
     if (besttotalEl) besttotalEl.textContent = getBestScoreTotal().toString();
     if (besttodaymobEl) besttodaymobEl.textContent = getBestScoreToday().toString();

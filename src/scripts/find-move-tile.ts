@@ -77,13 +77,13 @@ export function findMovetile(dir: string) {
 }
 
 // 이동 애니메이션 추가
-export function moveAniElement(dir: string, moveLength: number, time: number) {
+export function moveAniElement(dir: string, moveLength: number) {
     const divArr = getElement();
 
     for (let i = 0; i < MoveArr.length; i++) {
         // 이동 시킬 상자
         const div = divArr[MoveArr[i][0] * Max + MoveArr[i][1]] as HTMLElement;
-        div.style.transition = `all ${time}s`;
+        div.style.transition = "all 0.5s";
 
         const [move_y, move_x] = [
             Math.abs(MoveArr[i][2] - MoveArr[i][0]),
