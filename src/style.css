@@ -213,11 +213,13 @@ h1 {
         border-radius: 2vw;
         background-color: #ffffff;
     }
-    .time-attack {
+    .time-attack,
+    #time-attack-hp {
         width: 27.7vw;
         height: 0.9vw;
         border-radius: 2vw;
         background-color: #2c3e50;
+        transition: width 0.2s ease;
     }
 
     @media (max-width: 767px) {
@@ -240,11 +242,13 @@ h1 {
             border-radius: 5vw;
             background-color: #ffffff;
         }
-        .time-attack {
+        .time-attack,
+        #time-attack-hp {
             width: 79.5vw;
             height: 2.5vw;
             border-radius: 3vw;
             background-color: #2c3e50;
+            transition: width 0.2s ease;
         }
     }
 }
@@ -318,11 +322,11 @@ h1 {
     .board-screen {
         display: flex;
         flex-direction: row;
+        gap: 0.5vw;
         width: 100%;
     }
     .board,
-    .board2 {
-        width: 29vw;
+    #board2 {
         width: 29vw;
         background: #2c3e50;
         border-radius: 0.5vw;
@@ -332,7 +336,7 @@ h1 {
         padding: 0.45vw;
         grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
     }
-    .board2 {
+    #board2 {
         display: none;
     }
     /*설명 상단*/
