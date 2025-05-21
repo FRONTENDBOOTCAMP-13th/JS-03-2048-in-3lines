@@ -251,10 +251,103 @@ GIT Emoji 설정 <br>
 <blockquote>
 <br>
 
-<h3>Git 규칙 정하기</h3>
-커밋메세지 규칙 설정 <br>
-PR메세지 규칙 설정 <br>
-GIT Emoji 설정 <br>
+<h3>팀원별 진행상황</h3>
+마크업은 끝났고 스타일링 작업중 ⇒ 장유하 <br>
+이동 가능한 타일 탐색 로직 구현중 ⇒ 김태경 <br>
+상하좌우 한칸이내에 타일이 존재하고 그 타일의 값이 서로 일치하면 더해지는거까지는 구현 ⇒ 조현수 <br>
+
+<br>   
+</blockquote>
+</details>
+
+<details>
+<summary><span style="font-size: 1.5em; font-weight: bold;">5일차</span></summary>
+<blockquote>
+<br>
+
+<h3>팀원별 진행상황</h3>
+스타일링 작업중 ⇒ 장유하 <br>
+타일 이동 기능 구현완료, 중간빌드 확인  ⇒ 김태경 <br>
+타일 병합시 애니메이션 적용 수정중 ⇒ 조현수 <br>
+
+<br>   
+</blockquote>
+</details>
+
+<details>
+<summary><span style="font-size: 1.5em; font-weight: bold;">6일차</span></summary>
+<blockquote>
+<br>
+
+<h3>팀원별 진행상황</h3>
+모바일 UI 작업 ⇒ 장유하 <br>
+타일 이동 기능 버그 발생 수정 ⇒ 김태경 <br>
+이동 병합 수정 ⇒ 신동수 <br>
+병합, 타일 생성 애니메이션 추가 ⇒ 조현수 <br>
+
+<br>   
+</blockquote>
+</details>
+
+<details>
+<summary><span style="font-size: 1.5em; font-weight: bold;">7일차</span></summary>
+<blockquote>
+<br>
+
+<h3>팀원별 진행상황</h3>
+난이도 구현 로직 작성, 게임 오버 로직 설계, UI단위 수정 ⇒ 장유하 <br>
+모바일 터치 기능 구현 ⇒ 신동수
+타일 이동 기능 버그 수정  ⇒ 김태경 <br>
+타일 병합 애니메이션 버그로인한 제거 결정 ⇒ 조현수 <br>
+
+<br>   
+</blockquote>
+</details>
+
+<details>
+<summary><span style="font-size: 1.5em; font-weight: bold;">8일차</span></summary>
+<blockquote>
+<br>
+
+<h3>휴식</h3>
+
+<br>   
+</blockquote>
+</details>
+
+<details>
+<summary><span style="font-size: 1.5em; font-weight: bold;">9일차</span></summary>
+<blockquote>
+<br>
+
+<h3>팀원별 진행상황</h3>
+UI 완성 ⇒ 장유하 <br>
+모바일 버전 추가완료 ⇒ 신동수
+전체적인 버그 수정  ⇒ 김태경 <br>
+테스트 완료 및 테스트용 코드 제거 ⇒ 조현수 <br>
+
+<br>   
+</blockquote>
+</details>
+
+<details>
+<summary><span style="font-size: 1.5em; font-weight: bold;">10일차</span></summary>
+<blockquote>
+<br>
+
+<h2>기능 추가 회의</h2>
+타임 어택 모드, 하드 모드, AI 모드를 추가하기로 결정
+
+<br>   
+</blockquote>
+</details>
+
+<details>
+<summary><span style="font-size: 1.5em; font-weight: bold;">11일차</span></summary>
+<blockquote>
+<br>
+
+<h3>추가 예정</h3>
 
 <br>   
 </blockquote>
