@@ -110,8 +110,8 @@ h1 {
 .start-btn-container {
     display: flex;
     flex-flow: row;
-    gap: 0.5vw;
-    margin-top: 3vw;
+    gap: 0.6vw;
+    margin-top: 2.7vw;
     @media (max-width: 767px) {
         gap: 1.5vw;
         margin-top: 2vw;
@@ -122,26 +122,6 @@ h1 {
 #hard-start-btn {
     background-color: #2c3e50;
     border-radius: 0.4vw;
-    width: 4vw;
-    height: 2.1vw;
-    color: #ffffff;
-    font-size: 0.9vw;
-    font-weight: 600;
-    text-transform: uppercase;
-    cursor: pointer;
-    box-shadow: 0.2vw 0.2vw 0.2vw #2c3e50;
-    @media (max-width: 767px) {
-        border-radius: 1vw;
-        width: 11vw;
-        height: 7vw;
-        margin-top: 7vw;
-        font-size: 2.8vw;
-    }
-}
-
-#time-attack-btn {
-    background-color: #2c3e50;
-    border-radius: 0.4vw;
     width: 5vw;
     height: 2.1vw;
     color: #ffffff;
@@ -149,12 +129,32 @@ h1 {
     font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
-    box-shadow: 0.2vw 0.2vw 0.2vw #2c3e50;
+    box-shadow: 0.1vw 0.2vw 0.2vw #8a8a8a;
     @media (max-width: 767px) {
         border-radius: 1vw;
         width: 16vw;
         height: 7vw;
-        margin-top: 7vw;
+        margin-top: 6.5vw;
+        font-size: 2.8vw;
+    }
+}
+
+#time-attack-btn {
+    background-color: #2c3e50;
+    border-radius: 0.4vw;
+    width: 7vw;
+    height: 2.1vw;
+    color: #ffffff;
+    font-size: 0.9vw;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0.1vw 0.2vw 0.2vw #8a8a8a;
+    @media (max-width: 767px) {
+        border-radius: 1vw;
+        width: 21vw;
+        height: 7vw;
+        margin-top: 6.5vw;
         font-size: 2.8vw;
     }
 }
@@ -162,20 +162,16 @@ h1 {
 #ai-start-btn {
     background-color: #2c3e50;
     border-radius: 0.4vw;
-    width: 6vw;
+    width: 4.5vw;
     height: 2.1vw;
     color: #ffffff;
     font-size: 0.9vw;
     font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
-    box-shadow: 0.2vw 0.2vw 0.2vw #2c3e50;
+    box-shadow: 0.1vw 0.2vw 0.2vw #8a8a8a;
     @media (max-width: 767px) {
-        border-radius: 1vw;
-        width: 18vw;
-        height: 7vw;
-        margin-top: 7vw;
-        font-size: 2.8vw;
+        display: none;
     }
 }
 #start-btn:active,
