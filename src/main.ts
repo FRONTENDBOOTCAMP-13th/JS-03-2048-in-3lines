@@ -141,6 +141,7 @@ aistartBtn.addEventListener("click", () => {
     isAIMode = true;
     setBoardSize(4);
     setupBoard(); 
+    setupBoard2();
     aiinitGrid(); // AI 보드 초기화
     startAutoMove();
     bgmIcon.src = soundOn;
