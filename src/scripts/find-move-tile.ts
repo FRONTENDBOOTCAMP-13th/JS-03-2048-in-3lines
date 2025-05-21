@@ -3,23 +3,27 @@
 let PlusArr: number[][] = [];
 let Max: number = 0;
 let MoveArr: number[][] = [];
+let MoveArrAI: number[][] = [];
 
 // 이동완료 , 이동 위치, 병합된 위치 반환
-export function findMovetile(dir: string) {
+export function findMovetile(dir: string, AImode: boolean) {
+    if (dir === "w") dir = "up";
+    else if (dir === "a") dir = "left";
+    else if (dir === "d") dir = "right";
+    else if (dir === "s") dir = "down";
+
     if (dir !== "right" && dir !== "left" && dir !== "up" && dir !== "down") return [];
 
-    const map = getMapArr();
+    const map = getMapArr(AImode);
     // const Max = map.length; // 최대 길이
     Max = map.length;
     const add_dir = setDirection(dir); // 이동 방향
     const Borad = map.map(row => [...row]);
     const MergeCheck: number[][] = []; // 현재 위치에 값이 더해 졌는지 확인
 
-    //let PlusArr: number[][] = []; // 병합된 위치(애니메이션 적용)
     PlusArr = [];
-
-    // let MoveArr: number[][] = []; // 이동 전 이동 후 위치
     MoveArr = [];
+    MoveArrAI = [];
 
     // 왼쪽,위
     if (dir === "left" || dir === "up") {
@@ -30,7 +34,26 @@ export function findMovetile(dir: string) {
 
                 // 현재 값이 0이 아니라면
                 if (NowValue > 0) {
-                    moveConditions(NowLocation, add_dir, Max, Borad, MoveArr, MergeCheck, PlusArr);
+                    if (!AImode)
+                        moveConditions(
+                            NowLocation,
+                            add_dir,
+                            Max,
+                            Borad,
+                            MoveArr,
+                            MergeCheck,
+                            PlusArr,
+                        );
+                    else
+                        moveConditions(
+                            NowLocation,
+                            add_dir,
+                            Max,
+                            Borad,
+                            MoveArrAI,
+                            MergeCheck,
+                            PlusArr,
+                        );
                 }
             }
         }
@@ -45,7 +68,26 @@ export function findMovetile(dir: string) {
 
                 // 현재 값이 0이 아니라면
                 if (NowValue > 0) {
-                    moveConditions(NowLocation, add_dir, Max, Borad, MoveArr, MergeCheck, PlusArr);
+                    if (!AImode)
+                        moveConditions(
+                            NowLocation,
+                            add_dir,
+                            Max,
+                            Borad,
+                            MoveArr,
+                            MergeCheck,
+                            PlusArr,
+                        );
+                    else
+                        moveConditions(
+                            NowLocation,
+                            add_dir,
+                            Max,
+                            Borad,
+                            MoveArrAI,
+                            MergeCheck,
+                            PlusArr,
+                        );
                 }
             }
         }
@@ -77,59 +119,46 @@ export function findMovetile(dir: string) {
 }
 
 // 이동 애니메이션 추가
-export function moveAniElement(dir: string, moveLength: number) {
-    const divArr = getElement();
+export function moveAniElement(dir: string, moveLength: number, AImode: boolean) {
+    // div들 가져오기
+    const divArr = getElement(AImode);
+    let Arr = null;
 
-    for (let i = 0; i < MoveArr.length; i++) {
+    if (AImode === true) Arr = MoveArrAI;
+    else if (AImode === false) Arr = MoveArr;
+
+    for (let i = 0; i < Arr.length; i++) {
         // 이동 시킬 상자
-        const div = divArr[MoveArr[i][0] * Max + MoveArr[i][1]] as HTMLElement;
-        div.style.transition = "all 0.5s";
+        const div = divArr[Arr[i][0] * Max + Arr[i][1]] as HTMLElement;
+        div.style.transition = "all 0.3s";
 
-        const [move_y, move_x] = [
-            Math.abs(MoveArr[i][2] - MoveArr[i][0]),
-            Math.abs(MoveArr[i][3] - MoveArr[i][1]),
-        ];
+        const [move_y, move_x] = [Math.abs(Arr[i][2] - Arr[i][0]), Math.abs(Arr[i][3] - Arr[i][1])];
 
         // 오른쪽
-        if (dir === "right") {
+        if (dir === "right" || dir === "d") {
             div.style.transform = `translate(${move_x * moveLength}px,0px)`;
         }
 
         // 왼쪽
-        else if (dir === "left") {
+        else if (dir === "left" || dir === "a") {
             div.style.transform = `translate(${-move_x * moveLength}px,0px)`;
         }
 
         // 위
-        else if (dir === "up") {
+        else if (dir === "up" || dir === "w") {
             div.style.transform = `translate(0px,${-move_y * moveLength}px)`;
         }
 
         // 아래
-        else if (dir === "down") {
+        else if (dir === "down" || dir === "s") {
             div.style.transform = `translate(0px,${move_y * moveLength}px)`;
         }
     }
 }
 
-// 버그로 인한 비활성화 함
-// 병합된 div 요소 찾아서 애니메이션 클래스 추가
-export function AniElement(dir: string) {
-    const divArr = getElement();
-    for (let i = 0; i < PlusArr.length; i++) {
-        const div = divArr[PlusArr[i][0] * Max + PlusArr[i][1]];
-
-        if (dir === "right" || dir === "left") {
-            div.classList.add("jello-horizontal");
-        } else {
-            div.classList.add("jello-vertical");
-        }
-    }
-}
-
 // 2차원 배열로 변환하는 함수
-function getMapArr() {
-    const elementArr = getElement();
+function getMapArr(AImode: boolean) {
+    const elementArr = getElement(AImode);
 
     let length = 0;
 
@@ -159,8 +188,11 @@ function getMapArr() {
 }
 
 // div 요소 찾아서 배열로 반환하는 것
-function getElement() {
-    const element = document.querySelectorAll("#board .cell");
+function getElement(AImode: boolean) {
+    let element = null;
+    if (!AImode) element = document.querySelectorAll("#board .cell");
+    else element = document.querySelectorAll("#board2 .cell");
+
     const elementArr = Array.from(element) as HTMLDivElement[];
 
     return elementArr;
