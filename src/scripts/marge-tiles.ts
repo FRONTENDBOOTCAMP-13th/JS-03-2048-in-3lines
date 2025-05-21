@@ -6,6 +6,7 @@ import { tilesSearch } from "./grid-cell-verification-logic";
 import { checkWin } from "./game-win";
 import { canMoveOrMerge2 } from "./can-move";
 import { checkGameOver2 } from "./game-over";
+import { findMovetile, moveAniElement } from "./find-move-tile";
 
 // 공통 mergeLine 함수, 점수 추가 함수 주입 + 점수 추가 여부 제어
 function mergeLineWithScore(
@@ -67,25 +68,37 @@ function mergeTilesGeneric(
     addScoreFn: (value: number) => void, // 점수 함수 주입
 ) {
     const tiles = tilesProvider();
-
     const vertical =
         direction === "up" || direction === "down" || direction === "w" || direction === "s";
     const reverse =
         direction === "down" || direction === "right" || direction === "s" || direction === "d";
-
     // 깊은 복사
     const newGrid = gridRef.map(row => [...row]);
+
+    // 만약 AI 라면 애니메이션 실행 (태경)
+    if (direction === "w" || direction === "a" || direction === "s" || direction === "d") {
+        findMovetile(direction, true);
+        const boardElement = document.getElementById("board");
+        const div = boardElement?.querySelector(".box") as HTMLDivElement;
+
+        if (!boardElement) return;
+
+        moveAniElement(
+            direction,
+            parseFloat(getComputedStyle(div).width) +
+                parseFloat(getComputedStyle(boardElement).gap),
+            true,
+        );
+    }
 
     if (vertical) {
         for (let col = 0; col < boardSize; col++) {
             const colTiles = tiles.filter(tile => tile.col === col);
             const rowTiles = colTiles.sort((a, b) => (reverse ? b.row - a.row : a.row - b.row));
             const tileMap = Array(boardSize).fill(0);
-
             rowTiles.forEach(tile => {
                 tileMap[reverse ? boardSize - 1 - tile.row : tile.row] = tile.value;
             });
-
             const merged = mergeLineWithScore(tileMap, shouldAddScore, addScoreFn);
             for (let row = 0; row < boardSize; row++) {
                 newGrid[reverse ? boardSize - 1 - row : row][col] = merged[row];
@@ -96,18 +109,15 @@ function mergeTilesGeneric(
             const rowTiles = tiles.filter(tile => tile.row === row);
             const colTiles = rowTiles.sort((a, b) => (reverse ? b.col - a.col : a.col - b.col));
             const tileMap = Array(boardSize).fill(0);
-
             colTiles.forEach(tile => {
                 tileMap[reverse ? boardSize - 1 - tile.col : tile.col] = tile.value;
             });
-
             const merged = mergeLineWithScore(tileMap, shouldAddScore, addScoreFn);
             for (let col = 0; col < boardSize; col++) {
                 newGrid[row][reverse ? boardSize - 1 - col : col] = merged[col];
             }
         }
     }
-
     // gridRef에 반영
     for (let i = 0; i < boardSize; i++) {
         for (let j = 0; j < boardSize; j++) {
@@ -115,8 +125,19 @@ function mergeTilesGeneric(
         }
     }
 
-    update();
-    if (shouldCheckWin) checkWin();
+    // AI일때 애니메이션 실행 (태경)
+    if (direction === "w" || direction === "a" || direction === "s" || direction === "d") {
+        setTimeout(() => {
+            update();
+            if (shouldCheckWin) checkWin();
+        }, 300);
+    }
+
+    // AI 아닐경우 실행 (태경)
+    else {
+        update();
+        if (shouldCheckWin) checkWin();
+    }
 }
 
 // 사용자용: 방향은 up/down/left/right
@@ -156,6 +177,7 @@ function getRandomDirection(): "w" | "s" | "a" | "d" {
 export function startAutoMove() {
     if (autoMoveInterval !== null) return;
 
+    // setInterval 시간 적용 최소 0.3초 이상으로 적용할 것 , 애니메이션 이동시간이 0.3초임 (태경)
     autoMoveInterval = setInterval(() => {
         const direction = getRandomDirection();
         mergeTiles2(direction);
@@ -163,7 +185,7 @@ export function startAutoMove() {
         if (!canMoveOrMerge2()) {
             checkGameOver2();
         }
-    }, 1000);
+    }, 1500);
 }
 
 export function stopAutoMove() {

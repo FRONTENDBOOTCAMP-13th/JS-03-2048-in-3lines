@@ -12,7 +12,7 @@ import { findMovetile, moveAniElement } from "./find-move-tile";
 import { boardSize } from "./boardsize";
 import { handleMoveWrapper } from "./game-win";
 import { canMoveOrMerge } from "./can-move";
-import { checkGameOver, isGameOver } from "./game-over";
+import { checkGameOver } from "./game-over";
 
 let inputDelay = false;
 let previousGridState: number[][] = [];
@@ -36,16 +36,6 @@ function resetGameUI() {
 
 // 일반 난이도
 export function initGrid(): void {
-    const newGrid = createEmptyGrid();
-    setGrid(newGrid);
-    addRandomCell(true);
-    addRandomCell(true);
-    updateBoard();
-    resetGameUI();
-}
-
-// 타임어택 모드
-export function timeAttackInitGrid(): void {
     const newGrid = createEmptyGrid();
     setGrid(newGrid);
     addRandomCell(true);
@@ -96,14 +86,14 @@ export function restorePreviousState() {
 // 방향 이동 처리
 export function handleMove(direction: "up" | "down" | "left" | "right"): void {
     if (inputDelay) return;
-    if (isGameOver) return;
+
     backupGridState();
-    findMovetile(direction);
+    findMovetile(direction, false);
     inputDelay = true;
 
     setTimeout(() => {
         inputDelay = false;
-    }, 600);
+    }, 310);
 
     const boardElement = document.getElementById("board");
     const div = boardElement?.querySelector(".box");
@@ -113,6 +103,7 @@ export function handleMove(direction: "up" | "down" | "left" | "right"): void {
     moveAniElement(
         direction,
         parseFloat(getComputedStyle(div).width) + parseFloat(getComputedStyle(boardElement).gap),
+        false,
     );
 
     const oldGrid = JSON.stringify(grid);
@@ -129,5 +120,26 @@ export function handleMove(direction: "up" | "down" | "left" | "right"): void {
                 checkGameOver();
             }
         }
-    }, 500);
+    }, 300);
+}
+export function timeAttackInitGrid(): void {
+    const newGrid = createEmptyGrid();
+    setGrid(newGrid);
+    addRandomCell(true); // 초기 셀 1
+    addRandomCell(true); // 초기 셀 2
+    updateBoard();
+
+    // 게임 승리 이미지 숨기기
+    const winEl = document.getElementById("game-win");
+    if (winEl) {
+        winEl.style.display = "none";
+    }
+    // 게임 오버 이미지 숨기기
+    const gameOverEl = document.getElementById("game-over");
+    if (gameOverEl) {
+        gameOverEl.style.display = "none";
+    }
+
+    // 키 입력 이벤트 다시 등록
+    document.addEventListener("keydown", handleMoveWrapper);
 }
