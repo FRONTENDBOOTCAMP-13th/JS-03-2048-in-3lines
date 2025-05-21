@@ -1,0 +1,8 @@
+@keyframes hpDecreaseMobile {
+    from { width: 79.5vw; }
+    to { width: 0; }
+}
+@keyframes hpDecreasePC {
+    from { width: 27.7vw; }
+    to { width: 0; }
+}
