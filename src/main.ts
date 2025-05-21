@@ -61,7 +61,7 @@ startBtn.addEventListener("click", () => {
     isHardMode = false; // 일반 모드
     isAIMode = false;
     setBoardSize(4);
-    setupBoard(); 
+    setupBoard();
     initGrid();
     bgmIcon.src = soundOn;
     backupGridState();
@@ -140,7 +140,7 @@ aistartBtn.addEventListener("click", () => {
     isHardMode = false;
     isAIMode = true;
     setBoardSize(4);
-    setupBoard(); 
+    setupBoard();
     setupBoard2();
     aiinitGrid(); // AI 보드 초기화
     startAutoMove();
@@ -154,6 +154,7 @@ aistartBtn.addEventListener("click", () => {
     if (levelText) {
         levelText.textContent = `4*4`;
     }
+    socreBoard!.style.display = "flex"; // AI 점수판 숨기기
 });
 
 // 재시작 버튼 이벤트
