@@ -17,13 +17,15 @@ import { startAutoMove, stopAutoMove } from "./scripts/marge-tiles";
 
 import soundOn from "./svg/sound-on.svg";
 import soundOff from "./svg/sound-off.svg";
-import { timeAttack, resetGameOver } from "./scripts/game-over";
+import { timeAttack, resetGameOver, isGameOver } from "./scripts/game-over";
 
 // 하드모드 여부 변수
 let isHardMode = false;
 export let isTimeAttackMode = false;
 //ai모드 여부 변수
 export let isAIMode = false;
+let aiScore = document.getElementById("ai-score");
+let socreBoard = aiScore!.parentElement;
 
 setupModal();
 document.addEventListener("keydown", handleMoveWrapper);
@@ -58,6 +60,8 @@ startBtn.addEventListener("click", () => {
     isTimeAttackMode = false;
     isHardMode = false; // 일반 모드
     isAIMode = false;
+    setBoardSize(4);
+    setupBoard(); 
     initGrid();
     bgmIcon.src = soundOn;
     backupGridState();
@@ -65,6 +69,11 @@ startBtn.addEventListener("click", () => {
     document.getElementById("game-container")!.style.display = "block";
     document.getElementById("board2")!.style.display = "none";
     resetGameOver();
+    const levelText = document.querySelector(".level-text2") as HTMLElement;
+    if (levelText) {
+        levelText.textContent = `4*4`;
+    }
+    socreBoard!.style.display = "none"; // AI 점수판 숨기기
 });
 
 // 타임어택 시작 버튼 이벤트
@@ -78,12 +87,19 @@ timeAttackBtn.addEventListener("click", () => {
     bgmIcon.src = soundOn;
     isHardMode = false;
     isAIMode = false;
+    setBoardSize(4);
+    setupBoard();
     timeAttackInitGrid();
     backupGridState();
     document.getElementById("start-container")!.style.display = "none";
     document.getElementById("game-container")!.style.display = "block";
     document.getElementById("board2")!.style.display = "none";
     resetGameOver();
+    const levelText = document.querySelector(".level-text2") as HTMLElement;
+    if (levelText) {
+        levelText.textContent = `4*4`;
+    }
+    socreBoard!.style.display = "none"; // AI 점수판 숨기기
     timeAttack(); // 타임어택 모드에서만 실행
 });
 
@@ -95,6 +111,9 @@ hardstartBtn.addEventListener("click", () => {
     resetScore();
     isHardMode = true; // 하드 모드
     isAIMode = false;
+    isTimeAttackMode = false;
+    setBoardSize(4);
+    setupBoard();
     HardinitGrid();
     bgmIcon.src = soundOn;
     backupGridState();
@@ -102,6 +121,11 @@ hardstartBtn.addEventListener("click", () => {
     document.getElementById("game-container")!.style.display = "block";
     document.getElementById("board2")!.style.display = "none";
     resetGameOver();
+    const levelText = document.querySelector(".level-text2") as HTMLElement;
+    if (levelText) {
+        levelText.textContent = `4*4`;
+    }
+    socreBoard!.style.display = "none"; // AI 점수판 숨기기
 });
 
 //ai 시작 버튼 이벤트
@@ -112,8 +136,11 @@ aistartBtn.addEventListener("click", () => {
     resetScore();
     setupBoard();
     setupBoard2();
+    isTimeAttackMode = false;
     isHardMode = false;
     isAIMode = true;
+    setBoardSize(4);
+    setupBoard(); 
     aiinitGrid(); // AI 보드 초기화
     startAutoMove();
     bgmIcon.src = soundOn;
@@ -122,6 +149,10 @@ aistartBtn.addEventListener("click", () => {
     document.getElementById("game-container")!.style.display = "block";
     document.getElementById("board2")!.style.display = "grid";
     resetGameOver();
+    const levelText = document.querySelector(".level-text2") as HTMLElement;
+    if (levelText) {
+        levelText.textContent = `4*4`;
+    }
 });
 
 // 재시작 버튼 이벤트
@@ -144,6 +175,7 @@ restartBtn.addEventListener("click", () => {
 // 되돌리기 버튼
 const undoBtn = document.getElementById("undo-btn") as HTMLButtonElement;
 undoBtn.addEventListener("click", () => {
+    if (isGameOver) return; // 게임오버 시 실행취소 불가
     playClickSound();
     restorePreviousState();
 });

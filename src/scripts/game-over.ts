@@ -13,6 +13,7 @@ export function checkGameOver(): void {
     if (!canContinue) {
         showGameOverImage();
     }
+    isGameOver = true;
 }
 
 // 이동 또는 병합 가능한 타일이 있는지 확인
@@ -85,10 +86,10 @@ export function timeAttack(): void {
     timeAttackTimeoutId = window.setTimeout(() => {
         const gameOverEl = document.getElementById("game-over");
         if (gameOverEl) gameOverEl.style.display = "flex";
-        isGameOver = true;
+        // isGameOver = true;
         checkGameOver();
         timeAttackTimeoutId = null;
-    }, 1000 * 60 * 2); 
+    }, 5000);
 }
 export function cancelTimeAttack(): void {
     if (timeAttackTimeoutId !== null) {

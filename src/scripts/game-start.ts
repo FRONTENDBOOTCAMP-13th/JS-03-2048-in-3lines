@@ -12,7 +12,7 @@ import { findMovetile, moveAniElement } from "./find-move-tile";
 import { boardSize } from "./boardsize";
 import { handleMoveWrapper } from "./game-win";
 import { canMoveOrMerge } from "./can-move";
-import { checkGameOver } from "./game-over";
+import { checkGameOver, isGameOver } from "./game-over";
 
 let inputDelay = false;
 let previousGridState: number[][] = [];
@@ -94,7 +94,7 @@ export function restorePreviousState() {
 // 방향 이동 처리
 export function handleMove(direction: "up" | "down" | "left" | "right"): void {
     if (inputDelay) return;
-
+    if (isGameOver) return;
     backupGridState();
     findMovetile(direction, false);
     inputDelay = true;

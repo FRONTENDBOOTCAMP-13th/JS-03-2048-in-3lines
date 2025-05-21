@@ -36,6 +36,7 @@ export function setupBoard(): void {
     board.style.display = "grid";
     board.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
     board.style.gridTemplateRows = `repeat(${boardSize}, 1fr)`;
+    
 }
 export function setupBoard2(): void {
     board2.style.display = "grid";
