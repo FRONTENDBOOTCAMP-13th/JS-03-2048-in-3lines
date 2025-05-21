@@ -5,8 +5,8 @@ import { backupGridState } from "./game-start";
 import { isAIMode } from "../main";
 
 export let isGameOver = false;
-export let isTimeAttackMode = false; // 타임어택 모드 여부를 저장
-export let timeAttackTimeoutId: number | null = null;
+let timeAttackTimeoutId: number | null = null;
+
 
 // 게임 오버 조건 확인 및 이미지 표시
 export function checkGameOver(): void {
@@ -81,19 +81,13 @@ function canMoveOrMerge2(): boolean {
     return false;
 }
 export function timeAttack(): void {
-    isTimeAttackMode = true;
-    if (timeAttackTimeoutId !== null) {
-        clearTimeout(timeAttackTimeoutId);
-    }
-    setTimeout(() => {
+    cancelTimeAttack(); // 항상 기존 타이머 취소
+    timeAttackTimeoutId = window.setTimeout(() => {
         const gameOverEl = document.getElementById("game-over");
-        if (gameOverEl) {
-            gameOverEl.style.display = "flex";
-        }
-
+        if (gameOverEl) gameOverEl.style.display = "flex";
         isGameOver = true;
         checkGameOver();
-        timeAttackTimeoutId = null; // 끝나면 초기화
+        timeAttackTimeoutId = null;
     }, 5000);
 }
 export function cancelTimeAttack(): void {
@@ -102,7 +96,6 @@ export function cancelTimeAttack(): void {
         timeAttackTimeoutId = null;
     }
 }
-
 export function resetGameOver() {
     const gameOverEl = document.getElementById("game-over");
     if (gameOverEl) {
@@ -111,10 +104,4 @@ export function resetGameOver() {
     isGameOver = false;
     resetScore();
     cancelTimeAttack();
-}
-export function setTimeAttackMode(value: boolean) {
-    isTimeAttackMode = value;
-}
-export function getTimeAttackMode() {
-    return isTimeAttackMode;
 }
