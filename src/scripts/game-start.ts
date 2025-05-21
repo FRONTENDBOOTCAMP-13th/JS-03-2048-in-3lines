@@ -43,6 +43,14 @@ export function initGrid(): void {
     updateBoard();
     resetGameUI();
 }
+export function timeAttackInitGrid(): void {
+    const newGrid = createEmptyGrid();
+    setGrid(newGrid);
+    addRandomCell(true); // 초기 셀 1
+    addRandomCell(true); // 초기 셀 2
+    updateBoard();
+    resetGameUI();
+}
 
 // AI 전용 보드 초기화
 export function aiinitGrid(): void {
@@ -121,25 +129,4 @@ export function handleMove(direction: "up" | "down" | "left" | "right"): void {
             }
         }
     }, 300);
-}
-export function timeAttackInitGrid(): void {
-    const newGrid = createEmptyGrid();
-    setGrid(newGrid);
-    addRandomCell(true); // 초기 셀 1
-    addRandomCell(true); // 초기 셀 2
-    updateBoard();
-
-    // 게임 승리 이미지 숨기기
-    const winEl = document.getElementById("game-win");
-    if (winEl) {
-        winEl.style.display = "none";
-    }
-    // 게임 오버 이미지 숨기기
-    const gameOverEl = document.getElementById("game-over");
-    if (gameOverEl) {
-        gameOverEl.style.display = "none";
-    }
-
-    // 키 입력 이벤트 다시 등록
-    document.addEventListener("keydown", handleMoveWrapper);
 }
