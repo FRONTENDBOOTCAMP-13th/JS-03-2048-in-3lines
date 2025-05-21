@@ -127,7 +127,7 @@ homeBtn.addEventListener("click", () => {
 });
 
 // 배경음 토글 버튼
-const bgmToggle = document.getElementById("bgm-toggle") as HTMLButtonElement;
+const bgmToggle = document.getElementById("bgm-icon") as HTMLButtonElement;
 bgmToggle.addEventListener("click", () => {
     if (isBGMPlaying()) {
         stopBGM();
