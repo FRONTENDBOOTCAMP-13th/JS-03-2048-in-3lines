@@ -255,6 +255,9 @@ function changeBoardSize(size: number) {
     if (levelText) {
         levelText.textContent = `${size}*${size}`;
     }
+    // 모달 닫기
+    const levelWrapper = document.querySelector(".level") as HTMLElement;
+    levelWrapper?.classList.remove("open");
 }
 level3Btn.addEventListener("click", () => {
     changeBoardSize(3);
