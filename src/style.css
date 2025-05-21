@@ -457,7 +457,7 @@ h1 {
                 cursor: pointer;
                 border: none;
                 margin-top: -0.3vw;
-                margin-left: calc((0.4rem - 1rem) * 0.5);
+                margin-left: calc((0.37rem - 1rem) * 0.5);
             }
 
             /* Firefox 손잡이  */
@@ -470,7 +470,7 @@ h1 {
                 cursor: pointer;
                 border: none;
                 margin-top: -0.3vw;
-                margin-left: calc((0.4rem - 1rem) * 0.5);
+                margin-left: calc((0.37rem - 1rem) * 0.5);
             }
         }
 
