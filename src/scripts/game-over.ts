@@ -2,7 +2,7 @@ import { boardSize } from "./boardsize";
 import { grid, grid2 } from "./add-random-cell";
 import { resetScore } from "./score";
 import { backupGridState } from "./game-start";
-import { isAIMode, isTimeAttackMode } from "../main";
+import { isAIMode } from "../main";
 
 export let isGameOver = false;
 let timeAttackTimeoutId: number | null = null;
