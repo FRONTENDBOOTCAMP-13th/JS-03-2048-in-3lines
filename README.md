@@ -92,13 +92,18 @@ npm i
 >
 > **안녕하세요 쉽게 알아보고 쉽게 수정할수있게 목표인 팀 세줄요약입니다!**
 
+
+
 |                                                 팀장                                                  |                                                 팀원                                                  |                                                 팀원                                                  |                                                 팀원                                                  |
 | :---------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: |
-|                                                 사진                                                  |                                                 사진                                                  |                                                 사진                                                  |                                                 사진                                                  |
+|              <img src="./src/team-member-img/hyunsoo.png" height="150px" width="150px">               |              <img src="./src/team-member-img/teakyung.png" height="150px" width="150px">              |               <img src="./src/team-member-img/dongsu.jpg" height="150px" width="150px">               |                <img src="./src/team-member-img/yuha.jpg" height="150px" width="150px">                |
 |                                                조현수                                                 |                                                김태경                                                 |                                                신동수                                                 |                                                장유하                                                 |
 | ![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white) | ![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white) | ![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white) | ![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white) |
-|                                                                                                       |                                                                                                       |                                                                                                       |
-|                                  스크럼 마스터<br>타일 병합기능<br>                                   |                                타일 이동 로직<br>타일 이동 애니메이션                                 |                 타일 생성<br>게임시작 로직<br>사운드<br>점수 로직<br>배열 초기화<br>                  |                              UI 디자인<br>난이도 로직<br>게임 종료 로직                               |
+|                         [조현수 깃허브 링크](https://github.com/johyunsoo33)                          |                          [김태경 깃허브 링크](https://github.com/teakyungg)                           |                  [신동수 깃허브 링크](https://github.com/Dongsusin?tab=repositories)                  |                            [장유하 깃허브 링크](https://github.com/yuha2)                             |
+|                            스크럼 마스터<br>타일 병합기능<br>타임어택 모드                            |                                타일 이동 로직<br>타일 이동 애니메이션                                 |        타일 생성<br>게임시작 로직<br>사운드<br>점수 로직<br>배열 초기화<br>하드모드<br>AI모드         |                   UI 디자인<br>난이도 로직<br>게임 종료<br>마크업<br>스타일링 로직                    |
+
+
+
 
 ---
 
@@ -156,32 +161,44 @@ npm i
 <details>
   <summary><span style="font-size: 1.5em; font-weight: bold;">🧑‍⚖️조현수</span></summary>
   <blockquote>
-  여기다가 회고내용,느낀점을 <br>
-  적어주시면 됩니다.
+  이 프로젝트를 시작하기에 앞서 오랜만에 게임이라는 주제를 선정하고 시작하게 되서 걱정반 절망 반의반 떨림 반의반으로 시작하게 되었는데<br>
+  2048 프로젝트를 시작하고나서 2일차만에 엄청난 벽과 후회를 마주하게 되었다(like a 생각하는 사람)<br>
+  타일 병합이라는 로직을 작성하다가 vs코드와 눈싸움도 오래 하면서 <br>결국 미래산업기술중 하나인 AI에 적절한 도움을 받아가면서
+  완성을 시켰지만.....<i>(뭔가 어느새 자주 코드가 크게 변한다.....(범인은...))</i><br>
+  <i style='color:red'>같은 기능을 하는 로직이 여러 함수에서 사용이되고 세분화하자고해서 만든 내용이 오히려 코드의 가독성을 어지럽힐수 있다는 점을 느낄수 있었다</i><br><br>
+  <strong>파트의 분배의 중요성과 코드 정리의 중요성을 느낄수 있는 시간이였다.</strong>
+  <strong>그래도 이 프로젝트를 하면서 이중 for문과 2차원배열에대한 지식은 높힐수있는 시간이였고 <i> (진짜 다시는!!!! 게임 안만들어!!)</i></strong><br>
+  <strong>휼륭한 팀원들과 소통을 하면서 나의 문제점과 각자의 문제점을 많은 이야기를 통해 수정할수있었던 소중한 시간이였다.</strong><br>
+  
   </blockquote>
 </details>
 
 <details>
   <summary><span style="font-size: 1.5em; font-weight: bold;">👨‍🔧김태경</span></summary>
   <blockquote>
-  여기다가 회고내용,느낀점을 <br>
-  적어주시면 됩니다.
+ 이번 프로젝트를 통해 <strong>자바스크립트에 더 익숙해질 수 있었고, 실력을 한층 더 키울 수 있었습니다</strong>.<br>
+또한 <strong style='color:red'>협업의 어려움</strong>을 체감하면서, <strong style='color:blue'>소통과 역할 분담의 중요성</strong>을 다시 한 번 느꼈습니다.<br>
+<i>특히 서로 비슷한 기능을 맡다 보니 역할 분리가 명확하지 않았던 점이 아쉬웠습니다.</i><br>
   </blockquote>
 </details>
 
 <details>
   <summary><span style="font-size: 1.5em; font-weight: bold;">👨‍🔧신동수</span></summary>
   <blockquote>
-  여기다가 회고내용,느낀점을 <br>
-  적어주시면 됩니다.
+이번 프로젝트를 통해 지금까지 배운 내용을 정리하고 활용할수있는 기회가 될수있어서 좋았습니다.<br>
+2048게임을 직접 제작해보면서 어릴때 해봤던 게임의 단순하고 간단해보이는 기능도 생각보다 복잡하고 어려운 기능이라는것을 알수있었고 <br>
+어렵고 복잡한 기능등을 구현해보면서 작은 기능등을 쌓아올려서 어려운기능을 만드는 과정이 좋았습니다. <br>
+<strong>또한 다양한 모드들을 구현해보면서 해당 모드들에 어떤기능들이 추가돼는지 알수있는 기회가 돼서 좋은 경험이였습니다.</strong>
   </blockquote>
 </details>
 
 <details>
   <summary><span style="font-size: 1.5em; font-weight: bold;">👨‍🔧장유하</span></summary>
   <blockquote>
-  여기다가 회고내용,느낀점을 <br>
-  적어주시면 됩니다.
+프로젝트를 통해 현재까지 배운 내용을 활용하며 복습을 할 수 있는 기회가 될 수 있어 좋았습니다. <br>
+2048 게임을 실제로 구현해보면서 단순한 기능도 내부적으로는 생각보다 복잡하다는 것을 느꼈고, <strong>작은 기능이라도 꼼꼼하게 설계하는 습관</strong>이 중요하다는 걸 배웠습니다.<br>
+또한 첫번째 프로젝트에 이어 다시 한번 협업을 경험하면서 서로의 진행 상황을 자주 확인하고, 변경 사항을 기록하며 협업해야 효율적인 결과를 만들 수 있다는 점을 알게 되었습니다. <br>
+이번 프로젝트는 단순히 결과물을 만드는 것을 넘어, <strong>개발 과정의 사고 방식과 협업 태도까지 돌아볼 수 있는 값진 경험</strong>이었습니다.<br>
   </blockquote>
 </details>
 
