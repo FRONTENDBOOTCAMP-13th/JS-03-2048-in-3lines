@@ -391,6 +391,7 @@ h1 {
             }
             .volume-control {
                 position: absolute;
+                justify-content: center;
                 left: 50%;
                 top: -320%;
                 transform: translateX(-50%);
@@ -463,7 +464,16 @@ h1 {
                 cursor: pointer;
                 border: none;
                 margin-top: -0.3vw;
-                margin-left: calc((0.37rem - 1rem) * 0.5);
+                margin-left: calc((0.36rem - 1rem) * 0.5);
+                @media (max-width: 767px) {
+                    width: 3.5vw;
+                    height: 1vw;
+                    border-radius: 1vw;
+                    cursor: pointer;
+                    border: none;
+                    margin-top: -0.3vw;
+                    margin-left: calc((0.4rem - 1rem) * 0.5);
+                }
             }
 
             /* Firefox 손잡이  */
@@ -516,7 +526,7 @@ h1 {
             }
             /* 난이도 모달창 */
             .level-modal {
-                z-index: 1;
+                z-index: 999;
                 position: absolute;
                 top: 50%;
                 left: 50%;
@@ -728,6 +738,7 @@ h1 {
                 }
                 /* 난이도 모달창 */
                 .level-modal {
+                    z-index: 999;
                     position: absolute;
                     top: 50%;
                     left: 50%;
