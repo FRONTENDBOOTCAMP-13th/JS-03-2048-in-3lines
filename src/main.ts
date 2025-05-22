@@ -1,4 +1,5 @@
 import "./style.css";
+import "./anime/animation.css";
 import { setupBoard, setupBoard2 } from "./scripts/board";
 import {
     initGrid,
@@ -32,6 +33,10 @@ const gameScreendSize = document.getElementById("game-screen-box") as HTMLElemen
 console.log(gameScreendSize);
 setupModal();
 document.addEventListener("keydown", handleMoveWrapper);
+
+function isMobile() {
+    return window.innerWidth <= 767;
+}
 
 // 초기 BGM 상태 아이콘 설정 및 주기적 갱신
 const bgmIcon = document.getElementById("bgm-icon") as HTMLImageElement;
@@ -78,6 +83,9 @@ startBtn.addEventListener("click", () => {
     }
     socreBoard!.style.display = "none"; // AI 점수판 숨기기
     gameScreendSize.style.width = "32vw";
+    if (isMobile()) {
+        gameScreendSize.style.width = "91vw";
+    }
     hpBar!.style.display = "none";
 });
 
@@ -106,7 +114,19 @@ timeAttackBtn.addEventListener("click", () => {
     }
     hpBar!.style.display = "flex";
     socreBoard!.style.display = "none"; // AI 점수판 숨기기
-    gameScreendSize.style.width = "32vw";
+    if (isMobile()) {
+        gameScreendSize.style.width = "91vw";
+        document.getElementById("time-attack-hp")?.classList.add("animate-hp-mobile");
+        setTimeout(() => {
+            document.getElementById("time-attack-hp")?.classList.remove("animate-hp-mobile");
+        }, 120000);
+    } else {
+        gameScreendSize.style.width = "32vw";
+        document.getElementById("time-attack-hp")?.classList.add("animate-hp");
+        setTimeout(() => {
+            document.getElementById("time-attack-hp")?.classList.remove("animate-hp");
+        }, 120000);
+    }
     timeAttack(); // 타임어택 모드에서만 실행
 });
 
@@ -135,6 +155,9 @@ hardstartBtn.addEventListener("click", () => {
     socreBoard!.style.display = "none"; // AI 점수판 숨기기
     gameScreendSize.style.width = "32vw";
     hpBar!.style.display = "none";
+    if (isMobile()) {
+        gameScreendSize.style.width = "91vw";
+    }
 });
 
 //ai 시작 버튼 이벤트
@@ -165,7 +188,6 @@ aistartBtn.addEventListener("click", () => {
     }
     socreBoard!.style.display = "flex"; // AI 점수판 숨기기
     hpBar!.style.display = "none";
-
     gameScreendSize.style.width = "64vw";
 });
 
@@ -180,13 +202,41 @@ restartBtn.addEventListener("click", () => {
         startAutoMove();
     } else if (isHardMode) {
         gameScreendSize.style.width = "32vw";
+        if (isMobile()) {
+            gameScreendSize.style.width = "91vw";
+        }
         HardinitGrid();
     } else if (isTimeAttackMode) {
         gameScreendSize.style.width = "32vw";
+        const hpBar = document.getElementById("time-attack-hp") as HTMLDivElement;
+        if (hpBar) {
+            hpBar.classList.remove("animate-hp");
+            // 모바일/PC에 따라 초기 width 다르게 적용
+            if (isMobile()) {
+                gameScreendSize.style.width = "91vw";
+                document.getElementById("time-attack-hp")?.classList.add("animate-hp-mobile");
+                setTimeout(() => {
+                    document
+                        .getElementById("time-attack-hp")
+                        ?.classList.remove("animate-hp-mobile");
+                }, 120000);
+            } else {
+                gameScreendSize.style.width = "32vw";
+                document.getElementById("time-attack-hp")?.classList.add("animate-hp");
+                setTimeout(() => {
+                    document.getElementById("time-attack-hp")?.classList.remove("animate-hp");
+                }, 120000);
+            }
+            void hpBar.offsetWidth;
+            hpBar.classList.add("animate-hp");
+        }
         timeAttackInitGrid();
-        timeAttack(); // 타임어택 모드에서만 재시작 시 타임어택 실행
+        timeAttack();
     } else {
         gameScreendSize.style.width = "32vw";
+        if (isMobile()) {
+            gameScreendSize.style.width = "91vw";
+        }
         initGrid();
     }
     backupGridState();
@@ -212,6 +262,7 @@ homeBtn.addEventListener("click", () => {
     const startContainer = document.getElementById("start-container")!;
     startContainer.style.display = "flex";
     gameContainer.style.display = "none";
+    document.getElementById("time-attack-hp")?.classList.remove("animate-hp");
     resetGameOver();
 });
 
@@ -236,6 +287,11 @@ function changeBoardSize(size: number) {
     resetGameOver();
     setBoardSize(size);
     if (isHardMode) {
+        gameScreendSize.style.width = "32vw";
+        if (isMobile()) {
+            gameScreendSize.style.width = "91vw";
+            setupBoard();
+        }
         setupBoard();
         HardinitGrid();
     } else if (isAIMode) {
@@ -243,17 +299,42 @@ function changeBoardSize(size: number) {
         setupBoard2();
         aiinitGrid();
     } else if (isTimeAttackMode) {
-        setupBoard();
-        timeAttackInitGrid();
-        timeAttack(); // 타임어택 모드에서만 실행
-    } else {
-        setupBoard();
-        initGrid();
-    }
+        gameScreendSize.style.width = "32vw";
+        const hpBar = document.getElementById("time-attack-hp") as HTMLDivElement;
+        if (hpBar) {
+            hpBar.classList.remove("animate-hp");
+            // 모바일/PC에 따라 초기 width 다르게 적용
+            if (isMobile()) {
+                gameScreendSize.style.width = "91vw";
+                document.getElementById("time-attack-hp")?.classList.add("animate-hp-mobile");
+                setTimeout(() => {
+                    document
+                        .getElementById("time-attack-hp")
+                        ?.classList.remove("animate-hp-mobile");
+                }, 120000);
+            } else {
+                gameScreendSize.style.width = "32vw";
+                document.getElementById("time-attack-hp")?.classList.add("animate-hp");
+                setTimeout(() => {
+                    document.getElementById("time-attack-hp")?.classList.remove("animate-hp");
+                }, 120000);
+            }
+            setupBoard();
+            timeAttackInitGrid();
+            timeAttack();
+        } else {
+            setupBoard();
+            gameScreendSize.style.width = "32vw";
+            if (isMobile()) {
+                gameScreendSize.style.width = "91vw";
+            }
+            initGrid();
+        }
 
-    const levelText = document.querySelector(".level-text2") as HTMLElement;
-    if (levelText) {
-        levelText.textContent = `${size}*${size}`;
+        const levelText = document.querySelector(".level-text2") as HTMLElement;
+        if (levelText) {
+            levelText.textContent = `${size}*${size}`;
+        }
     }
     // 모달 닫기
     const levelWrapper = document.querySelector(".level") as HTMLElement;

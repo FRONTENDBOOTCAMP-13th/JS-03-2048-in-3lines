@@ -83,13 +83,15 @@ function canMoveOrMerge2(): boolean {
 export function timeAttack(): void {
     console.log("타임어택 모드");
     cancelTimeAttack(); // 항상 기존 타이머 취소
-    timeAttackTimeoutId = window.setTimeout(() => {
-        const gameOverEl = document.getElementById("game-over");
-        if (gameOverEl) gameOverEl.style.display = "flex";
-        // isGameOver = true;
-        checkGameOver();
-        timeAttackTimeoutId = null;
-    }, 1000*60*2);
+    timeAttackTimeoutId = window.setTimeout(
+        () => {
+            const gameOverEl = document.getElementById("game-over");
+            if (gameOverEl) gameOverEl.style.display = "flex";
+            checkGameOver();
+            timeAttackTimeoutId = null;
+        },
+        1000 * 60 * 2,
+    );
 }
 export function cancelTimeAttack(): void {
     if (timeAttackTimeoutId !== null) {
