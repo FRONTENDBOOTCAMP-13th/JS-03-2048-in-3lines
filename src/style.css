@@ -392,6 +392,7 @@ h1 {
             .volume-control {
                 position: absolute;
                 justify-content: center;
+                align-items: center;
                 left: 50%;
                 top: -320%;
                 transform: translateX(-50%);
@@ -404,9 +405,9 @@ h1 {
                 transition: opacity 0.2s ease;
                 @media (max-width: 767px) {
                     top: -328%;
-                    left: 50%;
+                    left: 49%;
                     transform: translateX(-50%);
-                    width: 4vw;
+                    width: 4.1vw;
                     height: 16vw;
                     border: #2c3e50 solid 0.5vw;
                     background-color: #ffffff;
@@ -449,7 +450,8 @@ h1 {
             /* Firefox 바  */
             input[type="range"]::-moz-range-track {
                 background: #2c3e50;
-                border-radius: 1vw;
+                border-top-right-radius: 1vw;
+                border-top-left-radius: 1vw;
                 width: 100%;
                 height: 100%;
             }
@@ -459,20 +461,20 @@ h1 {
                 -webkit-appearance: none;
                 background: #2c3e50;
                 width: 1vw;
-                height: 0.5vw;
+                height: 0.35vw;
                 border-radius: 1vw;
                 cursor: pointer;
                 border: none;
                 margin-top: -0.3vw;
-                margin-left: calc((0.36rem - 1rem) * 0.5);
+                margin-left: calc((0.37rem - 1rem) * 0.5);
                 @media (max-width: 767px) {
                     width: 3.5vw;
-                    height: 1vw;
+                    height: 1.2vw;
                     border-radius: 1vw;
                     cursor: pointer;
                     border: none;
                     margin-top: -0.3vw;
-                    margin-left: calc((0.4rem - 1rem) * 0.5);
+                    margin-left: calc((0.36rem - 1rem) * 0.5);
                 }
             }
 
@@ -481,12 +483,21 @@ h1 {
                 -webkit-appearance: none;
                 background: #2c3e50;
                 width: 1vw;
-                height: 0.5vw;
+                height: 0.35vw;
                 border-radius: 1vw;
                 cursor: pointer;
                 border: none;
                 margin-top: -0.3vw;
                 margin-left: calc((0.37rem - 1rem) * 0.5);
+                @media (max-width: 767px) {
+                    width: 3.5vw;
+                    height: 1.2vw;
+                    border-radius: 1vw;
+                    cursor: pointer;
+                    border: none;
+                    margin-top: -0.3vw;
+                    margin-left: calc((0.36rem - 1rem) * 0.5);
+                }
             }
         }
 
