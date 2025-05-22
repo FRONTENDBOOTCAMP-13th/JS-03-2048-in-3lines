@@ -122,7 +122,7 @@ export function findMovetile(dir: string, AImode: boolean) {
 export function moveAniElement(dir: string, moveLength: number, AImode: boolean) {
     // div들 가져오기
     const divArr = getElement(AImode);
-    let Arr = null;
+    let Arr: number[][] = [];
 
     if (AImode === true) Arr = MoveArrAI;
     else if (AImode === false) Arr = MoveArr;
