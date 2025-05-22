@@ -259,7 +259,7 @@ homeBtn.addEventListener("click", () => {
     const startContainer = document.getElementById("start-container")!;
     startContainer.style.display = "flex";
     gameContainer.style.display = "none";
-    document.getElementById("time-attack-hp")?.classList.remove("animate-hp");
+    document.getElementById("time-attack-hp")?.classList.remove("animate-hp", "animate-hp-mobile");
     resetGameOver();
 });
 
