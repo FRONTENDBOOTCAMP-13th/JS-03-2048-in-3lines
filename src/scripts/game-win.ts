@@ -2,6 +2,13 @@ import { boardSize } from "./boardsize";
 import { grid } from "./add-random-cell";
 import { handleMove, backupGridState } from "./game-start";
 import { resetScore } from "./score";
+import { isAIMode } from "../main";
+
+export let GameWin = false;
+// 게임 다시 시작시 불러와야할 함수
+export function GameWinReset() {
+    GameWin = false;
+}
 
 // 2048 생성 시 game win 이미지 표시
 export function checkWin(): void {
@@ -10,6 +17,7 @@ export function checkWin(): void {
             if (grid[row][col] === 2048) {
                 showGameStartImage();
                 document.removeEventListener("keydown", handleMoveWrapper);
+                GameWin = true;
                 return;
             }
         }
@@ -19,10 +27,26 @@ export function checkWin(): void {
 // 이미지 띄우기
 function showGameStartImage() {
     const winEl = document.getElementById("game-win");
-    if (winEl) {
-        winEl.style.display = "flex";
-        resetScore();
-        backupGridState();
+    const winImg = winEl?.querySelector("img") as HTMLImageElement;
+
+    const winEl_1p = document.getElementById("game-win-1p");
+    const winEl_Img = winEl_1p?.querySelector("img") as HTMLImageElement;
+
+    if (isAIMode) {
+        if (winEl_1p) {
+            winEl_1p.style.display = "flex";
+            winEl_Img.style.display = "block";
+
+            resetScore();
+            backupGridState();
+        }
+    } else {
+        if (winEl) {
+            winEl.style.display = "flex";
+            winImg.style.display = "block";
+            resetScore();
+            backupGridState();
+        }
     }
 }
 

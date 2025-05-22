@@ -20,14 +20,32 @@
                 <div class="start-box3">4</div>
                 <div class="start-box4">8</div>
             </div>
-            <button id="start-btn">Start</button>
+
+            <div class="start-btn-container">
+                <button id="start-btn">기본 모드</button>
+                <button id="time-attack-btn">타임어택 모드</button>
+                <button id="hard-start-btn">하드 모드</button>
+                <button id="ai-start-btn">ai 모드</button>
+            </div>
         </div>
         <!--게임 실행 요소(시작전까지는 display:none 후에는block)-->
         <div id="game-container">
             <!--게임창-->
+            <!-- 타임어택 -->
+            <div class="time-attack-container">
+                <img
+                    class="time-attack-img"
+                    src="/src/svg/time-attack.svg"
+                    alt="타임어택 모드 hp"
+                />
+                <div class="time-attack-bar">
+                    <div class="time-attack" id="time-attack-hp"></div>
+                </div>
+            </div>
+            <!-- 일반 게임창 -->
             <div class="game-screen-container">
                 <div class="game-screen-mob">
-                    <div class="game-screen">
+                    <div class="game-screen" id="game-screen-box">
                         <!--설명상단-->
                         <div class="explanation-top">
                             <p class="explanation-text">숫자를 합쳐 2048 타일을 만드세요!</p>
@@ -49,6 +67,16 @@
                                         src="/src/svg/sound-on.svg"
                                         alt="BGM"
                                     />
+                                    <div class="volume-control">
+                                        <label for="master-volume"></label>
+                                        <input
+                                            type="range"
+                                            id="master-volume"
+                                            min="0"
+                                            max="100"
+                                            value="50"
+                                        />
+                                    </div>
                                 </div>
                                 <!--난이도-->
                                 <div class="level" id="level">
@@ -73,32 +101,82 @@
                                     <p class="score-text">점수</p>
                                     <span class="score-text2" id="score">0</span>
                                 </div>
+                                <!--ai점수-->
+                                <div class="score-panel">
+                                    <p class="score-text">ai점수</p>
+                                    <span class="score-text2" id="ai-score">0</span>
+                                </div>
                             </div>
                         </div>
                         <!--게임 보드-->
-                        <div class="board" id="board">
-                            <!--여러 셀-->
+                        <div class="board-screen">
+                            <!--1p-->
+                            <div class="board" id="board">
+                                <!--여러 셀-->
+                            </div>
+                            <!--2p-->
+                            <div class="board" id="board2">
+                                <!--여러 셀-->
+                            </div>
                         </div>
                         <!--설명하단-->
                         <p class="bottom-text">방향키 또는 스와이프로 타이을 움직이세요</p>
 
                         <!--버튼(실행취소,재시작)-->
                         <div class="bottom-btn">
-                            <button class="undo-btn" id="undo-btn">실행 취소</button>
+                            <button class="undo-btn" id="undo-btn">
+                                <span class="undo-content">
+                                    되돌리기
+                                    <img
+                                        class="undo-icon"
+                                        src="/src/svg/undo.svg"
+                                        alt="되돌리기 아이콘"
+                                    />
+                                </span>
+                            </button>
                             <button class="restart-btn" id="restart-btn">재시작</button>
                         </div>
-                        <!--게임오버-->
-                        <div></div>
                         <!-- 게임 승리 화면 -->
-                        <div id="game-win" class="game-win" style="display: none">
+                        <div id="game-win" class="game-win">
                             <img
                                 src="/src/svg/game-win.svg"
                                 alt="Game Start"
                                 class="game-win-img"
+                                style="display: none"
+                            />
+                        </div>
+                        <div id="game-win-1p" class="game-win-1p">
+                            <img
+                                src="/src/svg/game-win.svg"
+                                alt="Game Start"
+                                class="game-win-img"
+                                style="display: none"
+                            />
+                        </div>
+                        <div id="game-win-2p" class="game-win-2p">
+                            <img
+                                src="/src/svg/game-win.svg"
+                                alt="Game Start"
+                                class="game-win-img"
+                                style="display: none"
                             />
                         </div>
                         <!-- 게임 오버 화면 -->
-                        <div id="game-over" class="game-over" style="display: none">
+                        <div id="game-over" class="game-over">
+                            <img
+                                src="/src/svg/game-over.svg"
+                                alt="Game Over"
+                                class="game-over-img"
+                            />
+                        </div>
+                        <div id="game-over-1p" class="game-over-1p">
+                            <img
+                                src="/src/svg/game-over.svg"
+                                alt="Game Over"
+                                class="game-over-img"
+                            />
+                        </div>
+                        <div id="game-over-2p" class="game-over-2p">
                             <img
                                 src="/src/svg/game-over.svg"
                                 alt="Game Over"

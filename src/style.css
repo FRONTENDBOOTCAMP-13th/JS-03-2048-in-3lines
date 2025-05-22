@@ -28,17 +28,17 @@ body {
 #start-container {
     display: flex;
     flex-flow: column wrap;
-    width: 30vw;
-    height: 37vw;
+    width: 32vw;
+    height: 41vw;
     border: #2c3e50 solid 0.2vw;
     justify-content: center;
     align-items: center;
     background-color: #ffffff;
-    border-radius: 0.4vw;
+    border-radius: 0.5vw;
 
     @media (max-width: 767px) {
         width: 90vw;
-        height: 117vw;
+        height: 137vw;
         display: flex;
         flex-flow: column wrap;
         background-color: #ffffff;
@@ -49,30 +49,30 @@ h1 {
     all: unset;
     margin: 0;
     padding: 0;
-    font-size: 6vw;
+    font-size: 7vw;
     color: #2c3e50;
     font-weight: 800;
 
     @media (max-width: 767px) {
-        font-size: 20vw;
+        font-size: 26vw;
     }
 }
 .start-box {
     display: flex;
     flex-flow: row wrap;
-    font-size: 3.8vw;
+    font-size: 4vw;
     font-weight: 700;
     color: #ffffff;
-    gap: 0.6vw;
-    width: 12.6vw;
+    gap: 0.7vw;
+    width: 15vw;
     margin-top: 1vw;
 
     @media (max-width: 767px) {
-        font-size: 12vw;
+        font-size: 15vw;
         font-weight: 700;
         color: #ffffff;
         gap: 2vw;
-        width: 46vw;
+        width: 56vw;
         margin-top: 3vw;
     }
 
@@ -83,14 +83,14 @@ h1 {
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 0.4vw;
-        width: 6vw;
-        height: 6vw;
+        border-radius: 0.5vw;
+        width: 7vw;
+        height: 7vw;
 
         @media (max-width: 767px) {
-            border-radius: 1.2vw;
-            width: 22vw;
-            height: 22vw;
+            border-radius: 1.5vw;
+            width: 27vw;
+            height: 27vw;
         }
     }
     .start-box1 {
@@ -106,28 +106,78 @@ h1 {
         background-color: #2c3e50;
     }
 }
-#start-btn {
+
+.start-btn-container {
+    display: flex;
+    flex-flow: row;
+    gap: 0.6vw;
+    margin-top: 2.7vw;
+    @media (max-width: 767px) {
+        gap: 1.5vw;
+        margin-top: 2vw;
+    }
+}
+
+#start-btn,
+#hard-start-btn {
     background-color: #2c3e50;
     border-radius: 0.4vw;
     width: 5vw;
     height: 2.1vw;
-    margin-top: 2vw;
     color: #ffffff;
     font-size: 0.9vw;
-    font-weight: 800;
+    font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
-
-    box-shadow: 3px 4px #141c24;
+    box-shadow: 0.1vw 0.2vw 0.2vw #8a8a8a;
     @media (max-width: 767px) {
-        border-radius: 0.7vw;
-        width: 14vw;
-        height: 6vw;
-        margin-top: 7vw;
-        font-size: 2.3vw;
+        border-radius: 1vw;
+        width: 16vw;
+        height: 7vw;
+        margin-top: 6.5vw;
+        font-size: 2.8vw;
     }
 }
-#start-btn:active {
+
+#time-attack-btn {
+    background-color: #2c3e50;
+    border-radius: 0.4vw;
+    width: 7vw;
+    height: 2.1vw;
+    color: #ffffff;
+    font-size: 0.9vw;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0.1vw 0.2vw 0.2vw #8a8a8a;
+    @media (max-width: 767px) {
+        border-radius: 1vw;
+        width: 21vw;
+        height: 7vw;
+        margin-top: 6.5vw;
+        font-size: 2.8vw;
+    }
+}
+
+#ai-start-btn {
+    background-color: #2c3e50;
+    border-radius: 0.4vw;
+    width: 4.5vw;
+    height: 2.1vw;
+    color: #ffffff;
+    font-size: 0.9vw;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0.1vw 0.2vw 0.2vw #8a8a8a;
+    @media (max-width: 767px) {
+        display: none;
+    }
+}
+#start-btn:active,
+#hard-start-btn:active,
+#time-attack-btn:active,
+#ai-start-btn:active {
     transition: all 0.2s ease;
     border-color: rgba(0, 0, 0, 0.34) rgba(0, 0, 0, 0.21) rgba(0, 0, 0, 0.21);
     box-shadow:
@@ -139,6 +189,70 @@ h1 {
     display: none;
     padding: 0;
 }
+/* 타임어택 */
+.time-attack-container {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    margin-bottom: 1vw;
+    .time-attack-img {
+        width: 2.3vw;
+    }
+    .time-attack-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28.8vw;
+        height: 1.6vw;
+        border: #2c3e50 solid 0.2vw;
+        margin-left: 0.8vw;
+        border-radius: 2vw;
+        background-color: #ffffff;
+    }
+    .time-attack,
+    #time-attack-hp {
+        width: 27.7vw;
+        height: 0.9vw;
+        border-radius: 2vw;
+        background-color: #2c3e50;
+        transition: width 0.2s ease;
+    }
+    .animate-hp {
+        animation: hpDecreasePC 120s linear forwards;
+    }
+    @media (max-width: 767px) {
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        margin-bottom: 3vw;
+        .time-attack-img {
+            margin-left: 0.5vw;
+            width: 6vw;
+        }
+        .time-attack-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 82vw;
+            height: 4.5vw;
+            border: #2c3e50 solid 0.6vw;
+            margin-left: 2vw;
+            border-radius: 5vw;
+            background-color: #ffffff;
+        }
+        .time-attack,
+        #time-attack-hp {
+            width: 79.5vw;
+            height: 2.5vw;
+            border-radius: 3vw;
+            background-color: #2c3e50;
+            transition: width 0.2s ease;
+        }
+    }
+    .animate-hp-mobile {
+        animation: hpDecreaseMobile 120s linear forwards;
+    }
+}
 /*게임창*/
 .game-screen-container {
     display: flex;
@@ -148,8 +262,9 @@ h1 {
     .game-screen {
         display: grid;
         padding: 2vw;
-        width: 30vw;
-        height: 37vw;
+        width: 32vw;
+        height: 41vw;
+
         border: #2c3e50 solid 0.2vw;
         background: #fff;
         justify-content: center;
@@ -166,10 +281,26 @@ h1 {
             z-index: 10;
             pointer-events: none;
         }
+        .game-win-1p {
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            pointer-events: none;
+        }
+        .game-win-2p {
+            position: absolute;
+            top: 50%;
+            left: 75%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            pointer-events: none;
+        }
 
         .game-win-img {
-            width: 28vw;
-            height: 35vw;
+            width: 32vw;
+            height: 41vw;
             border-radius: 0.4vw;
         }
         /* game-over 화면 */
@@ -178,21 +309,42 @@ h1 {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            z-index: 99;
+            pointer-events: none;
+        }
+        .game-over-1p {
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            pointer-events: none;
+        }
+        .game-over-2p {
+            position: absolute;
+            top: 50%;
+            left: 75%;
+            transform: translate(-50%, -50%);
             z-index: 10;
             pointer-events: none;
         }
 
         .game-over-img {
-            width: 28vw;
-            height: 35vw;
+            width: 32vw;
+            height: 41vw;
             border-radius: 0.4vw;
         }
     }
     /*보드*/
-    .board {
-        display: grid;
-        width: 27vw;
-        width: 27vw;
+    .board-screen {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5vw;
+        width: 100%;
+    }
+    .board,
+    #board2 {
+        width: 29vw;
         background: #2c3e50;
         border-radius: 0.5vw;
         justify-content: center;
@@ -201,17 +353,19 @@ h1 {
         padding: 0.45vw;
         grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
     }
+    #board2 {
+        display: none;
+    }
     /*설명 상단*/
     .explanation-top {
         display: flex;
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        margin-block-start: 1vw;
-        margin-block-end: 0.5vw;
+        margin-block-start: 0.5vw;
 
         .explanation-text {
-            font-size: 0.8vw;
+            font-size: 1vw;
             font-weight: 400;
         }
         .button-container {
@@ -219,57 +373,169 @@ h1 {
             flex-direction: row;
             justify-content: center;
             align-items: end;
-            gap: 0.6vw;
+            gap: 0.5vw;
         }
         /*홈 버튼*/
         .home-button {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 1.3vw;
-            height: 1.3vw;
+            width: 1.6vw;
+            height: 1.6vw;
             background-color: #2c3e50;
             border-radius: 0.2vw;
             cursor: pointer;
             .home-botton-img {
-                width: 0.7vw;
-                height: 0.7vw;
+                width: 0.9vw;
+                height: 0.9vw;
             }
         }
         /*소리 버튼*/
         .sound-button {
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 1.3vw;
-            height: 1.3vw;
+            width: 1.6vw;
+            height: 1.6vw;
             background-color: #2c3e50;
             border-radius: 0.2vw;
             cursor: pointer;
             .sound-img {
-                width: 0.7vw;
-                height: 0.7vw;
+                width: 0.9vw;
+                height: 0.9vw;
+            }
+            .volume-control {
+                position: absolute;
+                justify-content: center;
+                align-items: center;
+                left: 50%;
+                top: -320%;
+                transform: translateX(-50%);
+                width: 1.2vw;
+                height: 5vw;
+                border: #2c3e50 solid 0.2vw;
+                background-color: #ffffff;
+                opacity: 0;
+                /* pointer-events: none; */
+                transition: opacity 0.2s ease;
+                @media (max-width: 767px) {
+                    top: -328%;
+                    left: 49%;
+                    transform: translateX(-50%);
+                    width: 4.1vw;
+                    height: 16vw;
+                    border: #2c3e50 solid 0.5vw;
+                    background-color: #ffffff;
+                    opacity: 0;
+                    /* pointer-events: none; */
+                    transition: opacity 0.2s ease;
+                }
+            }
+            &:hover .volume-control {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .volume-control input[type="range"] {
+                writing-mode: vertical-lr;
+                direction: rtl;
+                -webkit-appearance: none;
+                appearance: none;
+                border: none;
+                width: 0.3vw;
+                height: 4.6vw;
+                padding: 0;
+                margin: 0.4vw 0 0 0;
+                @media (max-width: 767px) {
+                    width: 1vw;
+                    height: 15vw;
+                    margin: 1.5vw 0 0 0;
+                }
+            }
+
+            /* Chrome/Safari 바 스타일  */
+            input[type="range"]::-webkit-slider-runnable-track {
+                background: #2c3e50;
+                border-top-right-radius: 1vw;
+                border-top-left-radius: 1vw;
+                width: 100%;
+                height: 100%;
+            }
+
+            /* Firefox 바  */
+            input[type="range"]::-moz-range-track {
+                background: #2c3e50;
+                border-top-right-radius: 1vw;
+                border-top-left-radius: 1vw;
+                width: 100%;
+                height: 100%;
+            }
+
+            /* Chrome/Safari 손잡이  */
+            input[type="range"]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                background: #2c3e50;
+                width: 1vw;
+                height: 0.35vw;
+                border-radius: 1vw;
+                cursor: pointer;
+                border: none;
+                margin-top: -0.3vw;
+                margin-left: calc((0.37rem - 1rem) * 0.5);
+                @media (max-width: 767px) {
+                    width: 3.5vw;
+                    height: 1.2vw;
+                    border-radius: 1vw;
+                    cursor: pointer;
+                    border: none;
+                    margin-top: -0.3vw;
+                    margin-left: calc((0.36rem - 1rem) * 0.5);
+                }
+            }
+
+            /* Firefox 손잡이  */
+            input[type="range"]::-moz-range-thumb {
+                -webkit-appearance: none;
+                background: #2c3e50;
+                width: 1vw;
+                height: 0.35vw;
+                border-radius: 1vw;
+                cursor: pointer;
+                border: none;
+                margin-top: -0.3vw;
+                margin-left: calc((0.37rem - 1rem) * 0.5);
+                @media (max-width: 767px) {
+                    width: 3.5vw;
+                    height: 1.2vw;
+                    border-radius: 1vw;
+                    cursor: pointer;
+                    border: none;
+                    margin-top: -0.3vw;
+                    margin-left: calc((0.36rem - 1rem) * 0.5);
+                }
             }
         }
+
         /*난이도*/
         .level {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 3.5vw;
-            height: 2.3vw;
+            width: 3.7vw;
+            height: 2.6vw;
             background-color: #2c3e50;
             border-radius: 0.25vw;
             color: #ffffff;
-            gap: 3px;
+            gap: 0.1vw;
             cursor: pointer;
             position: relative;
 
             .level-btn {
                 display: flex;
                 flex-direction: row;
-                gap: 5px;
+                gap: 0.2vw;
 
                 img {
                     width: 0.6vw;
@@ -277,17 +543,17 @@ h1 {
             }
             .level-text {
                 margin: 0;
-                font-size: 0.5vw;
+                font-size: 0.6vw;
                 font-weight: 600;
             }
             .level-text2 {
                 margin: 0;
-                font-size: 0.7vw;
+                font-size: 0.8vw;
                 font-weight: 600;
             }
             /* 난이도 모달창 */
             .level-modal {
-                z-index: 1;
+                z-index: 999;
                 position: absolute;
                 top: 50%;
                 left: 50%;
@@ -338,20 +604,20 @@ h1 {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 3.3vw;
-            height: 2.3vw;
+            width: 3.5vw;
+            height: 2.6vw;
             background-color: #2c3e50;
             border-radius: 0.25vw;
             color: #ffffff;
-            gap: 3px;
+            gap: 0.1vw;
             .score-text {
                 margin: 0;
-                font-size: 0.5vw;
+                font-size: 0.6vw;
                 font-weight: 600;
             }
             .score-text2 {
                 margin: 0;
-                font-size: 0.7vw;
+                font-size: 0.8vw;
                 font-weight: 600;
             }
         }
@@ -361,13 +627,13 @@ h1 {
         .game-screen {
             display: grid;
             padding: 2vw;
-            width: 90vw;
-            height: 117vw;
-            border: #2c3e50 solid 3px;
+            width: 91vw;
+            height: 120vw;
+            border: #2c3e50 solid 0.7vw;
             background: #fff;
             justify-content: center;
             align-items: center;
-            border-radius: 1vw;
+            border-radius: 1.5vw;
             padding: 0;
             /* game-win 화면 */
             .game-win {
@@ -375,13 +641,13 @@ h1 {
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                z-index: 10;
+                z-index: 99;
                 pointer-events: none;
             }
 
             .game-win-img {
-                width: 88vw;
-                height: 115vw;
+                width: 91vw;
+                height: 120vw;
                 border-radius: 0.4vw;
             }
             /* game-over 화면 */
@@ -390,23 +656,23 @@ h1 {
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                z-index: 10;
+                z-index: 99;
                 pointer-events: none;
             }
 
             .game-over-img {
-                width: 88vw;
-                height: 115vw;
+                width: 91vw;
+                height: 120vw;
                 border-radius: 0.4vw;
             }
         }
         /*보드*/
         .board {
             display: grid;
-            width: 80vw;
-            height: 80vw;
+            width: 83vw;
+            height: 83vw;
             background: #2c3e50;
-            border-radius: 1vw;
+            border-radius: 1.5vw;
             justify-content: center;
             align-items: center;
             gap: 1.2vw;
@@ -419,8 +685,7 @@ h1 {
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            margin-block-start: 3vw;
-            margin-block-end: 0.5vw;
+            margin-block-start: 2.5vw;
 
             .explanation-text {
                 font-size: 2.7vw;
@@ -438,14 +703,14 @@ h1 {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                width: 4.8vw;
-                height: 4.8vw;
+                width: 5vw;
+                height: 5vw;
                 background-color: #2c3e50;
                 border-radius: 0.7vw;
                 cursor: pointer;
                 .home-botton-img {
-                    width: 2.6vw;
-                    height: 2.6vw;
+                    width: 2.8vw;
+                    height: 2.8vw;
                 }
             }
             /*소리 버튼*/
@@ -453,14 +718,14 @@ h1 {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                width: 4.8vw;
-                height: 4.8vw;
+                width: 5vw;
+                height: 5vw;
                 background-color: #2c3e50;
                 border-radius: 0.7vw;
                 cursor: pointer;
                 .sound-img {
-                    width: 2.6vw;
-                    height: 2.6vw;
+                    width: 2.8vw;
+                    height: 2.8vw;
                 }
             }
 
@@ -470,12 +735,12 @@ h1 {
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                width: 12vw;
+                width: 12.3vw;
                 height: 9vw;
                 background-color: #2c3e50;
                 border-radius: 0.7vw;
                 color: #ffffff;
-                gap: 3px;
+                gap: 2px;
                 cursor: pointer;
                 position: relative;
 
@@ -490,22 +755,23 @@ h1 {
                 }
                 .level-text {
                     margin: 0;
-                    font-size: 2vw;
+                    font-size: 2.2vw;
                     font-weight: 600;
                 }
                 .level-text2 {
                     margin: 0;
-                    font-size: 2.3vw;
+                    font-size: 2.5vw;
                     font-weight: 600;
                 }
                 /* 난이도 모달창 */
                 .level-modal {
+                    z-index: 999;
                     position: absolute;
                     top: 50%;
                     left: 50%;
                     transform: translateX(-50%) translateY(10px);
                     background: #ffffff;
-                    border: #2c3e50 solid 0.2vw;
+                    border: #2c3e50 solid 0.7vw;
                     border-radius: 1vw;
                     width: 17vw;
                     height: 24vw;
@@ -547,20 +813,20 @@ h1 {
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                width: 11vw;
+                width: 11.3vw;
                 height: 9vw;
                 background-color: #2c3e50;
                 border-radius: 0.7vw;
                 color: #ffffff;
-                gap: 3px;
+                gap: 2px;
                 .score-text {
                     margin: 0;
-                    font-size: 2vw;
+                    font-size: 2.2vw;
                     font-weight: 600;
                 }
                 .score-text2 {
                     margin: 0;
-                    font-size: 2.3vw;
+                    font-size: 2.5vw;
                     font-weight: 600;
                 }
             }
@@ -576,35 +842,35 @@ h1 {
         .score-today-mob {
             display: flex;
             flex-direction: row;
-            width: 69vw;
-            height: 6.5vw;
+            width: 75vw;
+            height: 7.5vw;
             background-color: #2c3e50;
             border-radius: 1vw;
             color: #ffffff;
             justify-content: space-between;
             align-items: center;
-            padding-inline: 1.5vw;
-            margin-top: 5vw;
+            padding-inline: 2vw;
+            margin-top: 6vw;
         }
         .score-today-text-mob,
         .best-score-mob,
         .score-total-text-mob {
             margin: 0;
-            font-size: 2.1vw;
+            font-size: 2.5vw;
             font-weight: 400;
         }
         .score-total-mob {
             display: flex;
             flex-direction: row;
-            width: 69vw;
-            height: 6.5vw;
+            width: 75vw;
+            height: 7.5vw;
             background-color: #2c3e50;
             border-radius: 1vw;
             color: #ffffff;
             justify-content: space-between;
             align-items: center;
-            padding-inline: 1.5vw;
-            margin-top: 1.6vw;
+            padding-inline: 2vw;
+            margin-top: 1.8vw;
         }
         @media (min-width: 768px) {
             display: none;
@@ -636,7 +902,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.6vw;
+    font-size: 2.2vw;
     font-weight: 600;
     border-radius: 0.4vw;
     margin: 0;
@@ -700,17 +966,21 @@ h1 {
     background: #b2ac88;
     color: #fff;
 }
+.cell[data-value="-1"] {
+    background: black;
+    color: transparent;
+}
 
 /* 설명하단 */
 .bottom-text {
-    font-size: 0.6vw;
+    font-size: 0.8vw;
     font-weight: 400;
-    margin: 0.8vw 0 0.4vw 0;
+    margin: 0.5vw 0 0 0;
 
     @media (max-width: 767px) {
-        font-size: 2.3vw;
+        font-size: 2.5vw;
         font-weight: 400;
-        margin: 0.8vw 0 0.4vw 0;
+        margin: 0;
     }
 }
 /* 버튼(실행취소,재시작) */
@@ -718,57 +988,85 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 7px;
+    gap: 0.5vw;
     margin-bottom: 1vw;
 
     .undo-btn {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
         all: unset;
         cursor: pointer;
-        width: 3.3vw;
-        height: 1.1vw;
+        width: 4.6vw;
+        height: 1.4vw;
         border-radius: 0.3vw;
         border: #2c3e50 solid 0.12vw;
-        font-size: 0.5vw;
+        font-size: 0.7vw;
         color: #2c3e50;
         font-weight: 700;
+
+        .undo-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3vw;
+        }
+
+        .undo-icon {
+            width: 0.7vw;
+            height: 0.7vw;
+        }
     }
     .restart-btn {
         all: unset;
         cursor: pointer;
-        width: 3vw;
-        height: 1.3vw;
+        width: 3.5vw;
+        height: 1.6vw;
         border-radius: 0.3vw;
         background-color: #2c3e50;
-        font-size: 0.5vw;
+        font-size: 0.7vw;
         color: #ffffff;
-        font-weight: 700;
+        font-weight: 600;
     }
 
     @media (max-width: 767px) {
-        gap: 7px;
-        margin-bottom: 1vw;
+        gap: 1vw;
+        margin-bottom: 2.3vw;
 
         .undo-btn {
             all: unset;
             cursor: pointer;
-            width: 11vw;
-            height: 4vw;
+            width: 15.5vw;
+            height: 5vw;
             border-radius: 0.8vw;
-            border: #2c3e50 solid 0.2vw;
-            font-size: 1.8vw;
+            border: #2c3e50 solid 0.3vw;
+            font-size: 2.3vw;
             color: #2c3e50;
             font-weight: 700;
+
+            .undo-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1vw;
+            }
+
+            .undo-icon {
+                width: 2.5vw;
+                height: 2.5vw;
+            }
         }
         .restart-btn {
             all: unset;
             cursor: pointer;
-            width: 10vw;
-            height: 4.5vw;
+            width: 12vw;
+            height: 5.3vw;
             border-radius: 0.8vw;
             background-color: #2c3e50;
-            font-size: 1.8vw;
+            font-size: 2.3vw;
             color: #ffffff;
-            font-weight: 700;
+            font-weight: 600;
         }
     }
 }
@@ -786,8 +1084,8 @@ h1 {
     .ranking {
         display: flex;
         flex-direction: column;
-        width: 14vw;
-        height: 7vw;
+        width: 15.5vw;
+        height: 7.2vw;
         background-color: #ffffff;
         border-radius: 0.4vw;
         border: #2c3e50 solid 0.2vw;
@@ -798,14 +1096,14 @@ h1 {
             margin: 0;
             align-self: flex-start;
             padding-left: 0.7vw;
-            font-size: 0.75vw;
+            font-size: 0.8vw;
             font-weight: 600;
         }
         .score-today {
             display: flex;
             flex-direction: row;
-            width: 11.8vw;
-            height: 1.5vw;
+            width: 13.2vw;
+            height: 1.6vw;
             background-color: #2c3e50;
             border-radius: 0.3vw;
             color: #ffffff;
@@ -817,15 +1115,15 @@ h1 {
             .score-today-text,
             #best-score {
                 margin: 0;
-                font-size: 0.6vw;
+                font-size: 0.7vw;
                 font-weight: 400;
             }
         }
         .score-total {
             display: flex;
             flex-direction: row;
-            width: 11.8vw;
-            height: 1.5vw;
+            width: 13.2vw;
+            height: 1.6vw;
             background-color: #2c3e50;
             border-radius: 0.3vw;
             color: #ffffff;
@@ -837,7 +1135,7 @@ h1 {
             .score-total-text,
             #best-score {
                 margin: 0;
-                font-size: 0.6vw;
+                font-size: 0.7vw;
                 font-weight: 400;
             }
         }
@@ -850,8 +1148,8 @@ h1 {
     .gameguide-container {
         display: flex;
         flex-direction: column;
-        width: 13.4vw;
-        height: 17.5vw;
+        width: 14.8vw;
+        height: 18.5vw;
         margin-top: 1vw;
         padding-left: 0.7vw;
         background-color: #ffffff;
@@ -862,12 +1160,12 @@ h1 {
 
         .gameguide-tit {
             margin: 0;
-            font-size: 0.75vw;
+            font-size: 0.8vw;
             font-weight: 600;
         }
         .gameguide-text {
             margin: 0;
-            font-size: 0.65vw;
+            font-size: 0.72vw;
             font-weight: 400;
             margin-top: 0.4vw;
         }
@@ -885,13 +1183,13 @@ h1 {
             list-style: none;
         }
         .gameguide-list {
-            font-size: 0.65vw;
+            font-size: 0.72vw;
             font-weight: 400;
         }
         .gameguide-list ::before {
             content: "•";
             color: black;
-            font-size: 0.7vw;
+            font-size: 0.72vw;
             margin-right: 5px;
         }
         /* 컨트롤 방법 */
@@ -899,17 +1197,17 @@ h1 {
             display: flex;
             flex-flow: column wrap;
             margin-top: 0.7vw;
-            width: 12.6vw;
-            height: 5.2vw;
+            width: 14vw;
+            height: 5.3vw;
             border-radius: 0.3vw;
             background-color: #2c3e50;
             color: #ffffff;
         }
         .control {
-            font-size: 0.65vw;
+            font-size: 0.72vw;
             font-weight: 400;
             text-align: left;
-            margin: 0.6vw 0 0 0.6vw;
+            margin: 0.6vw 0 0 0.7vw;
         }
         .control-box-container {
             display: flex;
@@ -938,14 +1236,14 @@ h1 {
                 display: flex;
                 flex-direction: row;
                 margin: 0.4vw 0 0.4vw 0;
-                gap: 3vw;
+                gap: 3.3vw;
             }
         }
 
         .control-text {
             margin: 0.7vw 0 0 0;
             text-align: start;
-            font-size: 0.65vw;
+            font-size: 0.72vw;
             font-weight: 400;
         }
 
