@@ -210,25 +210,22 @@ restartBtn.addEventListener("click", () => {
         gameScreendSize.style.width = "32vw";
         const hpBar = document.getElementById("time-attack-hp") as HTMLDivElement;
         if (hpBar) {
-            hpBar.classList.remove("animate-hp");
-            // 모바일/PC에 따라 초기 width 다르게 적용
+            hpBar.classList.remove("animate-hp", "animate-hp-mobile");
             if (isMobile()) {
+                hpBar.style.width = "79.5vw";
                 gameScreendSize.style.width = "91vw";
-                document.getElementById("time-attack-hp")?.classList.add("animate-hp-mobile");
-                setTimeout(() => {
-                    document
-                        .getElementById("time-attack-hp")
-                        ?.classList.remove("animate-hp-mobile");
-                }, 120000);
             } else {
+                hpBar.style.width = "27.7vw";
                 gameScreendSize.style.width = "32vw";
-                document.getElementById("time-attack-hp")?.classList.add("animate-hp");
-                setTimeout(() => {
-                    document.getElementById("time-attack-hp")?.classList.remove("animate-hp");
-                }, 120000);
             }
             void hpBar.offsetWidth;
-            hpBar.classList.add("animate-hp");
+            setTimeout(() => {
+                if (isMobile()) {
+                    hpBar.classList.add("animate-hp-mobile");
+                } else {
+                    hpBar.classList.add("animate-hp");
+                }
+            }, 0);
         }
         timeAttackInitGrid();
         timeAttack();
@@ -302,39 +299,38 @@ function changeBoardSize(size: number) {
         gameScreendSize.style.width = "32vw";
         const hpBar = document.getElementById("time-attack-hp") as HTMLDivElement;
         if (hpBar) {
-            hpBar.classList.remove("animate-hp");
-            // 모바일/PC에 따라 초기 width 다르게 적용
+            hpBar.classList.remove("animate-hp", "animate-hp-mobile");
             if (isMobile()) {
+                hpBar.style.width = "79.5vw";
                 gameScreendSize.style.width = "91vw";
-                document.getElementById("time-attack-hp")?.classList.add("animate-hp-mobile");
-                setTimeout(() => {
-                    document
-                        .getElementById("time-attack-hp")
-                        ?.classList.remove("animate-hp-mobile");
-                }, 120000);
             } else {
+                hpBar.style.width = "27.7vw";
                 gameScreendSize.style.width = "32vw";
-                document.getElementById("time-attack-hp")?.classList.add("animate-hp");
-                setTimeout(() => {
-                    document.getElementById("time-attack-hp")?.classList.remove("animate-hp");
-                }, 120000);
             }
+            void hpBar.offsetWidth;
+            setTimeout(() => {
+                if (isMobile()) {
+                    hpBar.classList.add("animate-hp-mobile");
+                } else {
+                    hpBar.classList.add("animate-hp");
+                }
+            }, 0);
             setupBoard();
             timeAttackInitGrid();
             timeAttack();
-        } else {
+        }
+    } else {
+        gameScreendSize.style.width = "32vw";
+        setupBoard();
+        if (isMobile()) {
+            gameScreendSize.style.width = "91vw";
             setupBoard();
-            gameScreendSize.style.width = "32vw";
-            if (isMobile()) {
-                gameScreendSize.style.width = "91vw";
-            }
-            initGrid();
         }
-
-        const levelText = document.querySelector(".level-text2") as HTMLElement;
-        if (levelText) {
-            levelText.textContent = `${size}*${size}`;
-        }
+        initGrid();
+    }
+    const levelText = document.querySelector(".level-text2") as HTMLElement;
+    if (levelText) {
+        levelText.textContent = `${size}*${size}`;
     }
     // 모달 닫기
     const levelWrapper = document.querySelector(".level") as HTMLElement;
