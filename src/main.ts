@@ -155,6 +155,7 @@ hardstartBtn.addEventListener("click", () => {
     socreBoard!.style.display = "none"; // AI 점수판 숨기기
     gameScreendSize.style.width = "32vw";
     hpBar!.style.display = "none";
+    level3Btn.style.display = "none";
     if (isMobile()) {
         gameScreendSize.style.width = "91vw";
     }
