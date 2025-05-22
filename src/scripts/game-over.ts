@@ -81,7 +81,7 @@ function canMoveOrMerge2(): boolean {
     return false;
 }
 export function timeAttack(): void {
-    console.log("타임어택 모드");
+    // console.log("타임어택 모드");
     cancelTimeAttack(); // 항상 기존 타이머 취소
     timeAttackTimeoutId = window.setTimeout(
         () => {
