@@ -12,7 +12,7 @@ import {
 import { playClickSound, stopBGM, playBGM, isBGMPlaying } from "./scripts/audio";
 import { setBoardSize } from "./scripts/boardsize";
 import { setupModal } from "./scripts/modal";
-import { handleMoveWrapper } from "./scripts/game-win";
+import { handleMoveWrapper, GameWin, GameWinReset } from "./scripts/game-win";
 import { resetScore } from "./scripts/score";
 import { startAutoMove, stopAutoMove } from "./scripts/marge-tiles";
 
@@ -25,6 +25,13 @@ let isHardMode = false;
 export let isTimeAttackMode = false;
 //ai모드 여부 변수
 export let isAIMode = false;
+// 게임 시작 할때, 재시작도 포함
+let newGameCheck = false;
+
+// 게임 처음 상태 감지
+export function StartCheck(status: boolean) {
+    newGameCheck = status;
+}
 
 const aiScore = document.getElementById("ai-score");
 const socreBoard = aiScore!.parentElement;
@@ -62,6 +69,8 @@ setupBoard2();
 // 시작 버튼 이벤트
 const startBtn = document.getElementById("start-btn") as HTMLButtonElement;
 startBtn.addEventListener("click", () => {
+    GameWinReset(); // 게임 승리 초기화
+    StartCheck(true); // 게임 시작 체크
     playClickSound();
     playBGM();
     resetScore();
@@ -92,6 +101,8 @@ startBtn.addEventListener("click", () => {
 // 타임어택 시작 버튼 이벤트
 const timeAttackBtn = document.getElementById("time-attack-btn") as HTMLButtonElement;
 timeAttackBtn.addEventListener("click", () => {
+    GameWinReset();
+    StartCheck(true); // 게임 시작 체크
     isTimeAttackMode = true;
     playClickSound();
     playBGM();
@@ -133,6 +144,8 @@ timeAttackBtn.addEventListener("click", () => {
 // 하드 시작 버튼 이벤트
 const hardstartBtn = document.getElementById("hard-start-btn") as HTMLButtonElement;
 hardstartBtn.addEventListener("click", () => {
+    GameWinReset();
+    StartCheck(true); // 게임 시작 체크
     playClickSound();
     playBGM();
     resetScore();
@@ -164,6 +177,8 @@ hardstartBtn.addEventListener("click", () => {
 //ai 시작 버튼 이벤트
 const aistartBtn = document.getElementById("ai-start-btn") as HTMLButtonElement;
 aistartBtn.addEventListener("click", () => {
+    GameWinReset();
+    StartCheck(true); // 게임 시작 체크
     playClickSound();
     playBGM();
     resetScore();
@@ -195,6 +210,8 @@ aistartBtn.addEventListener("click", () => {
 // 재시작 버튼 이벤트
 const restartBtn = document.getElementById("restart-btn") as HTMLButtonElement;
 restartBtn.addEventListener("click", () => {
+    GameWinReset();
+    StartCheck(true); // 게임 시작 체크
     resetGameOver();
     playClickSound();
     if (isAIMode) {
@@ -243,7 +260,7 @@ restartBtn.addEventListener("click", () => {
 // 되돌리기 버튼
 const undoBtn = document.getElementById("undo-btn") as HTMLButtonElement;
 undoBtn.addEventListener("click", () => {
-    if (isGameOver) return; // 게임오버 시 실행취소 불가
+    if (isGameOver || newGameCheck || GameWin) return; // 게임오버 , 게임시작시 되돌리기 불가
     playClickSound();
     restorePreviousState();
 });
@@ -251,6 +268,7 @@ undoBtn.addEventListener("click", () => {
 // 홈 버튼
 const homeBtn = document.getElementById("home-btn") as HTMLButtonElement;
 homeBtn.addEventListener("click", () => {
+    GameWinReset();
     playClickSound();
     stopBGM();
     stopAutoMove();
@@ -258,6 +276,9 @@ homeBtn.addEventListener("click", () => {
     isAIMode = false;
     const gameContainer = document.getElementById("game-container")!;
     const startContainer = document.getElementById("start-container")!;
+    const mode_3 = document.querySelector(".level3-modal") as HTMLDivElement;
+
+    mode_3.style.display = "block";
     startContainer.style.display = "flex";
     gameContainer.style.display = "none";
     document.getElementById("time-attack-hp")?.classList.remove("animate-hp", "animate-hp-mobile");
@@ -338,12 +359,18 @@ function changeBoardSize(size: number) {
     levelWrapper?.classList.remove("open");
 }
 level3Btn.addEventListener("click", () => {
+    GameWinReset();
+    StartCheck(true);
     changeBoardSize(3);
 });
 level4Btn.addEventListener("click", () => {
+    GameWinReset();
+    StartCheck(true);
     changeBoardSize(4);
 });
 level5Btn.addEventListener("click", () => {
+    GameWinReset();
+    StartCheck(true);
     changeBoardSize(5);
 });
 // 모바일에서 스크롤 방지 (스와이프는 허용)
@@ -388,5 +415,7 @@ document.addEventListener("touchend", e => {
                 handleMoveWrapper({ key: "ArrowUp" } as KeyboardEvent);
             }
         }
+
+        StartCheck(false);
     }
 });
