@@ -278,7 +278,7 @@ h1 {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 99;
+            z-index: 10;
             pointer-events: none;
         }
         .game-win-1p {
@@ -902,7 +902,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.6vw;
+    font-size: 2.2vw;
     font-weight: 600;
     border-radius: 0.4vw;
     margin: 0;

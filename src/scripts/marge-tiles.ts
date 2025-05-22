@@ -167,11 +167,13 @@ export function mergeTiles2(direction: "w" | "s" | "a" | "d") {
 // 최적 방향 판단
 function evaluateCornerWeight(grid: number[][]): number {
     const weightMatrix = [
-        [4, 3, 2, 1],
-        [3, 2, 1, 0],
-        [2, 1, 0, -1],
-        [1, 0, -1, -2],
+        [4, 3, 2, 1, 0],
+        [3, 2, 1, 0, -1],
+        [2, 1, 0, -1, -2],
+        [1, 0, -1, -2, -3],
+        [0, -1, -2, -3, -4],
     ];
+
     let score = 0;
     for (let i = 0; i < boardSize; i++) {
         for (let j = 0; j < boardSize; j++) {

@@ -13,6 +13,7 @@ import { boardSize } from "./boardsize";
 import { handleMoveWrapper } from "./game-win";
 import { canMoveOrMerge } from "./can-move";
 import { checkGameOver, isGameOver } from "./game-over";
+import { StartCheck } from "../main";
 
 let inputDelay = false;
 let previousGridState: number[][] = [];
@@ -98,6 +99,7 @@ export function handleMove(direction: "up" | "down" | "left" | "right"): void {
     backupGridState();
     findMovetile(direction, false);
     inputDelay = true;
+    StartCheck(false);
 
     setTimeout(() => {
         inputDelay = false;
