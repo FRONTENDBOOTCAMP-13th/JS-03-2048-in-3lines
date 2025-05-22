@@ -155,6 +155,7 @@ hardstartBtn.addEventListener("click", () => {
     socreBoard!.style.display = "none"; // AI 점수판 숨기기
     gameScreendSize.style.width = "32vw";
     hpBar!.style.display = "none";
+    level3Btn.style.display = "none";
     if (isMobile()) {
         gameScreendSize.style.width = "91vw";
     }
@@ -259,7 +260,7 @@ homeBtn.addEventListener("click", () => {
     const startContainer = document.getElementById("start-container")!;
     startContainer.style.display = "flex";
     gameContainer.style.display = "none";
-    document.getElementById("time-attack-hp")?.classList.remove("animate-hp");
+    document.getElementById("time-attack-hp")?.classList.remove("animate-hp", "animate-hp-mobile");
     resetGameOver();
 });
 
