@@ -1,14 +1,30 @@
 import { addRandomCell2, grid, grid2 } from "./add-random-cell";
 import { boardSize } from "./boardsize";
 import { updateBoard, updateBoard2 } from "./board";
-import { addScore, aiaddScore } from "./score"; // aiaddScore 추가 임포트
+import { addScore, aiaddScore } from "./score";
 import { tilesSearch } from "./grid-cell-verification-logic";
 import { checkWin } from "./game-win";
 import { canMoveOrMerge2 } from "./can-move";
 import { checkGameOver2 } from "./game-over";
 import { findMovetile, moveAniElement } from "./find-move-tile";
 
-// 공통 mergeLine 함수: 1차원 배열에서 병합 처리 및 점수 계산
+// === AI 승리 조건 체크 함수 ===
+function checkWinAI() {
+    const winEl_2p = document.getElementById("game-win-2p");
+    for (let i = 0; i < boardSize; i++) {
+        for (let j = 0; j < boardSize; j++) {
+            if (grid2[i][j] >= 2048) {
+                if (winEl_2p) {
+                    winEl_2p.style.display = "flex";
+                }
+                stopAutoMove();
+                return;
+            }
+        }
+    }
+}
+
+// 공통 mergeLine 함수
 function mergeLineWithScore(
     tiles: number[],
     shouldAddScore: boolean,
@@ -54,7 +70,7 @@ function mergeLineWithScore(
     return mergedWithFixed;
 }
 
-// 공통 merge 함수 (방향, 그리드 참조, 점수 함수 등 인자화)
+// 공통 merge 함수
 function mergeTilesGeneric(
     direction: "up" | "down" | "left" | "right" | "w" | "s" | "a" | "d",
     gridRef: number[][],
@@ -71,7 +87,6 @@ function mergeTilesGeneric(
         direction === "down" || direction === "right" || direction === "s" || direction === "d";
     const newGrid = gridRef.map(row => [...row]);
 
-    // 애니메이션 처리(사용자 입력 방향일 때)
     if (direction === "w" || direction === "a" || direction === "s" || direction === "d") {
         findMovetile(direction, true);
         const boardElement = document.getElementById("board");
@@ -114,14 +129,12 @@ function mergeTilesGeneric(
         }
     }
 
-    // 새로운 상태로 gridRef 업데이트
     for (let i = 0; i < boardSize; i++) {
         for (let j = 0; j < boardSize; j++) {
             gridRef[i][j] = newGrid[i][j];
         }
     }
 
-    // 업데이트 및 승리 체크 (애니메이션 딜레이 포함)
     if (direction === "w" || direction === "a" || direction === "s" || direction === "d") {
         setTimeout(() => {
             update();
@@ -133,12 +146,12 @@ function mergeTilesGeneric(
     }
 }
 
-// 사용자용 merge 함수
+// 사용자용 병합
 export function mergeTiles(direction: "up" | "down" | "left" | "right") {
     mergeTilesGeneric(direction, grid, () => tilesSearch(grid), updateBoard, true, true, addScore);
 }
 
-// AI용 merge 함수
+// AI용 병합
 export function mergeTiles2(direction: "w" | "s" | "a" | "d") {
     mergeTilesGeneric(
         direction,
@@ -151,7 +164,45 @@ export function mergeTiles2(direction: "w" | "s" | "a" | "d") {
     );
 }
 
-// === AI용: 최적 방향 판단 함수 ===
+// 최적 방향 판단
+function evaluateCornerWeight(grid: number[][]): number {
+    const weightMatrix = [
+        [4, 3, 2, 1],
+        [3, 2, 1, 0],
+        [2, 1, 0, -1],
+        [1, 0, -1, -2],
+    ];
+    let score = 0;
+    for (let i = 0; i < boardSize; i++) {
+        for (let j = 0; j < boardSize; j++) {
+            score += grid[i][j] * weightMatrix[i][j];
+        }
+    }
+    return score;
+}
+
+function evaluateMonotonicity(grid: number[][]): number {
+    let score = 0;
+
+    // 행 단조성
+    for (let i = 0; i < boardSize; i++) {
+        let row = grid[i];
+        for (let j = 0; j < boardSize - 1; j++) {
+            if (row[j] >= row[j + 1]) score += 1;
+        }
+    }
+
+    // 열 단조성
+    for (let j = 0; j < boardSize; j++) {
+        let col = grid.map(row => row[j]);
+        for (let i = 0; i < boardSize - 1; i++) {
+            if (col[i] >= col[i + 1]) score += 1;
+        }
+    }
+
+    return score;
+}
+
 function getBestDirection(): "w" | "s" | "a" | "d" {
     const directions: ("w" | "s" | "a" | "d")[] = ["w", "s", "a", "d"];
     let bestScore = -Infinity;
@@ -160,10 +211,12 @@ function getBestDirection(): "w" | "s" | "a" | "d" {
     for (const dir of directions) {
         const clonedGrid = grid2.map(row => [...row]);
         let scoreGained = 0;
+
         const scoreFn = (val: number) => {
             scoreGained += val;
         };
 
+        // 시뮬레이션
         mergeTilesGeneric(
             dir,
             clonedGrid,
@@ -174,13 +227,20 @@ function getBestDirection(): "w" | "s" | "a" | "d" {
             scoreFn,
         );
 
-        // 움직임이 없는 경우 무시
+        // 변화 없으면 건너뜀
         const isSame = grid2.every((row, i) => row.every((cell, j) => cell === clonedGrid[i][j]));
         if (isSame) continue;
 
-        // 빈칸 개수와 점수 합산하여 평가
         const emptyCount = clonedGrid.flat().filter(cell => cell === 0).length;
-        const evaluation = scoreGained + emptyCount * 10;
+        const cornerWeight = evaluateCornerWeight(clonedGrid);
+        const monotonicity = evaluateMonotonicity(clonedGrid);
+
+        // 종합 평가 함수
+        const evaluation =
+            scoreGained + // 점수
+            emptyCount * 10 + // 빈 칸 수
+            cornerWeight * 0.1 + // 모서리 가중치
+            monotonicity * 5; // 단조성
 
         if (evaluation > bestScore) {
             bestScore = evaluation;
@@ -191,7 +251,7 @@ function getBestDirection(): "w" | "s" | "a" | "d" {
     return bestDirection;
 }
 
-// === 그리드 비교 함수 ===
+// 그리드 비교
 function gridsAreEqual(gridA: number[][], gridB: number[][]): boolean {
     for (let i = 0; i < gridA.length; i++) {
         for (let j = 0; j < gridA[i].length; j++) {
@@ -201,16 +261,15 @@ function gridsAreEqual(gridA: number[][], gridB: number[][]): boolean {
     return true;
 }
 
-// === AI 자동 이동 제어 변수 ===
+// 자동 이동 타이머
 let autoMoveInterval: ReturnType<typeof setInterval> | null = null;
 
-// === AI 자동 이동 시작 ===
+// AI 자동 이동 시작
 export function startAutoMove() {
     if (autoMoveInterval !== null) return;
 
     autoMoveInterval = setInterval(() => {
         const direction = getBestDirection();
-
         const prevGrid = grid2.map(row => [...row]);
 
         mergeTiles2(direction);
@@ -219,16 +278,17 @@ export function startAutoMove() {
 
         if (hasChanged) {
             addRandomCell2();
+            checkWinAI(); // ✅ AI 승리 체크
         }
 
         if (!canMoveOrMerge2()) {
             checkGameOver2();
             stopAutoMove();
         }
-    }, 500); // AI 반응 속도 조절 (ms)
+    }, 500);
 }
 
-// === AI 자동 이동 정지 ===
+// AI 자동 이동 정지
 export function stopAutoMove() {
     if (autoMoveInterval !== null) {
         clearInterval(autoMoveInterval);
